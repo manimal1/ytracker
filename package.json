@@ -1,0 +1,35 @@
+{
+  "name": "ytracker",
+  "version": "1.0.0",
+  "description": "Yacht Services tracking and managment application",
+  "main": "server.js",
+  "scripts": {
+    "linter": "eslint --ignore-pattern ./client .",
+    "linter-fix": "npm run linter -- --fix",
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeremiah McCurdy",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.3",
+    "gravatar": "^1.6.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.17",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.7.1"
+  },
+  "devDependencies": {
+    "eslint": "5.6.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "nodemon": "^1.18.4"
+  }
+}
