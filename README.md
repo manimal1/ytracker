@@ -9,12 +9,12 @@
 
 This app is currently deployed on [Heroku](https://heroku.com/) and connects to an [mLab](https://mlab.com/) MongoDB database.  You can find it here: [here]().
 
-On the backend it uses Node.js, Express, and MongoDB/Mongoose.  On the frontend it uses React and the Material-UI library.
+On the backend it uses [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/).  On the frontend it uses [React](https://reactjs.org/) and the [Material-UI](https://material-ui.com/) library.  Unit and integration tests employ [Jest](https://jestjs.io/en/) and [Enzyme](https://airbnb.io/enzyme/), while [ESLint](https://eslint.org/) maintains code standards.  [Docker](https://www.docker.com/) is used for containerzation, ensuring consistency across platforms.
 
 
 ## CI/CD using CircleCI
 
-I'm using [CircleCI](https://circleci.com/) and [Heroku](https://heroku.com/) for my deployment pipeline.  Whenever a new PR is created in [GitHub](https://github.com/) CircleCI checks the build and runs all tests.  On any merge to master it automatically builds and deploys the new docker container to Heroku.
+I'm using [CircleCI](https://circleci.com/) and [Heroku](https://heroku.com/) for my deployment pipeline.  Whenever a new PR is created in [GitHub](https://github.com/) CircleCI checks the build and runs all tests.  On any merge to master it automatically builds and deploys to Heroku.
 
 
 ## Running the App
@@ -36,7 +36,7 @@ module.exports = {
 };
 ```
 
-This app is intended to use [Docker](https://www.docker.com/) and run in a container.  Please make sure you have Docker installed.  Once you have the keys.development.js file setup and Docker, you're ready to run in development.
+While this app is intended to use [Docker](https://www.docker.com/) and run in a container, you do not have to. It will work just fine so long as you have [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/) installed on your device locally.  That being said, I would highly recommend installing and using Docker instead.  Once you have the keys.development.js file setup, you're ready to run in development.
 
 For the initial setup:<br>
 - First, run `npm install` in the root folder
@@ -49,14 +49,14 @@ After the initial setup:<br>
 - After the first build you can simply use the `docker-compose up` command.<br>
 <br>
 
-- After running either of the `up` commands you can run `docker-compose down` to gracefully stop and remove containers, networks, volumes, and images created by the `up` command.
+- After running either of the `up` commands you can run `docker-compose down` to gracefully stop and remove the container created by the `up` command.
 
 
 ## Available Scripts
 
 ### npm run dev
 
-Runs the app in the development mode without using docker.<br>
+Runs the app in development mode without using docker.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
