@@ -9,7 +9,7 @@
 
 This app is currently deployed on [Heroku](https://heroku.com/) and connects to an [mLab](https://mlab.com/) MongoDB database.  You can find it here: [here](https://secure-caverns-23669.herokuapp.com/).
 
-On the backend it uses [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/).  On the frontend it uses [React](https://reactjs.org/) and the [Material-UI](https://material-ui.com/) library.  Unit and integration tests employ [Jest](https://jestjs.io/en/) and [Enzyme](https://airbnb.io/enzyme/), while [ESLint](https://eslint.org/) maintains code standards.  [Docker](https://www.docker.com/) is used for containerzation, ensuring consistency across platforms.
+On the backend it uses [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/).  On the frontend it uses [React](https://reactjs.org/), [Redux](https://redux.js.org/introduction), and the [Material-UI](https://material-ui.com/) library.  Unit and integration tests employ [Jest](https://jestjs.io/en/) and [Enzyme](https://airbnb.io/enzyme/), while [ESLint](https://eslint.org/) maintains code standards.  [Docker](https://www.docker.com/) is used for containerzation, ensuring consistency across platforms.
 
 
 ## CI/CD using CircleCI
