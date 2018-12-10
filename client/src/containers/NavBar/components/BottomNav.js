@@ -4,12 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-// import HomeIcon from '@material-ui/icons/Home';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import BoatIcon from '@material-ui/icons/DirectionsBoat';
-import StoreIcon from '@material-ui/icons/Store';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-import RowingIcon from '@material-ui/icons/Rowing';
 
 const styles = theme => ({
   bottomNav: {
@@ -22,14 +16,7 @@ const styles = theme => ({
 });
 
 const BottomNav = (props) => {
-  const {classes, selectedIndex, handleNavMenuItemSelect} = props;
-  const bottomNavItems = [
-    { label: 'Dashboard', icon: <DashboardIcon/>, path: '/dashboard' },
-    { label: 'Yachts', icon: <BoatIcon/>, path: '/yachts' },
-    { label: 'Companies', icon: <StoreIcon/>, path: '/company' },
-    { label: 'Captains', icon: <RowingIcon/>, path: '/captains' },
-    // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
-  ];
+  const {classes, navMenu, selectedIndex, handleNavMenuItemSelect} = props;
 
   return (
     <BottomNavigation
@@ -38,7 +25,7 @@ const BottomNav = (props) => {
       className={classes.bottomNav}
     >
       {
-        bottomNavItems.map((item, index) => {
+        navMenu.map((item, index) => {
           return (
             <BottomNavigationAction
               key={index}

@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
+import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { logoutUser } from '../../containers/LoginUser/actions';
 import { clearCurrentProfile } from '../../containers/Profile/actions';
 
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import BoatIcon from '@material-ui/icons/DirectionsBoat';
+import StoreIcon from '@material-ui/icons/Store';
+import RowingIcon from '@material-ui/icons/Rowing';
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
-import { TopNav, BottomNav, NavDrawer, AccountMenu } from './components';
+
+import { TopNav, BottomNav, AccountMenu } from './components';
 
 const styles = theme => ({
+  appbar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
   grow: {
     flexGrow: 1,
   },
@@ -32,7 +41,26 @@ class NavBar extends Component {
       isNavDrawerOpen: false,
       selectedIndex: 0,
       accountMenuAnchor: null,
+      navMenu: [
+        { label: 'Dashboard', icon: <DashboardIcon/>, path: '/dashboard' },
+        { label: 'Yachts', icon: <BoatIcon/>, path: '/yachts' },
+        { label: 'Companies', icon: <StoreIcon/>, path: '/company' },
+        { label: 'Captains', icon: <RowingIcon/>, path: '/captains' },
+        // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
+      ]
     }
+  }
+
+  componentDidMount() {
+    const { navMenu } = this.state;
+
+    navMenu.map((item, index) => {
+      if (this.props.location.pathname === item.path) {
+        console.log('a: ', this.props.location.pathname, index)
+        this.setState({ selectedIndex: index });
+      }
+      return null;
+    });
   }
 
   componentWillMount() {
@@ -87,13 +115,14 @@ class NavBar extends Component {
   }
 
   render() {
-    const { isMobile, isNavDrawerOpen, selectedIndex, accountMenuAnchor } = this.state;
+    const { isMobile, isNavDrawerOpen, selectedIndex, accountMenuAnchor, navMenu } = this.state;
     const { classes } = this.props;
+    console.log(selectedIndex);
     const { isAuthenticated, user } = this.props.auth;
     const isMenuOpen = Boolean(accountMenuAnchor);
 
     return (
-      <AppBar position="sticky" color="primary" className="">
+      <AppBar position="sticky" color="primary" className={classes.appbar}>
         <Toolbar className="toolbar">
           {/* <IconButton
             className="icon"
@@ -127,22 +156,25 @@ class NavBar extends Component {
         </Toolbar>
         {!isMobile && isAuthenticated &&
           <TopNav {...{
+            navMenu,
             selectedIndex,
             handleNavMenuItemSelect: this.handleNavMenuItemSelect
           }} />
         }
         {isMobile && isAuthenticated &&
           <BottomNav {...{
+            navMenu,
             selectedIndex,
             handleNavMenuItemSelect: this.handleNavMenuItemSelect
           }} />
         }
-        <NavDrawer {...{
+        {/* <NavDrawer {...{
+          navMenu,
           isNavDrawerOpen,
           selectedIndex,
           toggleDrawer: this.toggleDrawer,
           handleNavMenuItemSelect: this.handleNavMenuItemSelect
-        }} />
+        }} /> */}
       </AppBar>
     );
   }
@@ -163,4 +195,4 @@ export default compose(
     mapStateToProps,
     { logoutUser, clearCurrentProfile }
   ),
-)(NavBar);
+)(withRouter(NavBar));
