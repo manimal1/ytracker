@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-// import HomeIcon from '@material-ui/icons/Home';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import BoatIcon from '@material-ui/icons/DirectionsBoat';
-import StoreIcon from '@material-ui/icons/Store';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-import RowingIcon from '@material-ui/icons/Rowing';
 
 const styles = theme => ({
   topNav: {
@@ -25,14 +19,7 @@ const styles = theme => ({
 });
 
 const TopNav = (props) => {
-  const { classes, selectedIndex, handleNavMenuItemSelect } = props;
-  const topNavItems = [
-    { label: 'Dashboard', icon: <DashboardIcon/>, path: '/dashboard' },
-    { label: 'Yachts', icon: <BoatIcon/>, path: '/yachts' },
-    { label: 'Companies', icon: <StoreIcon/>, path: '/company' },
-    { label: 'Captains', icon: <RowingIcon/>, path: '/captains' },
-    // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
-  ];
+  const { classes, navMenu, selectedIndex, handleNavMenuItemSelect } = props;
 
   return (
     <div className={classes.topNav}>
@@ -42,7 +29,7 @@ const TopNav = (props) => {
         textColor="secondary"
       >
       {
-        topNavItems.map((item, index) => {
+        navMenu.map((item, index) => {
           return (
             <Tab
               key={index}
