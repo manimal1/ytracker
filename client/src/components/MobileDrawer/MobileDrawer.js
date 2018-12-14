@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { default as NavMenu } from './NavMenu';
+import { default as DrawerMenu } from './DrawerMenu';
 
 const styles = theme => ({
   swipeableDrawer: {
@@ -10,12 +10,12 @@ const styles = theme => ({
   },
 });
 
-const NavDrawer = (props) => {
-  const { classes, isNavDrawerOpen, selectedIndex, toggleDrawer, handleNavMenuItemSelect } = props;
+const MobileDrawer = (props) => {
+  const { classes, isDrawerOpen, selectedIndex, menu, toggleDrawer, handleMenuItemSelect } = props;
 
   return (
     <SwipeableDrawer
-      open={isNavDrawerOpen}
+      open={isDrawerOpen}
       onClose={toggleDrawer(false)}
       onOpen={toggleDrawer(true)}
     >
@@ -26,24 +26,24 @@ const NavDrawer = (props) => {
         onKeyDown={toggleDrawer(false)}
         className={classes.swipeableDrawer}
       >
-        <NavMenu {...{selectedIndex, handleNavMenuItemSelect}} />
+        <DrawerMenu {...{menu, selectedIndex, handleMenuItemSelect}} />
       </div>
     </SwipeableDrawer>
   )
 }
 
-NavDrawer.propTypes = {
-  isNavDrawerOpen: PropTypes.bool,
+MobileDrawer.propTypes = {
+  isDrawerOpen: PropTypes.bool,
   selectedIndex: PropTypes.number,
   handleNavMenuItemSelect: PropTypes.func,
   toggleDrawer: PropTypes.func,
 };
 
-NavDrawer.defaultProps = {
-  isNavDrawerOpen: false,
+MobileDrawer.defaultProps = {
+  isDrawerOpen: false,
   selectedIndex: 0,
   handleNavMenuItemSelect: () => undefined,
   toggleDrawer: () => undefined,
 };
 
-export default withStyles(styles)(NavDrawer);
+export default withStyles(styles)(MobileDrawer);
