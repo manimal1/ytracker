@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-import { Panel } from '../PagePanels';
+import { MenuPanel } from '../Page';
 
 const DrawerMenu = ({ selectedIndex, menu, handleMenuItemSelect }) => {
   
@@ -18,7 +18,7 @@ const DrawerMenu = ({ selectedIndex, menu, handleMenuItemSelect }) => {
           const link = item.path ? item.path : '';
           
           return (
-            <Panel
+            <MenuPanel
               key={index}
               id={item.label}
             >
@@ -35,7 +35,7 @@ const DrawerMenu = ({ selectedIndex, menu, handleMenuItemSelect }) => {
                 </ListItemIcon>
                 <ListItemText inset primary={item.label} />
               </ListItem>
-            </Panel>
+            </MenuPanel>
           )
         })
       }
