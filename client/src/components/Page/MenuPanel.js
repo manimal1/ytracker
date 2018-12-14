@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContext } from './PageContext';
 
-const Panel = props => {
+const MenuPanel = props => {
 
   return (
     <PageContext.Consumer>
@@ -16,4 +16,4 @@ const Panel = props => {
   )
 };
 
-export default Panel;
+export default MenuPanel;

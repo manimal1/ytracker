@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { default as Panel } from './Panel';
+import { default as MenuPanel } from './MenuPanel';
 
 const drawerWidth = 220;
 
@@ -39,7 +39,7 @@ const PageDrawer = ({classes, PageConsumer, menu, selectedIndex, handleMenuItemS
             const link = menuItem.path ? menuItem.path : '';
             
             return (
-              <Panel
+              <MenuPanel
                 key={index}
                 id={menuItem.label}
                 {...{PageConsumer}}
@@ -55,7 +55,7 @@ const PageDrawer = ({classes, PageConsumer, menu, selectedIndex, handleMenuItemS
                   <ListItemIcon>{menuItem.icon}</ListItemIcon>
                   <ListItemText primary={menuItem.label} />
                 </ListItem>
-              </Panel>
+              </MenuPanel>
             )
           })
         }

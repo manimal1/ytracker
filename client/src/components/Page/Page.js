@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { default as PageDrawer } from '../components/PagePanels/PageDrawer';
-import { default as MobileDrawer } from '../components/MobileDrawer';
+import { default as PageDrawer } from './PageDrawer';
+import { default as MobileDrawer } from '../MobileDrawer';
 
-import { PageContext, PagePanel } from '../components/PagePanels';
+import { PageContext, PagePanel } from '.';
 
 const styles = theme => ({
   menuIcon: {
