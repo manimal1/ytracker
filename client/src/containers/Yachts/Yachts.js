@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
+
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
-import { default as ActionDrawer } from '../../components/ActionDrawer';
+import {
+  Dashboard,
+  YachtForm,
+  YachtService,
+  YachtCalendar,
+} from './components';
 
-export default class Yachts extends Component {
+import { default as Page } from '../Page';
+
+class Yachts extends Component {
   constructor(props) {
     super(props);
     this.state = {
       menu: [
-        {text: 'Dashboard', icon: <InboxIcon />},
-        {text: 'Add Yacht', icon: <InboxIcon />},
-        {text: 'Add Service', icon: <InboxIcon />},
-        {text: 'Calendar', icon: <InboxIcon />},
-      ]
+        {label: 'Dashboard', icon: <InboxIcon />, component: <Dashboard />},
+        {label: 'Add Yacht', icon: <InboxIcon />, component: <YachtForm />},
+        {label: 'Add Service', icon: <InboxIcon />, component: <YachtService />},
+        {label: 'Calendar', icon: <InboxIcon />, component: <YachtCalendar />},
+      ],
     }
   }
+
   render() {
+    const { menu } = this.state;
+
     return (
       <div>
-        <ActionDrawer menu={this.state.menu} />
+        <Page {...{menu}} />
       </div>
     );
   }
 }
+
+export default Yachts;
