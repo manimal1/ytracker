@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { PagePanelFrame } from '../../../components/PagePanels';
-
 const YachtCalendar = props => {
   return(
-    <PagePanelFrame>
-      <div>
-        Yacht YachtCalendar!
-      </div>
-    </PagePanelFrame>
+    <div>
+      Yacht YachtCalendar!
+    </div>
   )
 }
 

@@ -9,7 +9,7 @@ import {
   YachtCalendar,
 } from './components';
 
-import { default as Page } from '../Page';
+import { Page } from '../../components/Page';
 
 class Yachts extends Component {
   constructor(props) {
