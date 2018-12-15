@@ -15,8 +15,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import BoatIcon from '@material-ui/icons/DirectionsBoat';
 import StoreIcon from '@material-ui/icons/Store';
 import RowingIcon from '@material-ui/icons/Rowing';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
 
 import { TopNav, BottomNav, AccountMenu } from './components';
 
@@ -26,6 +24,9 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: '1.2em',
+    },
   },
   logo: {
     textDecoration: 'none',
@@ -38,7 +39,6 @@ class NavBar extends Component {
     super(props);
     this.state = {
       isMobile: false,
-      isNavDrawerOpen: false,
       selectedIndex: 0,
       accountMenuAnchor: null,
       navMenu: [
@@ -56,7 +56,6 @@ class NavBar extends Component {
 
     navMenu.map((item, index) => {
       if (this.props.location.pathname === item.path) {
-        console.log('a: ', this.props.location.pathname, index)
         this.setState({ selectedIndex: index });
       }
       return null;
@@ -88,12 +87,6 @@ class NavBar extends Component {
     this.setState({selectedIndex: index});
   }
 
-  toggleDrawer = (isOpen) => () => {
-    this.setState({
-      isNavDrawerOpen: isOpen
-    });
-  }
-
   handleAccountMenu = (event) => {
     this.setState({accountMenuAnchor: event.currentTarget});
   }
@@ -115,23 +108,14 @@ class NavBar extends Component {
   }
 
   render() {
-    const { isMobile, isNavDrawerOpen, selectedIndex, accountMenuAnchor, navMenu } = this.state;
+    const { isMobile, selectedIndex, accountMenuAnchor, navMenu } = this.state;
     const { classes } = this.props;
-    console.log(selectedIndex);
     const { isAuthenticated, user } = this.props.auth;
     const isMenuOpen = Boolean(accountMenuAnchor);
 
     return (
       <AppBar position="sticky" color="primary" className={classes.appbar}>
         <Toolbar className="toolbar">
-          {/* <IconButton
-            className="icon"
-            color="inherit"
-            aria-label="Menu"
-            onClick={this.toggleDrawer(!isNavDrawerOpen)}
-          >
-            <MenuIcon/>
-          </IconButton> */}
           <Typography variant="h5" color="inherit" className={classes.grow}>
             <Link
               className={classes.logo}
@@ -168,13 +152,6 @@ class NavBar extends Component {
             handleNavMenuItemSelect: this.handleNavMenuItemSelect
           }} />
         }
-        {/* <NavDrawer {...{
-          navMenu,
-          isNavDrawerOpen,
-          selectedIndex,
-          toggleDrawer: this.toggleDrawer,
-          handleNavMenuItemSelect: this.handleNavMenuItemSelect
-        }} /> */}
       </AppBar>
     );
   }
