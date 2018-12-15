@@ -16,10 +16,30 @@ class Yachts extends Component {
     super(props);
     this.state = {
       menu: [
-        {label: 'Dashboard', icon: <InboxIcon />, component: <Dashboard />},
-        {label: 'Add Yacht', icon: <InboxIcon />, component: <YachtForm />},
-        {label: 'Add Service', icon: <InboxIcon />, component: <YachtService />},
-        {label: 'Calendar', icon: <InboxIcon />, component: <YachtCalendar />},
+        {
+          id: 'yacht-dashboard',
+          label: 'Dashboard',
+          icon: <InboxIcon />,
+          component: <Dashboard />
+        },
+        {
+          id: 'yacht-create',
+          label: 'Add Yacht',
+          icon: <InboxIcon />,
+          component: <YachtForm />
+        },
+        {
+          id: 'yacht-service',
+          label: 'Add Service',
+          icon: <InboxIcon />,
+          component: <YachtService />
+        },
+        {
+          id: 'yacht-calendar',
+          label: 'Calendar',
+          icon: <InboxIcon />,
+          component: <YachtCalendar />
+        },
       ],
     }
   }
@@ -29,7 +49,7 @@ class Yachts extends Component {
 
     return (
       <div>
-        <Page {...{menu}} />
+        <Page {...{menu}} defaultPanel="yacht-dashboard" />
       </div>
     );
   }
