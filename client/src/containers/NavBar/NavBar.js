@@ -110,7 +110,6 @@ class NavBar extends Component {
   render() {
     const { isMobile, selectedIndex, accountMenuAnchor, navMenu } = this.state;
     const { classes } = this.props;
-    console.log(selectedIndex);
     const { isAuthenticated, user } = this.props.auth;
     const isMenuOpen = Boolean(accountMenuAnchor);
 
