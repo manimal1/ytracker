@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { default as PageDrawer } from './PageDrawer';
-import { default as MobileDrawer } from '../MobileDrawer';
+import { default as PageDrawerMobile } from './PageDrawerMobile';
 
 import { PageContext, PagePanel } from '.';
 
@@ -34,7 +34,7 @@ class Page extends Component {
       isDrawerOpen: false,
       selectedIndex: 0,
       menu: this.props.menu || [],
-      activePanel: '',
+      activePanel: this.props.defaultPanel || '',
       handlePanelSwitch: this.handlePanelSwitch,
     }
   }
@@ -96,7 +96,7 @@ class Page extends Component {
               >
                 <MenuIcon/>
               </IconButton>
-              <MobileDrawer {...{
+              <PageDrawerMobile {...{
                 menu,
                 isDrawerOpen,
                 selectedIndex,
@@ -108,7 +108,7 @@ class Page extends Component {
           {
             menu.map((menuItem, index) => {
               return (
-                <PagePanel key ={index} isActive={menuItem.label}>
+                <PagePanel key ={index} isActive={menuItem.id}>
                   {menuItem.component}
                 </PagePanel>
               )

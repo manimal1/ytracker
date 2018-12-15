@@ -4,6 +4,7 @@ import { default as PagePanel } from './PagePanel';
 import { default as MenuPanel } from './MenuPanel';
 import { default as PagePanelFrame } from './PagePanelFrame';
 import { default as PageDrawer } from './PageDrawer';
+import { default as PageDrawerMobile } from './PageDrawerMobile';
 
 export {
   PageContext,
@@ -12,4 +13,5 @@ export {
   MenuPanel,
   PagePanelFrame,
   PageDrawer,
+  PageDrawerMobile,
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { default as DrawerMenu } from './DrawerMenu';
 
 const styles = theme => ({
   swipeableDrawer: {
@@ -11,7 +10,7 @@ const styles = theme => ({
 });
 
 const MobileDrawer = (props) => {
-  const { classes, isDrawerOpen, selectedIndex, menu, toggleDrawer, handleMenuItemSelect } = props;
+  const { classes, isDrawerOpen, toggleDrawer, children } = props;
 
   return (
     <SwipeableDrawer
@@ -26,7 +25,7 @@ const MobileDrawer = (props) => {
         onKeyDown={toggleDrawer(false)}
         className={classes.swipeableDrawer}
       >
-        <DrawerMenu {...{menu, selectedIndex, handleMenuItemSelect}} />
+        {children}
       </div>
     </SwipeableDrawer>
   )
