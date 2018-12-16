@@ -3,7 +3,7 @@ import React from 'react';
 const YachtService = props => {
   return(
     <div>
-      Yacht YachtService!
+      Yacht Service!
     </div>
   )
 }

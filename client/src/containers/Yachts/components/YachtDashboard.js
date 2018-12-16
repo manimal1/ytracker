@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Dashboard = props => {
+const YachtDashboard = props => {
 
   return(
     <div>Yacht Dashboard!</div>
   )
 }
 
-export default (Dashboard);
+export default YachtDashboard;

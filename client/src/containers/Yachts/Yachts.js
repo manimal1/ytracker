@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 import {
-  Dashboard,
+  YachtDashboard,
   YachtForm,
   YachtService,
   YachtCalendar,
@@ -20,7 +20,7 @@ class Yachts extends Component {
           id: 'yacht-dashboard',
           label: 'Dashboard',
           icon: <InboxIcon />,
-          component: <Dashboard />
+          component: <YachtDashboard />
         },
         {
           id: 'yacht-create',
