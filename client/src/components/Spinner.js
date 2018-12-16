@@ -19,7 +19,7 @@ const styles = theme => ({
   }
 });
 
-function Spinner(props) {
+const Spinner = props => {
   const { classes, page } = props;
   return (
     <div className={page ? classes.page : classes.component}>

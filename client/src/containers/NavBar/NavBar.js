@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
+import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { logoutUser } from '../../containers/LoginUser/actions';
 import { clearCurrentProfile } from '../../containers/Profile/actions';
 
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
-import { TopNav, BottomNav, NavDrawer, AccountMenu } from './components';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import BoatIcon from '@material-ui/icons/DirectionsBoat';
+import StoreIcon from '@material-ui/icons/Store';
+import RowingIcon from '@material-ui/icons/Rowing';
+
+import { TopNav, BottomNav, AccountMenu } from './components';
 
 const styles = theme => ({
+  appbar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
   grow: {
     flexGrow: 1,
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: '1.2em',
+    },
   },
   logo: {
     textDecoration: 'none',
@@ -29,10 +39,27 @@ class NavBar extends Component {
     super(props);
     this.state = {
       isMobile: false,
-      isNavDrawerOpen: false,
       selectedIndex: 0,
       accountMenuAnchor: null,
+      navMenu: [
+        { label: 'Dashboard', icon: <DashboardIcon/>, path: '/dashboard' },
+        { label: 'Yachts', icon: <BoatIcon/>, path: '/yachts' },
+        { label: 'Companies', icon: <StoreIcon/>, path: '/company' },
+        { label: 'Crew', icon: <RowingIcon/>, path: '/crew' },
+        // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
+      ]
     }
+  }
+
+  componentDidMount() {
+    const { navMenu } = this.state;
+
+    navMenu.map((item, index) => {
+      if (this.props.location.pathname === item.path) {
+        this.setState({ selectedIndex: index });
+      }
+      return null;
+    });
   }
 
   componentWillMount() {
@@ -60,12 +87,6 @@ class NavBar extends Component {
     this.setState({selectedIndex: index});
   }
 
-  toggleDrawer = (isOpen) => () => {
-    this.setState({
-      isNavDrawerOpen: isOpen
-    });
-  }
-
   handleAccountMenu = (event) => {
     this.setState({accountMenuAnchor: event.currentTarget});
   }
@@ -87,22 +108,14 @@ class NavBar extends Component {
   }
 
   render() {
-    const { isMobile, isNavDrawerOpen, selectedIndex, accountMenuAnchor } = this.state;
+    const { isMobile, selectedIndex, accountMenuAnchor, navMenu } = this.state;
     const { classes } = this.props;
     const { isAuthenticated, user } = this.props.auth;
     const isMenuOpen = Boolean(accountMenuAnchor);
 
     return (
-      <AppBar position="sticky" color="primary" className="">
+      <AppBar position="sticky" color="primary" className={classes.appbar}>
         <Toolbar className="toolbar">
-          {/* <IconButton
-            className="icon"
-            color="inherit"
-            aria-label="Menu"
-            onClick={this.toggleDrawer(!isNavDrawerOpen)}
-          >
-            <MenuIcon/>
-          </IconButton> */}
           <Typography variant="h5" color="inherit" className={classes.grow}>
             <Link
               className={classes.logo}
@@ -127,22 +140,18 @@ class NavBar extends Component {
         </Toolbar>
         {!isMobile && isAuthenticated &&
           <TopNav {...{
+            navMenu,
             selectedIndex,
             handleNavMenuItemSelect: this.handleNavMenuItemSelect
           }} />
         }
         {isMobile && isAuthenticated &&
           <BottomNav {...{
+            navMenu,
             selectedIndex,
             handleNavMenuItemSelect: this.handleNavMenuItemSelect
           }} />
         }
-        <NavDrawer {...{
-          isNavDrawerOpen,
-          selectedIndex,
-          toggleDrawer: this.toggleDrawer,
-          handleNavMenuItemSelect: this.handleNavMenuItemSelect
-        }} />
       </AppBar>
     );
   }
@@ -163,4 +172,4 @@ export default compose(
     mapStateToProps,
     { logoutUser, clearCurrentProfile }
   ),
-)(NavBar);
+)(withRouter(NavBar));
