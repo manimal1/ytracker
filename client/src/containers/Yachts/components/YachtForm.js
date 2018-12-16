@@ -3,7 +3,7 @@ import React from 'react';
 const YachtForm = props => {
   return(
     <div>
-      Yacht YachtForm!
+      Yacht Form!
     </div>
   )
 }

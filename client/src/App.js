@@ -10,7 +10,7 @@ import {
   Dashboard,
   Yachts,
   Company,
-  Captains,
+  Crew,
   Users,
   RegisterUser,
   LoginUser,
@@ -38,7 +38,7 @@ class App extends Component {
               <PrivateRoute exact path="/company" component={Company} />
             </Switch>
             <Switch>
-              <PrivateRoute exact path="/captains" component={Captains} />
+              <PrivateRoute exact path="/crew" component={Crew} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/users" component={Users} />

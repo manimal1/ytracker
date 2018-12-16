@@ -3,42 +3,35 @@ import React, { Component } from 'react';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 import {
-  YachtDashboard,
-  YachtForm,
-  YachtService,
-  YachtCalendar,
+  CompanyDashboard,
+  CompanyForm,
+  CompanyService,
 } from './components';
 
 import { Page } from '../../components/Page';
 
-class Yachts extends Component {
+class Company extends Component {
   constructor(props) {
     super(props);
     this.state = {
       menu: [
         {
-          id: 'yacht-dashboard',
+          id: 'company-dashboard',
           label: 'Dashboard',
           icon: <InboxIcon />,
-          component: <YachtDashboard />
+          component: <CompanyDashboard />
         },
         {
-          id: 'yacht-create',
-          label: 'Add Yacht',
+          id: 'company-create',
+          label: 'Add Company',
           icon: <InboxIcon />,
-          component: <YachtForm />
+          component: <CompanyForm />
         },
         {
-          id: 'yacht-service',
+          id: 'company-service',
           label: 'Add Service',
           icon: <InboxIcon />,
-          component: <YachtService />
-        },
-        {
-          id: 'yacht-calendar',
-          label: 'Calendar',
-          icon: <InboxIcon />,
-          component: <YachtCalendar />
+          component: <CompanyService />
         },
       ],
     }
@@ -49,10 +42,10 @@ class Yachts extends Component {
 
     return (
       <div>
-        <Page {...{menu}} defaultPanel="yacht-dashboard" />
+        <Page {...{menu}} defaultPanel="company-dashboard" />
       </div>
     );
   }
 }
 
-export default Yachts;
+export default Company;

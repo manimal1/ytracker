@@ -45,7 +45,7 @@ class NavBar extends Component {
         { label: 'Dashboard', icon: <DashboardIcon/>, path: '/dashboard' },
         { label: 'Yachts', icon: <BoatIcon/>, path: '/yachts' },
         { label: 'Companies', icon: <StoreIcon/>, path: '/company' },
-        { label: 'Captains', icon: <RowingIcon/>, path: '/captains' },
+        { label: 'Crew', icon: <RowingIcon/>, path: '/crew' },
         // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
       ]
     }
