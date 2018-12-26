@@ -3,7 +3,13 @@ import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider as ReduxProvider } from 'react-redux';
 
+import axios from 'axios';
+
+import configureMockStore from 'redux-mock-store';
+import MockAdapter from 'axios-mock-adapter';
+
 import LoginUser from './LoginUser';
+import { SET_CURRENT_USER, loginUser } from './actions';
 
 const mockStore = configureStore();
 
@@ -71,3 +77,41 @@ describe('<LoginUser>', () => {
     expect(tree.find('#password-helper-text').hostNodes()).toHaveLength(1);
   });
 });
+
+
+// describe("<LoginUser> actions", () => {
+//   let store;
+//   let httpMock;
+//   const userLogin = {
+//     email: 'js@got.com',
+//     password: 'password',
+//   };
+//   const userInfo = {
+//     firstname: 'John',
+//     lastname: 'Snow',
+//   };
+
+//   const flushAllPromises = () => new Promise(resolve => setImmediate(resolve));
+
+//   beforeEach(() => {
+//     httpMock = new MockAdapter(axios);
+//     const mockStore = configureMockStore();
+//     store = mockStore({});
+//   });
+
+//   it('sets a current user', async () => {
+//     httpMock.onPost(
+//       'http://localhost:3000/api/users/login',
+//       userLogin
+//     ).reply(200, userInfo);
+
+//     loginUser(userLogin)(store.dispatch);
+//     await flushAllPromises();
+//     // then
+//     expect(store.getActions()).toEqual(
+//       [
+//         { type: SET_CURRENT_USER },
+//         { payload: userInfo }
+//       ]);
+//   });
+// });
