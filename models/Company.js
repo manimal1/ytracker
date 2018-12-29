@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const addressSchema = require('./Address').schema;
+
 // Create Schema
 const companySchema = new Schema({
-  servicetype: {
-    type: String,
-    required: true,
-  },
   companyname: {
     type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
   },
   date: {
     type: Date,
     default: Date.now,
+  },
+  servicetype: {
+    type: String,
+  },
+  email: {
+    type: String,
+    unique: true,
   },
   phone: {
     type: Number,
@@ -25,9 +25,7 @@ const companySchema = new Schema({
   mobile: {
     type: Number,
   },
-  address: {
-    type: String,
-  },
+  address: addressSchema,
 });
 
 module.exports = mongoose.model('Company', companySchema);
