@@ -4,7 +4,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 import {
   YachtDashboard,
-  YachtForm,
+  RegisterYacht,
   YachtService,
   YachtCalendar,
 } from './components';
@@ -26,7 +26,7 @@ class Yachts extends Component {
           id: 'yacht-create',
           label: 'Add Yacht',
           icon: <InboxIcon />,
-          component: <YachtForm />
+          component: <RegisterYacht />
         },
         {
           id: 'yacht-service',

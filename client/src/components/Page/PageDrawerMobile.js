@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { default as MobileDrawer } from '../MobileDrawer';
-import { default as DrawerMenu } from '../DrawerMenu';
+import { default as NavMenu } from '../NavMenu';
 import { default as MenuPanel } from './MenuPanel';
-import { default as DrawerMenuItems } from '../DrawerMenuItems';
+import { default as MenuItems } from '../MenuItems';
 
 const PageDrawerMobile = ({
   menu,
@@ -14,11 +14,11 @@ const PageDrawerMobile = ({
   children,
 }) => (
   <MobileDrawer {...{isDrawerOpen, toggleDrawer, children}} >
-    <DrawerMenu {...{menu}}>
+    <NavMenu {...{menu}}>
       <MenuPanel>
-        <DrawerMenuItems {...{selectedIndex, handleMenuItemSelect}} />
+        <MenuItems {...{selectedIndex, handleMenuItemSelect}} />
       </MenuPanel>
-    </DrawerMenu>
+    </NavMenu>
   </MobileDrawer>
 );
 

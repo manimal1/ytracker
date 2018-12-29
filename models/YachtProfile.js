@@ -11,43 +11,15 @@ const yachtProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  currentclient: {
+  active: {
     type: Boolean,
     required: true,
-  },
-  loa: {
-    type: String,
-  },
-  draft: {
-    type: String,
-  },
-  beam: {
-    type: String,
   },
   cruisinglicense: {
     type: Number,
   },
   taxid: {
     type: String,
-  },
-  owningcompany: {
-    type: String,
-  },
-  owningcompanyaddress: {
-    type: String,
-  },
-  buildcompany: {
-    type: String,
-  },
-  buildyear: {
-    type: String,
-  },
-  refityear: {
-    type: String,
-  },
-  captain: {
-    type: Schema.Types.ObjectId,
-    ref: 'Captain',
   },
 },
 {
