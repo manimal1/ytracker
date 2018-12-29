@@ -31,11 +31,11 @@ router.get(
   }
 );
 
-// @route   GET api/yachtprofiles/yacht/:id
+// @route   GET api/yachtprofiles/:id
 // @des     Get yacht profile by yacht ID
 // @access  Private
 router.get(
-  '/yacht/:id',
+  '/:id',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     const errors = {};
@@ -54,11 +54,11 @@ router.get(
   }
 );
 
-// @route   POST api/yachtprofiles/yacht/:id
+// @route   POST api/yachtprofiles/:id
 // @des     Create or edit yacht profile
 // @access  Private
 router.post(
-  '/yacht/:id',
+  '/:id',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     const { errors, isValid } = validateYachtProfileInput(req.body);
@@ -72,20 +72,10 @@ router.post(
     const profileFields = {};
     profileFields.yacht = req.params.id;
     /* eslint-disable */
-    if (req.body.currentclient) profileFields.currentclient = req.body.currentclient;
+    if (req.body.active) profileFields.active = req.body.active;
     profileFields.createdby = req.user.id;
-    if (req.body.loa) profileFields.loa = req.body.loa;
-    if (req.body.draft) profileFields.draft = req.body.draft;
-    if (req.body.beam) profileFields.beam = req.body.beam;
     if (req.body.cruisinglicense) profileFields.cruisinglicense = req.body.cruisinglicense;
     if (req.body.taxid) profileFields.taxid = req.body.taxid;
-    if (req.body.owningcompany) profileFields.owningcompany = req.body.owningcompany;
-    if (req.body.owningcompanyaddress) {
-      profileFields.owningcompanyaddress = req.body.owningcompanyaddress;
-    }
-    if (req.body.buildcompany) profileFields.buildcompany = req.body.buildcompany;
-    if (req.body.buildyear) profileFields.buildyear = req.body.buildyear;
-    if (req.body.refityear) profileFields.refityear = req.body.refityear;
     /* eslint-enable */
 
     YachtProfile.findOne({ yacht: req.params.id })
