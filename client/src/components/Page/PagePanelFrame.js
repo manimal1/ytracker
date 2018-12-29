@@ -12,6 +12,7 @@ const styles = theme => ({
   mobileWindow: {
     paddingLeft: '8px',
     paddingTop: '8px',
+    paddingRight: '8px',
   }
 });
 
