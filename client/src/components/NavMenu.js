@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 
-const DrawerMenu = (props) => {
+const NavMenu = (props) => {
   const { menu } = props;
   return (
     <List component="nav">
@@ -26,8 +26,8 @@ const DrawerMenu = (props) => {
   );
 }
 
-DrawerMenu.propTypes = {
+NavMenu.propTypes = {
   menu: PropTypes.array.isRequired,
 };
 
-export default DrawerMenu;
+export default NavMenu;
