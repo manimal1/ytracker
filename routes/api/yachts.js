@@ -73,20 +73,44 @@ router.post(
     billingcompany.address = {};
     let managementcompany = {};
     managementcompany.address = {};
+    let phone, loa, draft, beam, grosstonnage,
+      buildcompany, buildyear, refityear,
+      cruisinglicense, taxid;
 
     const name = req.body.name;
     const email = req.body.email;
     const yachttype = req.body.yachttype;
     const active = req.body.active;
-    const loa = req.body.loa ? req.body.loa : '';
-    const draft = req.body.draft ? req.body.draft : '';
-    const beam = req.body.beam ? req.body.beam : '';
-    const grosstonnage = req.body.grosstonnage ? req.body.grosstonnage : '';
-    const buildcompany = req.body.buildcompany ? req.body.buildcompany : '';
-    const buildyear = req.body.buildyear ? req.body.buildyear : '';
-    const refityear = req.body.refityear ? req.body.refityear : '';
-    const cruisinglicense = req.body.cruisinglicense || '';
-    const taxid = req.body.taxid || '';
+    if (req.body.phone) {
+      phone = req.body.phone;
+    }
+    if (req.body.loa) {
+      loa = req.body.loa;
+    }
+    if (req.body.draft) {
+      draft = req.body.draft;
+    }
+    if (req.body.beam) {
+      beam = req.body.beam;
+    }
+    if (req.body.grosstonnage) {
+      grosstonnage = req.body.grosstonnage;
+    }
+    if (req.body.buildcompany) {
+      buildcompany = req.body.buildcompany;
+    }
+    if (req.body.buildyear) {
+      buildyear = req.body.buildyear;
+    }
+    if (req.body.refityear) {
+      refityear = req.body.refityear;
+    }
+    if (req.body.cruisinglicense) {
+      cruisinglicense = req.body.cruisinglicense;
+    }
+    if (req.body.taxid) {
+      taxid = req.body.taxid;
+    }
 
     /* eslint-disable */
     // owning company fields
@@ -192,7 +216,7 @@ router.post(
           return res.status(400).json(errors);
         } else {
           const newYacht = new Yacht({
-            name, email, yachttype, active, loa, draft, beam,
+            name, email, yachttype, active, phone, loa, draft, beam,
             grosstonnage, buildcompany, buildyear, refityear,
             owningcompany, billingcompany, managementcompany,
             cruisinglicense, taxid,
@@ -220,20 +244,44 @@ router.post(
     billingcompany.address = {};
     let managementcompany = {};
     managementcompany.address = {};
+    let phone, loa, draft, beam, grosstonnage,
+      buildcompany, buildyear, refityear,
+      cruisinglicense, taxid;
 
     const name = req.body.name;
     const email = req.body.email;
     const yachttype = req.body.yachttype;
     const active = req.body.active;
-    const loa = req.body.loa ? req.body.loa : '';
-    const draft = req.body.draft ? req.body.draft : '';
-    const beam = req.body.beam ? req.body.beam : '';
-    const grosstonnage = req.body.grosstonnage ? req.body.grosstonnage : '';
-    const buildcompany = req.body.buildcompany ? req.body.buildcompany : '';
-    const buildyear = req.body.buildyear ? req.body.buildyear : '';
-    const refityear = req.body.refityear ? req.body.refityear : '';
-    const cruisinglicense = req.body.cruisinglicense || '';
-    const taxid = req.body.taxid || '';
+    if (req.body.phone) {
+      phone = req.body.phone;
+    }
+    if (req.body.loa) {
+      loa = req.body.loa;
+    }
+    if (req.body.draft) {
+      draft = req.body.draft;
+    }
+    if (req.body.beam) {
+      beam = req.body.beam;
+    }
+    if (req.body.grosstonnage) {
+      grosstonnage = req.body.grosstonnage;
+    }
+    if (req.body.buildcompany) {
+      buildcompany = req.body.buildcompany;
+    }
+    if (req.body.buildyear) {
+      buildyear = req.body.buildyear;
+    }
+    if (req.body.refityear) {
+      refityear = req.body.refityear;
+    }
+    if (req.body.cruisinglicense) {
+      cruisinglicense = req.body.cruisinglicense;
+    }
+    if (req.body.taxid) {
+      taxid = req.body.taxid;
+    }
 
     /* eslint-disable */
     // owning company fields
@@ -332,24 +380,21 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Yacht.findById(req.params.yacht_id)
-      .then(yacht => {
-        if (yacht) {
-          Yacht.findOneAndUpdate(
-            { _id: req.params.yacht_id },
-            {
-              name, email, yachttype, active, loa, draft, beam,
-              grosstonnage, buildcompany, buildyear, refityear,
-              owningcompany, billingcompany, managementcompany,
-              cruisinglicense, taxid,
-            },
-            { new: true }
-          )
-            .then(yacht => res.json(yacht));
-        } else {
-          errors.name = 'Yacht does not exist';
-          return res.status(400).json(errors);
-        }
+    Yacht.findByIdAndUpdate(
+      req.params.yacht_id,
+      {
+        name, email, yachttype, active, phone, loa, draft, beam,
+        grosstonnage, buildcompany, buildyear, refityear,
+        owningcompany, billingcompany, managementcompany,
+        cruisinglicense, taxid,
+      },
+      { new: true }
+    )
+      .then(yacht => res.json(yacht))
+      .catch(err => {
+        errors.name = 'Yacht does not exist';
+        console.log(err);
+        return res.status(400).json(errors);
       });
   }
 );
