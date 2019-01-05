@@ -17,6 +17,7 @@ import SectionTitle from '../../components/SectionTitle';
 import {
   getAllYachts,
   getYachtById,
+  clearYachts,
   clearSelectedYacht,
 } from './actions';
 
@@ -70,6 +71,7 @@ class YachtSelector extends Component {
   }
 
   componentWillUnmount() {
+    this.props.clearYachts();
     this.props.clearSelectedYacht();
   }
 
@@ -133,6 +135,7 @@ YachtSelector.propTypes = {
   getAllYachts: PropTypes.func.isRequired,
   getYachtById: PropTypes.func.isRequired,
   clearSelectedYacht: PropTypes.func.isRequired,
+  clearYachts: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -147,6 +150,7 @@ export default compose(
     {
       getAllYachts,
       getYachtById,
+      clearYachts,
       clearSelectedYacht,
     },
   )

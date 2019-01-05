@@ -4,6 +4,7 @@ import { errorConstants } from '../../constants';
 export const GET_ALL_YACHTS = 'GET_ALL_YACHTS';
 export const LOAD_YACHT = 'LOAD_YACHT';
 export const CLEAR_SELECTED_YACHT = 'CLEAR_SELECTED_YACHT';
+export const CLEAR_YACHTS = 'CLEAR_YACHTS';
 
 export const getAllYachts = () => dispatch => {
   axios
@@ -39,6 +40,13 @@ export const getYachtById = (id) => dispatch => {
         payload: err.response.data,
       });
     });
+}
+
+export const clearYachts = () => dispatch => {
+  dispatch({
+    type: CLEAR_YACHTS,
+    payload: [],
+  })
 }
 
 export const clearSelectedYacht = () => dispatch => {

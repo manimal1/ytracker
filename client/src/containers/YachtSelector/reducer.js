@@ -1,4 +1,9 @@
-import { GET_ALL_YACHTS, LOAD_YACHT, CLEAR_SELECTED_YACHT } from './actions';
+import {
+  GET_ALL_YACHTS,
+  LOAD_YACHT,
+  CLEAR_SELECTED_YACHT,
+  CLEAR_YACHTS,
+} from './actions';
 
 const initialState = {
   yachts: [],
@@ -25,6 +30,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedYacht: payload,
       };
+    case CLEAR_YACHTS:
+      return {
+        ...state,
+        yachts: payload,
+      }
     default:
       return state;
   }
