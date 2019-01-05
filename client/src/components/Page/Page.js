@@ -55,6 +55,7 @@ class Page extends Component {
     return {
       handlePanelSwitch: newPanel => this.setState({ activePanel: newPanel }),
       setSelectedIndex: index => this.setState({ selectedIndex: index }),
+      isMobile: this.state.isMobile,
     }
   };
 
