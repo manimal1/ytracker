@@ -1,17 +1,16 @@
 import axios from 'axios';
-import { errorConstants } from '../../../../constants';
+import { errorConstants } from '../../constants';
 
-export const REGISTER_YACHT_SUCCESS = 'REGISTER_YACHT_SUCCESS';
-export const UPDATE_YACHT_SUCCESS = 'UPDATE_YACHT_SUCCESS';
 export const GET_ALL_YACHTS = 'GET_ALL_YACHTS';
 export const LOAD_YACHT = 'LOAD_YACHT';
+export const CLEAR_SELECTED_YACHT = 'CLEAR_SELECTED_YACHT';
 
-export const registerYacht = (yachtData) => dispatch => {
+export const getAllYachts = () => dispatch => {
   axios
-    .post('/api/yachts/register', yachtData)
+    .get('/api/yachts')
     .then(res => {
       dispatch({
-        type: REGISTER_YACHT_SUCCESS,
+        type: GET_ALL_YACHTS,
         payload: res.data,
       });
     })
@@ -20,16 +19,16 @@ export const registerYacht = (yachtData) => dispatch => {
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
-      })
+      });
     });
 }
 
-export const updateYacht = (id, yachtData) => dispatch => {
+export const getYachtById = (id) => dispatch => {
   axios
-    .post(`/api/yachts/${id}`, yachtData)
+    .get(`/api/yachts/${id}`)
     .then(res => {
       dispatch({
-        type: UPDATE_YACHT_SUCCESS,
+        type: LOAD_YACHT,
         payload: res.data,
       });
     })
@@ -38,6 +37,13 @@ export const updateYacht = (id, yachtData) => dispatch => {
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
-      })
+      });
     });
+}
+
+export const clearSelectedYacht = () => dispatch => {
+  dispatch({
+    type: CLEAR_SELECTED_YACHT,
+    payload: {},
+  })
 }
