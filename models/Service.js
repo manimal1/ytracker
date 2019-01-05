@@ -15,13 +15,12 @@ const serviceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  yachtprofile: {
+  yacht: {
     type: Schema.Types.ObjectId,
-    ref: 'YachtProfile',
+    ref: 'Yacht',
   },
   cost: {
     type: Number,
-    required: true,
   },
   charged: {
     type: Number,
