@@ -28,14 +28,6 @@ import SectionTitle from '../../../../components/SectionTitle';
 import TextFieldList from '../../../../components/TextFieldList';
 
 const styles = theme => ({
-  container: {
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      minWidth: '240px',
-      maxWidth: '760px',
-    }
-  },
   card: {
     marginTop: '8px',
     marginBottom: '8px',
@@ -122,75 +114,75 @@ const YachtForm = (props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div className={classes.container}>
-        <Card className={classes.card}>
-          <CardContent>
-            <SectionTitle text="Required Info" />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={active}
-                  onChange={handleCheckBox('active')}
-                  value="active"
-                />
-              }
-              label="Active"
-            />
-            <FormGroup row>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="yachttype">Yacht Type</InputLabel>
-                <Select
-                  value={yachttype}
-                  onChange={onChange}
-                  inputProps={{
-                    name: 'yachttype',
-                    id: 'yachttype',
-                  }}
-                >
-                  <MenuItem value={'MY'}>M/Y</MenuItem>
-                  <MenuItem value={'SY'}>S/Y</MenuItem>
-                </Select>
-              </FormControl>
-              <TextFieldList
-                list={nameInfo}
-                classname={`${classes.textField} ${classes.nameField}`}
-                onChange={onChange}
+      <Card className={classes.card}>
+        <CardContent>
+          <SectionTitle text="Required Info" />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={active}
+                onChange={handleCheckBox('active')}
+                value="active"
               />
-            </FormGroup>
+            }
+            label="Active"
+          />
+          <FormGroup row>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="yachttype">Yacht Type</InputLabel>
+              <Select
+                value={yachttype}
+                onChange={onChange}
+                inputProps={{
+                  name: 'yachttype',
+                  id: 'yachttype',
+                }}
+              >
+                <MenuItem value={'MY'}>M/Y</MenuItem>
+                <MenuItem value={'SY'}>S/Y</MenuItem>
+              </Select>
+            </FormControl>
             <TextFieldList
-              list={requiredInfo}
-              classname={classes.textField}
+              list={nameInfo}
+              classname={`${classes.textField} ${classes.nameField}`}
               onChange={onChange}
             />
-          </CardContent>
-        </Card>
-        {
-          dataGroups.map((dataGroup, index) => (
-            <ExpansionPanel key={`${dataGroup.key}-${index}`}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <SectionTitle text={dataGroup.label} />
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <div className={classes.panelContent}>
-                  <TextFieldList
-                    list={dataGroup.array}
-                    classname={classes.textField}
-                    onChange={onChange}
-                  />
-                </div>
-            </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))
-        }
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          className={classes.submitButton}
-        >
-          Register Yacht
-        </Button>
-      </div>
+          </FormGroup>
+          <TextFieldList
+            list={requiredInfo}
+            classname={classes.textField}
+            onChange={onChange}
+          />
+        </CardContent>
+      </Card>
+
+      {
+        dataGroups.map((dataGroup, index) => (
+          <ExpansionPanel key={`${dataGroup.key}-${index}`}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <SectionTitle text={dataGroup.label} />
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <div className={classes.panelContent}>
+                <TextFieldList
+                  list={dataGroup.array}
+                  classname={classes.textField}
+                  onChange={onChange}
+                />
+              </div>
+          </ExpansionPanelDetails>
+          </ExpansionPanel>
+        ))
+      }
+
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        className={classes.submitButton}
+      >
+        Register Yacht
+      </Button>
     </form>
   );
 }
