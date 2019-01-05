@@ -11,7 +11,7 @@ class RegisterYacht extends Component {
     super(props);
 
     this.state = {
-      selectedYacht: {}, isYachtSelected: false,
+      isYachtSelected: false,
       name: '', email: '', yachttype: '', active: false, phone: '',
       loa: '', draft: '', beam: '', grosstonnage: '',
       buildcompany: '', buildyear: '', refityear: '',
@@ -25,7 +25,7 @@ class RegisterYacht extends Component {
       managementcompanymobile: '', managementcompanyaddressline1: '', managementcompanyaddressline2: '',
       managementcompanycity: '', managementcompanypostalcode: '', managementcompanycountry: '',
       cruisinglicense: '', taxid: '',
-      errors: null,
+      errors: {},
     };
   }
 
@@ -61,7 +61,7 @@ class RegisterYacht extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const errors = this.props.errors;
+    const errors = this.state.errors;
     const newYacht = {
       name: this.state.name, email: this.state.email, yachttype: this.state.yachttype,
       active: this.state.active, phone: this.state.phone,
@@ -98,53 +98,26 @@ class RegisterYacht extends Component {
     };
 
     this.props.registerYacht(newYacht);
-    
-    if (_.isEmpty({errors})) {
+
+    if (_.isEmpty(errors)) {
       this.context.handlePanelSwitch('yacht-dashboard');
       this.context.setSelectedIndex(0);
     }
   }
 
   render() {
-    const { 
-      isYachtSelected,
-      name, email, yachttype, active, errors, phone, loa, draft, beam, grosstonnage, buildcompany,
-      buildyear, refityear, billingcompanyname, billingcompanyemail, billingcompanyphone,
-      cruisinglicense, taxid,
-      billingcompanymobile, billingcompanyaddressline1, billingcompanyaddressline2,
-      billingcompanycity, billingcompanypostalcode, billingcompanycountry,
-      owningcompanyname, owningcompanyemail, owningcompanyphone, owningcompanymobile,
-      owningcompanyaddressline1, owningcompanyaddressline2, owningcompanycity,
-      owningcompanypostalcode, owningcompanycountry,
-      managementcompanyname, managementcompanyemail, managementcompanyphone,
-      managementcompanymobile, managementcompanyaddressline1, managementcompanyaddressline2,
-      managementcompanycity, managementcompanypostalcode, managementcompanycountry,
-    } = this.state;
     const onChange = this.onChange;
     const handleCheckBox = this.handleCheckBox;
-    const setIsYachtSelected = this.setIsYachtSelected;
     const onSubmit = this.onSubmit;
+    const setIsYachtSelected = this.setIsYachtSelected;
     const selectedYachtProps = this.props.yachtData && this.props.yachtData.selectedYacht
       ? this.props.yachtData.selectedYacht : {};
 
     return (
       <YachtFormSwitcher {...{
-        isYachtSelected, selectedYachtProps, setIsYachtSelected,
-        name, email, yachttype, active, phone,
-        loa, draft, beam, grosstonnage,
-        buildcompany, buildyear, refityear,
-        cruisinglicense, taxid,
-        billingcompanyname, billingcompanyemail, billingcompanyphone, billingcompanymobile,
-        billingcompanyaddressline1, billingcompanyaddressline2, billingcompanycity,  
-        billingcompanypostalcode, billingcompanycountry,
-        owningcompanyname, owningcompanyemail, owningcompanyphone, owningcompanymobile,
-        owningcompanyaddressline1, owningcompanyaddressline2, owningcompanycity,  
-        owningcompanypostalcode, owningcompanycountry,
-        managementcompanyname, managementcompanyemail, managementcompanyphone,
-        managementcompanymobile, managementcompanyaddressline1, managementcompanyaddressline2,
-        managementcompanycity, managementcompanypostalcode, managementcompanycountry,
+        ...this.state,
         onChange, handleCheckBox, onSubmit,
-        errors,
+        setIsYachtSelected, selectedYachtProps,
       }} />
     );
   }

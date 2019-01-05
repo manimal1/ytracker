@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import { updateYacht } from './actions';
 
@@ -11,47 +12,90 @@ class UpdateYachtForm extends Component {
     super(props);
 
     this.state = {
-      name: this.props.selectedYacht ? this.props.selectedYacht.name : '',
-      email: this.props.selectedYacht ? this.props.selectedYacht.email : '',
-      yachttype: this.props.selectedYacht ? this.props.selectedYacht.yachttype : '',
-      active: this.props.selectedYacht ? this.props.selectedYacht.active : '',
-      phone: this.props.selectedYacht ? this.props.selectedYacht.phone : '',
-      loa: this.props.selectedYacht ? this.props.selectedYacht.loa : '',
-      draft: this.props.selectedYacht ? this.props.selectedYacht.draft : '',
-      beam: this.props.selectedYacht ? this.props.selectedYacht.beam : '',
-      grosstonnage: this.props.selectedYacht ? this.props.selectedYacht.grosstonnage : '',
-      buildcompany: this.props.selectedYacht ? this.props.selectedYacht.buildcompany : '',
-      buildyear: this.props.selectedYacht ? this.props.selectedYacht.buildyear : '',
-      refityear: this.props.selectedYacht ? this.props.selectedYacht.refityear : '',
-      billingcompanyname: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.companyname : '',
-      billingcompanyemail: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.email : '',
-      billingcompanyphone: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.phone : '',
-      billingcompanymobile: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.mobile : '',
-      billingcompanyaddressline1: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.address.addressline1 : '',
-      billingcompanyaddressline2: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.address.addressline2 : '',
-      billingcompanycity: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.address.city : '',
-      billingcompanypostalcode: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.address.postalcode : '',
-      billingcompanycountry: this.props.selectedYacht && this.props.selectedYacht.billingcompany ? this.props.selectedYacht.billingcompany.address.country : '',
-      owningcompanyname: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.companyname : '',
-      owningcompanyemail: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.email : '',
-      owningcompanyphone: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.phone : '',
-      owningcompanymobile: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.mobile : '',
-      owningcompanyaddressline1: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.address.addressline1 : '',
-      owningcompanyaddressline2: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.address.addressline2 : '',
-      owningcompanycity: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.address.city : '',
-      owningcompanypostalcode: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.address.postalcode : '',
-      owningcompanycountry: this.props.selectedYacht && this.props.selectedYacht.owningcompany ? this.props.selectedYacht.owningcompany.address.country : '',
-      managementcompanyname: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.companyname : '',
-      managementcompanyemail: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.email : '',
-      managementcompanyphone: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.phone : '',
-      managementcompanymobile: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.mobile : '',
-      managementcompanyaddressline1: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.address.addressline1 : '',
-      managementcompanyaddressline2: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.address.addressline2 : '',
-      managementcompanycity: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.address.city : '',
-      managementcompanypostalcode: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.address.postalcode : '',
-      managementcompanycountry: this.props.selectedYacht && this.props.selectedYacht.managementcompany ? this.props.selectedYacht.managementcompany.address.country : '',
-      cruisinglicense: this.props.selectedYacht ? this.props.selectedYacht.cruisinglicense : '',
-      taxid: this.props.selectedYacht ? this.props.selectedYacht.taxid : '',
+      id: this.props.selectedYacht && this.props.selectedYacht._id
+        ? this.props.selectedYacht._id : '',
+      name: this.props.selectedYacht && this.props.selectedYacht.name
+        ? this.props.selectedYacht.name : '',
+      email: this.props.selectedYacht && this.props.selectedYacht.email
+        ? this.props.selectedYacht.email : '',
+      yachttype: this.props.selectedYacht && this.props.selectedYacht.yachttype
+        ? this.props.selectedYacht.yachttype : '',
+      active: this.props.selectedYacht && this.props.selectedYacht.active
+        ? this.props.selectedYacht.active : '',
+      phone: this.props.selectedYacht && this.props.selectedYacht.phone
+        ? this.props.selectedYacht.phone : '',
+      loa: this.props.selectedYacht && this.props.selectedYacht.loa
+        ? this.props.selectedYacht.loa : '',
+      draft: this.props.selectedYacht && this.props.selectedYacht.draft
+        ? this.props.selectedYacht.draft : '',
+      beam: this.props.selectedYacht && this.props.selectedYacht.beam
+        ? this.props.selectedYacht.beam : '',
+      grosstonnage: this.props.selectedYacht && this.props.selectedYacht.grosstonnage
+        ? this.props.selectedYacht.grosstonnage : '',
+      buildcompany: this.props.selectedYacht && this.props.selectedYacht.buildcompany
+        ? this.props.selectedYacht.buildcompany : '',
+      buildyear: this.props.selectedYacht && this.props.selectedYacht.buildyear
+        ? this.props.selectedYacht.buildyear : '',
+      refityear: this.props.selectedYacht && this.props.selectedYacht.refityear
+        ? this.props.selectedYacht.refityear : '',
+      cruisinglicense: this.props.selectedYacht && this.props.selectedYacht.cruisinglicense
+        ? this.props.selectedYacht.cruisinglicense : '',
+      taxid: this.props.selectedYacht && this.props.selectedYacht.taxid
+        ? this.props.selectedYacht.taxid : '',
+      billingcompanyname: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.companyname : '',
+      billingcompanyemail: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.email : '',
+      billingcompanyphone: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.phone : '',
+      billingcompanymobile: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.mobile : '',
+      billingcompanyaddressline1: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.address.addressline1 : '',
+      billingcompanyaddressline2: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.address.addressline2 : '',
+      billingcompanycity: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.address.city : '',
+      billingcompanypostalcode: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.address.postalcode : '',
+      billingcompanycountry: this.props.selectedYacht && this.props.selectedYacht.billingcompany
+        ? this.props.selectedYacht.billingcompany.address.country : '',
+      owningcompanyname: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.companyname : '',
+      owningcompanyemail: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.email : '',
+      owningcompanyphone: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.phone : '',
+      owningcompanymobile: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.mobile : '',
+      owningcompanyaddressline1: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.address.addressline1 : '',
+      owningcompanyaddressline2: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.address.addressline2 : '',
+      owningcompanycity: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.address.city : '',
+      owningcompanypostalcode: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.address.postalcode : '',
+      owningcompanycountry: this.props.selectedYacht && this.props.selectedYacht.owningcompany
+        ? this.props.selectedYacht.owningcompany.address.country : '',
+      managementcompanyname: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.companyname : '',
+      managementcompanyemail: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.email : '',
+      managementcompanyphone: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.phone : '',
+      managementcompanymobile: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.mobile : '',
+      managementcompanyaddressline1: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.address.addressline1 : '',
+      managementcompanyaddressline2: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.address.addressline2 : '',
+      managementcompanycity: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.address.city : '',
+      managementcompanypostalcode: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.address.postalcode : '',
+      managementcompanycountry: this.props.selectedYacht && this.props.selectedYacht.managementcompany
+        ? this.props.selectedYacht.managementcompany.address.country : '',
       errors: {},
     };
   }
@@ -74,18 +118,14 @@ class UpdateYachtForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  componentDidMount() {
-    if (this.props.yachtData && this.props.yachtData.selectedYacht) {
-      this.setState({ name: this.props.yachtData.selectedYacht.name });
-    }
-  }
-
   handleCheckBox = name => event => {
     this.setState({ [name]: event.target.checked });
   };
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
+    const errors = this.state.errors;
+    const id = this.state.id;
     const existingYacht = {
       name: this.state.name, email: this.state.email, yachttype: this.state.yachttype,
       active: this.state.active, phone: this.state.phone,
@@ -121,47 +161,29 @@ class UpdateYachtForm extends Component {
       managementcompanycountry: this.state.managementcompanycountry,
     };
     
-    this.props.updateYacht(existingYacht);
-    this.context.handlePanelSwitch('yacht-dashboard');
-    this.context.setSelectedIndex(0);
+    this.props.updateYacht(id, existingYacht);
+
+    if (_.isEmpty(errors)) {
+      this.context.handlePanelSwitch('yacht-dashboard');
+      this.context.setSelectedIndex(0);
+    }
   }
 
   render() {
-    console.log('uf: ', this.props.selectedYacht);
-    const { 
-      name, email, active, errors, phone, loa, draft, beam, grosstonnage, buildcompany,
-      buildyear, refityear, billingcompanyname, billingcompanyemail, billingcompanyphone,
-      cruisinglicense, taxid,
-      billingcompanymobile, billingcompanyaddressline1, billingcompanyaddressline2,
-      billingcompanycity, billingcompanypostalcode, billingcompanycountry,
-      owningcompanyname, owningcompanyemail, owningcompanyphone, owningcompanymobile,
-      owningcompanyaddressline1, owningcompanyaddressline2, owningcompanycity,
-      owningcompanypostalcode, owningcompanycountry,
-      managementcompanyname, managementcompanyemail, managementcompanyphone,
-      managementcompanymobile, managementcompanyaddressline1, managementcompanyaddressline2,
-      managementcompanycity, managementcompanypostalcode, managementcompanycountry,
-    } = this.state;
-    const yachttype = 'M/Y';
     const onChange = this.onChange;
     const handleCheckBox = this.handleCheckBox;
     const setIsYachtSelected = this.setIsYachtSelected;
     const onSubmit = this.onSubmit;
-    const allProps = {
-      name, email, yachttype, active, errors, phone, loa, draft, beam, grosstonnage, buildcompany,
-      buildyear, refityear, billingcompanyname, billingcompanyemail, billingcompanyphone,
-      cruisinglicense, taxid,
-      billingcompanymobile, billingcompanyaddressline1, billingcompanyaddressline2,
-      billingcompanycity, billingcompanypostalcode, billingcompanycountry,
-      owningcompanyname, owningcompanyemail, owningcompanyphone, owningcompanymobile,
-      owningcompanyaddressline1, owningcompanyaddressline2, owningcompanycity,
-      owningcompanypostalcode, owningcompanycountry,
-      managementcompanyname, managementcompanyemail, managementcompanyphone,
-      managementcompanymobile, managementcompanyaddressline1, managementcompanyaddressline2,
-      managementcompanycity, managementcompanypostalcode, managementcompanycountry,
-      onChange, handleCheckBox, setIsYachtSelected, onSubmit,
+    const updatedYachtProps = {
+      ...this.state,
+      onChange,
+      handleCheckBox,
+      setIsYachtSelected,
+      onSubmit,
     };
+
     return (
-      <YachtForm formProps={ allProps } />
+      <YachtForm formProps={ updatedYachtProps } />
     )
   }
 }

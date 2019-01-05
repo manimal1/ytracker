@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { default as setCompanyFormInputs } from '../../../../utils/setCompanyFormInputs';
 import {
   setNameInfo,
@@ -194,16 +193,6 @@ const YachtForm = (props) => {
       </div>
     </form>
   );
-}
-
-YachtForm.propTypes = {
-  classes: PropTypes.object,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  yachttype: PropTypes.string,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  errors: PropTypes.object,
 }
 
 export default withStyles(styles)(YachtForm);
