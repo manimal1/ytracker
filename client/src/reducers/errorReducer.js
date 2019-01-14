@@ -8,6 +8,11 @@ export const reducer = (state = initialState, action) => {
   switch(type) {
     case errorConstants.GET_ERRORS:
       return payload;
+    case errorConstants.CLEAR_ERRORS:
+      return {
+        ...state,
+        payload
+      }
     default:
       return state;
   }

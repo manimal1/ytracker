@@ -7,11 +7,15 @@ const drawerWidth = 220;
 const styles = theme => ({
   desktopWindow: {
     paddingLeft: `${drawerWidth + 16}px`,
+    paddingRight: '16px',
     paddingTop: '16px',
+    paddingBottom: '16px',
   },
   mobileWindow: {
     paddingLeft: '8px',
+    paddingRight: '8px',
     paddingTop: '8px',
+    paddingBottom: '72px',
   }
 });
 

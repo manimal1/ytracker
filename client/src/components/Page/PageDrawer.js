@@ -1,17 +1,17 @@
 import React from 'react';
 
 import { default as PermanentDrawer } from '../PermanentDrawer';
-import { default as DrawerMenu } from '../DrawerMenu';
+import { default as NavMenu } from '../NavMenu';
 import { default as MenuPanel } from './MenuPanel';
-import { default as DrawerMenuItems } from '../DrawerMenuItems';
+import { default as MenuItems } from '../MenuItems';
 
 const PageDrawer = ({ menu, selectedIndex, handleMenuItemSelect }) => (
   <PermanentDrawer>
-    <DrawerMenu {...{menu}}>
+    <NavMenu {...{menu}}>
       <MenuPanel>
-        <DrawerMenuItems {...{selectedIndex, handleMenuItemSelect}} />
+        <MenuItems {...{selectedIndex, handleMenuItemSelect}} />
       </MenuPanel>
-    </DrawerMenu>
+    </NavMenu>
   </PermanentDrawer>
 );
 

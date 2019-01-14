@@ -31,7 +31,7 @@ router.get(
   }
 );
 
-// @route   GET api/services/:yachtprofile_id
+// @route   GET api/services/yacht/:yachtprofile_id
 // @des     Get all services for one yacht
 // @access  Private
 router.get(
@@ -56,7 +56,7 @@ router.get(
   }
 );
 
-// @route   GET api/services/:company_id
+// @route   GET api/services/company/:company_id
 // @des     Get all services for one company
 // @access  Private
 router.get(
@@ -81,11 +81,11 @@ router.get(
   }
 );
 
-// @route   POST api/services/:yacht_id/:company_id
+// @route   POST api/services/add/:yacht_id&:company_id
 // @des     Add a service linked to a yacht
 // @access  Private
 router.post(
-  '/register/:yacht_id&:company_id',
+  '/add/:yacht_id&:company_id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateServiceInput(req.body);
