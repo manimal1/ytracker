@@ -8,13 +8,20 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
+import { selectedYacht } from './utils/setSelectedYacht';
 import { setCurrentUser, logoutUser } from './containers/LoginUser/actions';
 
 import App from './App';
 import reducers from './reducers';
 import * as serviceWorker from './serviceWorker';
 
-const initialState = {};
+const initialState = {
+  yachtData: {
+    yachts: [],
+    selectedYacht: selectedYacht,
+  }
+};
+
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
