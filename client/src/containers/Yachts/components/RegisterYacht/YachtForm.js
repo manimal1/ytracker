@@ -6,6 +6,8 @@ import {
   setYachtMetrics,
   setTaxInfo,
   setBuildInfo,
+  setDataGroups,
+  setCompanyGroups,
 } from './setYachtFormGroups';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -18,14 +20,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import SectionTitle from '../../../../components/SectionTitle';
 import TextFieldList from '../../../../components/TextFieldList';
+import ExpansionPanelGroup from '../../../../components/ExpansionPanelGroup';
+import Spinner from '../../../../components/Spinner';
 
 const styles = theme => ({
   card: {
@@ -67,50 +67,37 @@ const styles = theme => ({
 
 const YachtForm = (props) => {
   const {
+    isYachtSelected,
+    selectedYacht,
+    onChange,
+    onCompanyChange,
+    handleCheckBox,
+    onSubmit,
+    errors,
+    isDataFetching,
+  } = props.yachtProps;
+  const {
     name, email, yachttype, active, phone,
     loa, draft, beam, grosstonnage,
     buildcompany, buildyear, refityear,
     cruisinglicense, taxid,
-    billingcompanyname, billingcompanyemail, billingcompanyphone, billingcompanymobile,
-    billingcompanyaddressline1, billingcompanyaddressline2, billingcompanycity,  
-    billingcompanypostalcode, billingcompanycountry,
-    owningcompanyname, owningcompanyemail, owningcompanyphone, owningcompanymobile,
-    owningcompanyaddressline1, owningcompanyaddressline2, owningcompanycity,  
-    owningcompanypostalcode, owningcompanycountry,
-    managementcompanyname, managementcompanyemail, managementcompanyphone,
-    managementcompanymobile, managementcompanyaddressline1, managementcompanyaddressline2,
-    managementcompanycity, managementcompanypostalcode, managementcompanycountry,
-    onChange, handleCheckBox, onSubmit, errors,
-  } = props.formProps;
+    billingcompany, owningcompany, managementcompany,
+  } = selectedYacht;
   const { classes } = props;
   const nameInfo = setNameInfo({name, errors});
   const requiredInfo = setRequiredInfo({email, phone, errors});
   const yachtMetrics = setYachtMetrics({ loa, draft, beam, grosstonnage });
   const taxInfo = setTaxInfo({cruisinglicense, taxid});
   const buildInfo = setBuildInfo({ buildcompany, buildyear, refityear });
-  const billingCompanyInfo = setCompanyFormInputs('billing', {
-    name: billingcompanyname, email: billingcompanyemail, phone: billingcompanyphone,
-    mobile: billingcompanymobile, address1: billingcompanyaddressline1, address2: billingcompanyaddressline2,
-    city: billingcompanycity, postalcode: billingcompanypostalcode, country: billingcompanycountry,
-  });
-  const owningCompanyInfo = setCompanyFormInputs('owning', {
-    name: owningcompanyname, email: owningcompanyemail, phone: owningcompanyphone,
-    mobile: owningcompanymobile, address1: owningcompanyaddressline1, address2: owningcompanyaddressline2,
-    city: owningcompanycity, postalcode: owningcompanypostalcode, country: owningcompanycountry,
-  });
-  const managementCompanyInfo = setCompanyFormInputs('management', {
-    name: managementcompanyname, email: managementcompanyemail, phone: managementcompanyphone,
-    mobile: managementcompanymobile, address1: managementcompanyaddressline1, address2: managementcompanyaddressline2,
-    city: managementcompanycity, postalcode: managementcompanypostalcode, country: managementcompanycountry,
-  });
-  const dataGroups = [
-    { array: yachtMetrics, label: 'Yacht Metrics', key: 'yachtMetrics'},
-    { array: taxInfo, label: 'Tax Info', key: 'taxInfo' },
-    { array: buildInfo, label: 'Build Info', key: 'buildInfo'},
-    { array: billingCompanyInfo, label: 'Billing Company Info', key: 'billingCompany'},
-    { array: owningCompanyInfo, label: 'Owning Company Info', key: 'owningCompany'},
-    { array: managementCompanyInfo, label: 'Management Company Info', key: 'managementCompany'},
-  ];
+  const billingCompanyInfo = setCompanyFormInputs('billing', billingcompany);
+  const owningCompanyInfo = setCompanyFormInputs('owning', owningcompany);
+  const managementCompanyInfo = setCompanyFormInputs('management', managementcompany);
+  const dataGroups = setDataGroups(yachtMetrics, taxInfo, buildInfo);
+  const companyGroups = setCompanyGroups(billingCompanyInfo, owningCompanyInfo, managementCompanyInfo);
+
+  if (isDataFetching) {
+    return <Spinner />;
+  }
 
   return (
     <form onSubmit={onSubmit}>
@@ -158,20 +145,32 @@ const YachtForm = (props) => {
 
       {
         dataGroups.map((dataGroup, index) => (
-          <ExpansionPanel key={`${dataGroup.key}-${index}`}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <SectionTitle text={dataGroup.label} />
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div className={classes.panelContent}>
-                <TextFieldList
-                  list={dataGroup.array}
-                  classname={classes.textField}
-                  onChange={onChange}
-                />
-              </div>
-          </ExpansionPanelDetails>
-          </ExpansionPanel>
+          <ExpansionPanelGroup
+            key={`${dataGroup.key}-${index}`}
+            label={dataGroup.label}
+            classes={classes}
+          >
+            <TextFieldList
+              list={dataGroup.array}
+              classname={classes.textField}
+              onChange={onChange}
+            />
+          </ExpansionPanelGroup>
+        ))
+      }
+      {
+        companyGroups.map((companyGroup, index) => (
+          <ExpansionPanelGroup
+            key={`${companyGroup.key}-${index}`}
+            label={companyGroup.label}
+            classes={classes}
+          >
+            <TextFieldList
+              list={companyGroup.array}
+              classname={classes.textField}
+              onChange={(e) => onCompanyChange(e, companyGroup.key)}
+            />
+          </ExpansionPanelGroup>
         ))
       }
 
@@ -181,7 +180,7 @@ const YachtForm = (props) => {
         type="submit"
         className={classes.submitButton}
       >
-        Register Yacht
+        {!isYachtSelected ? 'Register Yacht' : 'Update Yacht'}
       </Button>
     </form>
   );

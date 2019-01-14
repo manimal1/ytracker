@@ -19,10 +19,27 @@ const styles = theme => ({
 const YachtFormSwitcher = (props) => {
   const {
     classes,
-    selectedYachtProps,
+    selectedYacht,
     isYachtSelected,
     setIsYachtSelected,
+    onChange,
+    onCompanyChange,
+    handleCheckBox,
+    onSubmit,
+    errors,
+    isDataFetching,
   } = props;
+
+  const yachtProps = {
+    isYachtSelected,
+    selectedYacht,
+    onChange,
+    onCompanyChange,
+    handleCheckBox,
+    onSubmit,
+    errors,
+    isDataFetching,
+  };
 
   return (
     <div className="yacht-forms">
@@ -31,13 +48,13 @@ const YachtFormSwitcher = (props) => {
       {!isYachtSelected &&
         <React.Fragment>
           <Heading text="or Add New Yacht" class={classes.heading} />
-          <YachtForm formProps={props} />
+          <YachtForm yachtProps={yachtProps} />
         </React.Fragment>
       }
       {isYachtSelected &&
         <React.Fragment>
           <Heading text="Updating Yacht" class={classes.heading} />
-          <UpdateYachtForm selectedYacht={selectedYachtProps} />
+          <UpdateYachtForm {...{isYachtSelected}} />
         </React.Fragment>
       }
     </div>

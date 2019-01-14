@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import {selectedYacht} from '../../../../utils/setSelectedYacht';
 
-import { registerYacht } from './actions';
+import { registerYacht, clearYachtRegistrationData } from './actions';
 import { default as YachtFormSwitcher } from './YachtFormSwitcher';
 
 class RegisterYacht extends Component {
@@ -12,19 +13,8 @@ class RegisterYacht extends Component {
 
     this.state = {
       isYachtSelected: false,
-      name: '', email: '', yachttype: '', active: false, phone: '',
-      loa: '', draft: '', beam: '', grosstonnage: '',
-      buildcompany: '', buildyear: '', refityear: '',
-      billingcompanyname: '', billingcompanyemail: '', billingcompanyphone: '', billingcompanymobile: '',
-      billingcompanyaddressline1: '', billingcompanyaddressline2: '', billingcompanycity: '',  
-      billingcompanypostalcode: '', billingcompanycountry: '',
-      owningcompanyname: '', owningcompanyemail: '', owningcompanyphone: '', owningcompanymobile: '',
-      owningcompanyaddressline1: '', owningcompanyaddressline2: '', owningcompanycity: '',  
-      owningcompanypostalcode: '', owningcompanycountry: '',
-      managementcompanyname: '', managementcompanyemail: '', managementcompanyphone: '',
-      managementcompanymobile: '', managementcompanyaddressline1: '', managementcompanyaddressline2: '',
-      managementcompanycity: '', managementcompanypostalcode: '', managementcompanycountry: '',
-      cruisinglicense: '', taxid: '',
+      selectedYacht: selectedYacht,
+      yachtRegister: this.props.yachtRegister,
       errors: {},
     };
   }
@@ -32,6 +22,10 @@ class RegisterYacht extends Component {
   static getDerivedStateFromProps(nextProps, prevState){
     if (nextProps.errors !== prevState.errors) {
       return {errors: nextProps.errors};
+    }
+
+    if (nextProps.yachtRegister !== prevState.yachtRegister) {
+      return {yachtRegister: nextProps.yachtRegister};
     }
     
     else return null;
@@ -41,14 +35,54 @@ class RegisterYacht extends Component {
     if (prevState.errors !== this.state.errors) {
       this.setState({ errors: this.state.errors });
     }
+
+    if (prevState.yachtRegister !== this.state.yachtRegister) {
+      this.setState({ yachtRegister: this.state.yachtRegister });
+    }
+
+    if (this.state.yachtRegister.isRegistered) {
+      this.context.handlePanelSwitch('yacht-dashboard');
+      this.context.setSelectedIndex(0);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clearYachtRegistrationData();
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    let name = e.target.name;
+    let selectedYacht = {...this.state.selectedYacht};
+    selectedYacht[name] = e.target.value;
+
+    this.setState({ selectedYacht });
+  }
+
+  onCompanyChange = (e, companyType) => {
+    let name = e.target.name;
+    let selectedYacht = {...this.state.selectedYacht};
+    const addressFields = [
+      'addressline1',
+      'addressline2',
+      'city',
+      'postalcode',
+      'country',
+    ];
+    
+    if (_.includes(addressFields, name)) {
+      selectedYacht[companyType].address[name] = e.target.value;
+    } else {
+      selectedYacht[companyType][name] = e.target.value;
+    }
+
+    this.setState({ selectedYacht });
   }
 
   handleCheckBox = name => event => {
-    this.setState({ [name]: event.target.checked });
+    let selectedYacht = {...this.state.selectedYacht};
+    selectedYacht[name] = event.target.checked;
+
+    this.setState({ selectedYacht });
   };
 
   setIsYachtSelected = () => {
@@ -61,72 +95,30 @@ class RegisterYacht extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const errors = this.state.errors;
-    const newYacht = {
-      name: this.state.name, 
-      email: this.state.email, 
-      yachttype: this.state.yachttype,
-      active: this.state.active, 
-      phone: this.state.phone,
-      loa: this.state.loa,
-      draft: this.state.draft, 
-      beam: this.state.beam, 
-      grosstonnage: this.state.grosstonnage,
-      buildcompany: this.state.buildcompany, 
-      buildyear: this.state.buildyear, 
-      refityear: this.state.refityear,
-      cruisinglicense: this.state.cruisinglicense, 
-      taxid: this.state.taxid,
-      billingcompanyname: this.state.billingcompanyname,
-      billingcompanyemail: this.state.billingcompanyemail,
-      billingcompanyphone: this.state.billingcompanyphone,
-      billingcompanymobile: this.state.billingcompanymobile,
-      billingcompanyaddressline1: this.state.billingcompanyaddressline1,
-      billingcompanyaddressline2: this.state.billingcompanyaddressline2,
-      billingcompanycity: this.state.billingcompanycity,
-      billingcompanypostalcode: this.state.billingcompanypostalcode,
-      billingcompanycountry: this.state.billingcompanycountry,
-      owningcompanyname: this.state.owningcompanyname,
-      owningcompanyemail: this.state.owningcompanyemail,
-      owningcompanyphone: this.state.owningcompanyphone,
-      owningcompanymobile: this.state.owningcompanymobile,
-      owningcompanyaddressline1: this.state.owningcompanyaddressline1,
-      owningcompanyaddressline2: this.state.owningcompanyaddressline2,
-      owningcompanycity: this.state.owningcompanycity,
-      owningcompanypostalcode: this.state.owningcompanypostalcode,
-      owningcompanycountry: this.state.owningcompanycountry,
-      managementcompanyname: this.state.managementcompanyname,
-      managementcompanyemail: this.state.managementcompanyemail,
-      managementcompanyphone: this.state.managementcompanyphone,
-      managementcompanymobile: this.state.managementcompanymobile,
-      managementcompanyaddressline1: this.state.managementcompanyaddressline1,
-      managementcompanyaddressline2: this.state.managementcompanyaddressline2,
-      managementcompanycity: this.state.managementcompanycity,
-      managementcompanypostalcode: this.state.managementcompanypostalcode,
-      managementcompanycountry: this.state.managementcompanycountry,
-    };
+    const newYacht = this.state.selectedYacht;
 
     this.props.registerYacht(newYacht);
-
-    if (_.isEmpty(errors)) {
-      this.context.handlePanelSwitch('yacht-dashboard');
-      this.context.setSelectedIndex(0);
-    }
   }
 
   render() {
     const onChange = this.onChange;
+    const onCompanyChange = this.onCompanyChange;
     const handleCheckBox = this.handleCheckBox;
     const onSubmit = this.onSubmit;
     const setIsYachtSelected = this.setIsYachtSelected;
-    const selectedYachtProps = this.props.yachtData && this.props.yachtData.selectedYacht
-      ? this.props.yachtData.selectedYacht : {};
+    const isDataFetching = this.yachtRegister && this.yachtRegister.isFetching
+      ? this.yachtRegister.isFetching
+      : false;
 
     return (
       <YachtFormSwitcher {...{
         ...this.state,
-        onChange, handleCheckBox, onSubmit,
-        setIsYachtSelected, selectedYachtProps,
+        onChange,
+        onCompanyChange,
+        handleCheckBox,
+        onSubmit,
+        setIsYachtSelected,
+        isDataFetching,
       }} />
     );
   }
@@ -134,6 +126,8 @@ class RegisterYacht extends Component {
 
 RegisterYacht.propTypes = {
   registerYacht: PropTypes.func.isRequired,
+  clearYachtRegistrationData: PropTypes.func.isRequired,
+  yachtRegister: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 }
 
@@ -143,11 +137,14 @@ RegisterYacht.contextTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  yachtData: state.yachtData,
+  yachtRegister: state.yachtRegister,
   errors: state.errors,
 });
 
 export default connect(
   mapStateToProps,
-  { registerYacht },
+  {
+    registerYacht,
+    clearYachtRegistrationData,
+  },
 )(RegisterYacht);
