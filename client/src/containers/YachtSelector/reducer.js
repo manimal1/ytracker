@@ -5,9 +5,11 @@ import {
   CLEAR_YACHTS,
 } from './actions';
 
+import { selectedYacht } from '../../utils/setSelectedYacht';
+
 const initialState = {
   yachts: [],
-  selectedYacht: {},
+  selectedYacht: selectedYacht,
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,7 +30,7 @@ const reducer = (state = initialState, action) => {
     case CLEAR_SELECTED_YACHT:
       return {
         ...state,
-        selectedYacht: payload,
+        selectedYacht: selectedYacht,
       };
     case CLEAR_YACHTS:
       return {

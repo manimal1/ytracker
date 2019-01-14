@@ -16,7 +16,6 @@ export const getAllYachts = () => dispatch => {
       });
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
@@ -34,7 +33,6 @@ export const getYachtById = (id) => dispatch => {
       });
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
