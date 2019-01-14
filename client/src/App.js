@@ -53,8 +53,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ pages }) {
-  return {pages};
+function mapStateToProps({  }) {
+  return {};
 }
 
 export default connect(

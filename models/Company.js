@@ -7,6 +7,8 @@ const addressSchema = require('./Address').schema;
 const companySchema = new Schema({
   companyname: {
     type: String,
+    required: true,
+    unique: true,
   },
   date: {
     type: Date,
@@ -17,7 +19,6 @@ const companySchema = new Schema({
   },
   email: {
     type: String,
-    unique: true,
   },
   phone: {
     type: Number,

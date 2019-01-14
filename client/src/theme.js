@@ -14,6 +14,10 @@ const theme = createMuiTheme({
   },
   typography: {
     useNextVariants: true,
+    h6: {
+      fontSize: "1.375rem",
+      fontWeight: "400",
+    }
   },
   overrides: {
     MuiInput: {

@@ -1,10 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const companySchema = require('./Company').schema;
+const addressSchema = require('./Address').schema;
 
 // Create Schema
 const yachtSchema = new Schema({
+  createdby: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  active: {
+    type: Boolean,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -23,10 +35,6 @@ const yachtSchema = new Schema({
   },
   avatar: {
     type: String,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
   },
   loa: {
     type: Number,
@@ -49,9 +57,72 @@ const yachtSchema = new Schema({
   refityear: {
     type: Number,
   },
-  billingcompany: companySchema,
-  owningcompany: companySchema,
-  managementcompany: companySchema,
+  cruisinglicense: {
+    type: String,
+  },
+  taxid: {
+    type: String,
+  },
+  billingcompany: {
+    companyname: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
+    mobile: {
+      type: Number,
+    },
+    address: addressSchema,
+  },
+  owningcompany: {
+    companyname: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
+    mobile: {
+      type: Number,
+    },
+    address: addressSchema,
+  },
+  managementcompany: {
+    companyname: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: Number,
+    },
+    mobile: {
+      type: Number,
+    },
+    address: addressSchema,
+  },
 });
+// {
+//   toObject: {
+//     virtuals: true,
+//   },
+//   toJSON: {
+//     virtuals: true,
+//   },
+// });
+
+// yachtSchema.virtual('services', {
+//   ref: 'Service',
+//   localField: 'services',
+//   foreignField: 'yacht',
+// });
+
 
 module.exports = mongoose.model('Yacht', yachtSchema);

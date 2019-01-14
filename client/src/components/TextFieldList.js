@@ -11,7 +11,7 @@ const TextFieldList = ({ list, classname, onChange, }) => {
           return (
             <TextField
               key={`${item.keyname}-${index}`}
-              id={item.label}
+              id={item.id}
               name={item.name}
               label={item.label}
               className={classname}
