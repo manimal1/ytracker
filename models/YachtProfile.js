@@ -33,7 +33,7 @@ const yachtProfileSchema = new Schema({
 
 yachtProfileSchema.virtual('services', {
   ref: 'Service',
-  localField: '_id',
+  localField: 'services',
   foreignField: 'yachtprofile',
 });
 

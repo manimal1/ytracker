@@ -24,11 +24,10 @@ const serviceSchema = new Schema({
   },
   charged: {
     type: Number,
-    required: true,
   },
   paid: {
     type: Boolean,
-    required: true,
+    default: false,
   },
   date: {
     type: Date,

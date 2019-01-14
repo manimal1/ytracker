@@ -108,21 +108,21 @@ const yachtSchema = new Schema({
     },
     address: addressSchema,
   },
-},
-{
-  toObject: {
-    virtuals: true,
-  },
-  toJSON: {
-    virtuals: true,
-  },
 });
+// {
+//   toObject: {
+//     virtuals: true,
+//   },
+//   toJSON: {
+//     virtuals: true,
+//   },
+// });
 
-yachtSchema.virtual('services', {
-  ref: 'Service',
-  localField: '_id',
-  foreignField: 'yacht',
-});
+// yachtSchema.virtual('services', {
+//   ref: 'Service',
+//   localField: 'services',
+//   foreignField: 'yacht',
+// });
 
 
 module.exports = mongoose.model('Yacht', yachtSchema);
