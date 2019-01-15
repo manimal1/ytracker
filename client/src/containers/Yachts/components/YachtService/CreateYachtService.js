@@ -1,6 +1,6 @@
 import React from 'react';
 
-const YachtService = props => {
+const CreateYachtService = props => {
   return(
     <div>
       Yacht Service!
@@ -8,4 +8,4 @@ const YachtService = props => {
   )
 }
 
-export default YachtService;
+export default CreateYachtService;

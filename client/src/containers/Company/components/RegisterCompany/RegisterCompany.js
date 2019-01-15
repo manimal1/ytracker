@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CompanyForm = props => {
+const RegisterCompany = props => {
   return(
     <div>
       Company Form!
@@ -8,4 +8,4 @@ const CompanyForm = props => {
   )
 }
 
-export default CompanyForm;
+export default RegisterCompany;
