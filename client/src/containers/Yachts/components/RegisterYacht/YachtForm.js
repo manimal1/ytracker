@@ -28,40 +28,12 @@ import ExpansionPanelGroup from '../../../../components/ExpansionPanelGroup';
 import Spinner from '../../../../components/Spinner';
 
 const styles = theme => ({
-  card: {
-    marginTop: '8px',
-    marginBottom: '8px',
-  },
-  panelContent: {
-    width: '100%',
-  },
-  heading: {
-    marginTop: '16px',
-    marginBottom: '16px',
-  },
   nameField: {
-    width: "calc(100% - 126px)",
-  },
-  textField: {
-    marginLeft: '8px',
-    marginRight: '8px',
-    [theme.breakpoints.up('lg')]: {
-      minWidth: 'calc(33% - 16px)',
-    },
-    [theme.breakpoints.down('md')]: {
-      minWidth: 'calc(50% - 16px)',
-    },
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '100%',
-    },
+    width: 'calc(100% - 126px)',
   },
   formControl: {
     minWidth: '110px',
     marginTop: '16px',
-  },
-  submitButton: {
-    marginTop: '16px',
-    marginBottom: '16px',
   },
 });
 
@@ -101,7 +73,7 @@ const YachtForm = (props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Card className={classes.card}>
+      <Card>
         <CardContent>
           <SectionTitle text="Required Info" />
           <FormControlLabel
@@ -131,13 +103,12 @@ const YachtForm = (props) => {
             </FormControl>
             <TextFieldList
               list={nameInfo}
-              classname={`${classes.textField} ${classes.nameField}`}
+              classname={classes.nameField}
               onChange={onChange}
             />
           </FormGroup>
           <TextFieldList
             list={requiredInfo}
-            classname={classes.textField}
             onChange={onChange}
           />
         </CardContent>
@@ -152,7 +123,6 @@ const YachtForm = (props) => {
           >
             <TextFieldList
               list={dataGroup.array}
-              classname={classes.textField}
               onChange={onChange}
             />
           </ExpansionPanelGroup>
@@ -167,7 +137,6 @@ const YachtForm = (props) => {
           >
             <TextFieldList
               list={companyGroup.array}
-              classname={classes.textField}
               onChange={(e) => onCompanyChange(e, companyGroup.key)}
             />
           </ExpansionPanelGroup>
@@ -178,7 +147,6 @@ const YachtForm = (props) => {
         variant="contained"
         color="primary"
         type="submit"
-        className={classes.submitButton}
       >
         {!isYachtSelected ? 'Register Yacht' : 'Update Yacht'}
       </Button>

@@ -9,3 +9,7 @@ export const addYachtService = (yachtId, companyId, service) => dispatch => {
     .then(res => {})
     .catch(err => {});
 }
+
+export const clearYachtServiceData = () => dispatch => {
+  return null;
+}
