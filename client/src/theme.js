@@ -24,7 +24,19 @@ const theme = createMuiTheme({
       root: {
         width: '100%',
       }
-    }
+    },
+    MuiCard: {
+      root: {
+        marginTop: '8px',
+        marginBottom: '8px',
+      },
+    },
+    MuiButton: {
+      root: {
+        marginTop: '16px',
+        marginBottom: '16px',
+      },
+    },
   },
 });
 
