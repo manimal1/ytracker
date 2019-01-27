@@ -100,6 +100,47 @@ router.post(
   }
 );
 
+// @route   POST api/company/:company_id
+// @des     Update a company
+// @access  Private
+router.post(
+  '/:company_id',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    const companyname = req.body.companyname;
+    const servicetype = req.body.servicetype;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const mobile = req.body.mobile;
+    const address = req.body.address;
+    const { errors, isValid } = validateCompanyRegisterInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    Company.findByIdAndUpdate(
+      req.params.company_id,
+      {
+        companyname,
+        servicetype,
+        email,
+        phone,
+        mobile,
+        address,
+      },
+      { new: true }
+    )
+      .then(company => res.json(company))
+      .catch(err => {
+        errors.name = 'Company does not exist';
+        console.log(err);
+        return res.status(400).json(errors);
+      });
+  }
+);
+
 // @route   DELETE api/company/:company_id
 // @des     Delete company
 // @access  Private
