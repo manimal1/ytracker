@@ -27,7 +27,6 @@ export const registerYacht = (yachtData) => dispatch => {
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
       });
-      console.log({err});
       return err;
     });
 }

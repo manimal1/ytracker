@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { default as CompanyForm } from './CompanyForm';
-
 import { registerCompany, clearCompanyRegistrationData } from './actions';
 import CompanyFormSwitcher from './CompanyFormSwitcher';
-import { stat } from 'fs';
 
 class RegisterCompany extends Component {
   constructor(props, context) {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { errorConstants } from '../../../../constants';
+import { errorConstants } from '../../constants';
 
 export const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES';
 export const LOAD_COMPANY = 'LOAD_COMPANY';

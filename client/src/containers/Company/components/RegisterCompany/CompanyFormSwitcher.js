@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { default as CompanySelector } from '../CompanySelector';
+import { default as CompanySelector } from '../../../CompanySelector';
 import { default as UpdateCompanyForm } from './UpdateCompanyForm';
 import { default as CompanyForm } from './CompanyForm';
 

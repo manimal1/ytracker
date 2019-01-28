@@ -5,8 +5,6 @@ import {
   CLEAR_COMPANY_REGISTRATION,
   UPDATE_COMPANY_SUCCESS,
   UPDATE_COMPANY_FAIL,
-  GET_ALL_COMPANIES,
-  LOAD_COMPANY,
 } from './actions';
 
 const initialState = {

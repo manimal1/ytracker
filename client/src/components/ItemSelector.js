@@ -64,7 +64,6 @@ const ItemSelector = (props) => {
               >
                 {
                   list.map(item => {
-                    console.log(item);
                     const name = item.name ? item.name : item.companyname;
                     return (
                     <MenuItem key={item._id} value={item._id}>{name}</MenuItem>
