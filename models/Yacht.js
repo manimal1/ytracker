@@ -108,6 +108,10 @@ const yachtSchema = new Schema({
     },
     address: addressSchema,
   },
+  services: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Service',
+  }],
 });
 // {
 //   toObject: {
