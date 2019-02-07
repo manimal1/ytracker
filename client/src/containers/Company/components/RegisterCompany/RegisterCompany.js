@@ -12,7 +12,7 @@ class RegisterCompany extends Component {
 
     this.state = {
       company: {
-        companyname: '',
+        name: '',
         servicetype: '',
         email: '',
         phone: '',

@@ -5,7 +5,7 @@ const addressSchema = require('./Address').schema;
 
 // Create Schema
 const companySchema = new Schema({
-  companyname: {
+  name: {
     type: String,
     required: true,
     unique: true,
@@ -27,6 +27,10 @@ const companySchema = new Schema({
     type: Number,
   },
   address: addressSchema,
+  services: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Service',
+  }],
 });
 
 module.exports = mongoose.model('Company', companySchema);

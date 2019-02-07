@@ -64,7 +64,7 @@ router.post(
   '/register',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const companyname = req.body.companyname;
+    const name = req.body.name;
     const servicetype = req.body.servicetype;
     const email = req.body.email;
     const phone = req.body.phone;
@@ -84,7 +84,7 @@ router.post(
           return res.status(400).json(errors);
         } else {
           const newCompany = new Company({
-            companyname,
+            name,
             servicetype,
             email,
             phone,
@@ -107,7 +107,7 @@ router.post(
   '/:company_id',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    const companyname = req.body.companyname;
+    const name = req.body.name;
     const servicetype = req.body.servicetype;
     const email = req.body.email;
     const phone = req.body.phone;
@@ -123,7 +123,7 @@ router.post(
     Company.findByIdAndUpdate(
       req.params.company_id,
       {
-        companyname,
+        name,
         servicetype,
         email,
         phone,

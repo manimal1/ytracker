@@ -62,6 +62,7 @@ class CompanySelector extends Component {
         onChangeEvent={onChange}
         buttonClickEvent={setIsCompanySelected}
         sectionTitle={sectionTitle}
+        buttonLoading={this.props.companyData.isLoading}
       />
     )
   }

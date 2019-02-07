@@ -50,9 +50,9 @@ const CompanyForm = (props) => {
   }
 
   const nameInputData = {
-    id: 'companyname', name: 'companyname', label: 'Company Name', type: 'text',
-    value: company.companyname, error: errors && errors.companyname,
-    helperText: errors && errors.companyname ? errors.companyname : '',
+    id: 'companyname', name: 'name', label: 'Company Name', type: 'text',
+    value: company.name, error: errors && errors.name,
+    helperText: errors && errors.name ? errors.name : '',
   };
 
   const primaryCompanyInputData = [
