@@ -7,6 +7,7 @@ class Fetch extends Component {
     this.state = {
       data: void 0,
       error: void 0,
+      loading: false,
     }
   }
 
@@ -23,7 +24,7 @@ class Fetch extends Component {
   async fetchData() {
     try {
       this.setState({ loading: true });
-      const response = await fetch(this.props.url);
+      const response = await this.props.action;
       const json = await response.json();
       this.setState({ data: json });
       this.setState({ loading: false });

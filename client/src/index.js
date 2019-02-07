@@ -19,7 +19,7 @@ const initialState = {
   yachtData: {
     yachts: [],
     selectedYacht: selectedYacht,
-  }
+  },
 };
 
 /* eslint-disable no-underscore-dangle */

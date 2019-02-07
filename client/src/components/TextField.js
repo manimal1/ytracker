@@ -19,7 +19,7 @@ const styles = theme => ({
   },
 });
 
-const TextFieldList = ({ item, onChange, className, classes }) => {
+const TextFieldList = ({ item, onChange, onBlur, className, classes }) => {
   
   return (
     <TextField
@@ -31,7 +31,9 @@ const TextFieldList = ({ item, onChange, className, classes }) => {
       autoComplete="on"
       margin="normal"
       value={item.value ? item.value : ''}
-      onChange={onChange ? onChange : ''}
+      onChange={onChange ? onChange : undefined}
+      onBlur={onBlur ? onBlur : undefined}
+      required={item.required ? true : false}
       error={item.error ? true : false}
       helperText={item.error ? item.error : ''}
       InputProps={{

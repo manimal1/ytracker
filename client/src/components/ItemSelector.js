@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
 import SectionTitle from './SectionTitle';
+import Spinner from './Spinner';
 
 const styles = theme => ({
   wrapper: {
@@ -41,7 +42,8 @@ const ItemSelector = (props) => {
     buttonText,
     onChangeEvent,
     buttonClickEvent,
-    sectionTitle
+    sectionTitle,
+    buttonLoading
   } = props;
   
   return (
@@ -64,21 +66,28 @@ const ItemSelector = (props) => {
               >
                 {
                   list.map(item => {
-                    const name = item.name ? item.name : item.companyname;
                     return (
-                    <MenuItem key={item._id} value={item._id}>{name}</MenuItem>
+                    <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
                   )})
                 }
               </Select>
-              <Button
-                variant="contained"
-                color="primary"
-                type="button"
-                onClick={buttonClickEvent}
-                className={classes.button}
-              >
-                {buttonText}
-              </Button>
+              {buttonClickEvent &&
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  onClick={buttonClickEvent}
+                  className={classes.button}
+                  disabled={buttonLoading}
+                >
+                  {buttonLoading &&
+                    <Spinner />
+                  }
+                  {!buttonLoading &&
+                    <span>{buttonText}</span>
+                  }
+                </Button>
+              }
             </FormControl>
           </CardContent>
         </Card>
