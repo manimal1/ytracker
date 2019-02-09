@@ -17,13 +17,25 @@ class CompanySelector extends Component {
     super(props);
 
     this.state = {
+      companyData: {},
       selectedCompany: '',
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState){
+    if (nextProps.companyData !== prevState.companyData) {
+      return {companyData: nextProps.companyData};
+    }
+    
+    else return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selectedCompany !== this.state.selectedCompany) {
       this.props.getCompanyById(this.state.selectedCompany);
+    }
+    if (prevState.companyData !== this.state.companyData) {
+      this.setState({ companyData: this.state.companyData });
     }
   }
 
@@ -44,25 +56,29 @@ class CompanySelector extends Component {
   }
 
   render() {
-    const { selectedCompany } = this.state;
+    const { selectedCompany, companyData } = this.state;
     const { 
+      card,
+      label,
       sectionTitle,
       setIsCompanySelected, // function that sets parent-component boolean for whether a company is selected
     } = this.props;
     const onChange = this.onChange;
-    const companies = this.props.companyData.companies || [];
+    const companies = companyData.companies || [];
+    const isLoading = companyData.isLoading;
 
     return (
       <ItemSelector
-        label={'Existing Companies'}
-        inputPropsId={'selectedCompany'}
+        label={label}
+        inputPropsId="selectedCompany"
         selectedValue={selectedCompany}
         list={companies}
-        buttonText={'Select Company'}
         onChangeEvent={onChange}
+        buttonText="Select Company"
         buttonClickEvent={setIsCompanySelected}
         sectionTitle={sectionTitle}
-        buttonLoading={this.props.companyData.isLoading}
+        buttonLoading={isLoading}
+        card={card}
       />
     )
   }

@@ -39,7 +39,11 @@ const YachtFormSwitcher = (props) => {
   return (
     <div className="company-forms">
       <Heading text="Update Company" class={classes.heading} />
-      <CompanySelector {...{ setIsCompanySelected }} />
+      <CompanySelector {...{
+        setIsCompanySelected,
+        card: true,
+        label: 'Existing Companies',
+      }} />
       {!isCompanySelected &&
         <React.Fragment>
           <Heading text="or Add New Company" class={classes.heading} />

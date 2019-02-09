@@ -5,11 +5,6 @@ import { connect } from 'react-redux';
 import { addYachtService, clearYachtServiceData } from './actions';
 
 import { default as ServiceForm } from './ServiceForm';
-import SectionTitle from '../../../../components/SectionTitle';
-import { default as CompanySelector } from '../../../CompanySelector';
-import { default as YachtSelector } from '../../../YachtSelector';
-
-import { default as formatCurrency } from '../../../../utils/formatCurrency';
 
 class AddYachtService extends Component {
   constructor(props, context) {
@@ -70,7 +65,6 @@ class AddYachtService extends Component {
     const name = e.target.name;
     const value = e.target.value;
     let yachtService = {...this.state.yachtService};
-    // const formattedCurrencyValue = formatCurrency(yachtService.currency, value);
     const formattedCurrencyValue = parseFloat(value).toFixed(2);
     yachtService[name] = formattedCurrencyValue;
     this.setState({ yachtService });
@@ -103,10 +97,6 @@ class AddYachtService extends Component {
 
     return (
       <div>
-        <SectionTitle text="Choose Yacht" />
-        <YachtSelector />
-        <SectionTitle text="Choose Company" />
-        <CompanySelector />
         <ServiceForm {...{
           ...this.state,
           handleCheckBox,

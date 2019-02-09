@@ -14,14 +14,14 @@ export const getAllCompanies = () => dispatch => {
   axios
     .get('/api/company')
     .then(res => {
-      dispatch({type: GET_ALL_COMPANIES_REQUEST});
+      dispatch({ type: GET_ALL_COMPANIES_REQUEST });
       dispatch({
         type: GET_ALL_COMPANIES_SUCCESS,
         payload: res.data,
       });
     })
     .catch(err => {
-      dispatch({type: GET_ALL_COMPANIES_FAIL});
+      dispatch({ type: GET_ALL_COMPANIES_FAIL });
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
@@ -33,14 +33,14 @@ export const getCompanyById = (id) => dispatch => {
   axios
     .get(`/api/company/${id}`)
     .then(res => {
-      dispatch({type: LOAD_COMPANY_REQUEST});
+      dispatch({ type: LOAD_COMPANY_REQUEST });
       dispatch({
         type: LOAD_COMPANY_SUCCESS,
         payload: res.data,
       });
     })
     .catch(err => {
-      dispatch({type: LOAD_COMPANY_FAIL});
+      dispatch({ type: LOAD_COMPANY_FAIL });
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,

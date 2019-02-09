@@ -17,13 +17,25 @@ class YachtSelector extends Component {
     super(props);
 
     this.state = {
+      yachtData: {},
       selectedYacht: '',
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState){
+    if (nextProps.yachtData !== prevState.yachtData) {
+      return {yachtData: nextProps.yachtData};
+    }
+    
+    else return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selectedYacht !== this.state.selectedYacht) {
       this.props.getYachtById(this.state.selectedYacht);
+    }
+    if (prevState.yachtData !== this.state.yachtData) {
+      this.setState({ yachtData: this.state.yachtData });
     }
   }
 
@@ -44,24 +56,29 @@ class YachtSelector extends Component {
   }
 
   render() {
-    const { selectedYacht } = this.state;
+    const { selectedYacht, yachtData } = this.state;
     const { 
+      card,
       sectionTitle,
+      label,
       setIsYachtSelected, // function that sets parent-component boolean for whether a yacht is selected
     } = this.props;
     const onChange = this.onChange;
-    const yachts = this.props.yachtData.yachts || '';
+    const yachts = yachtData.yachts || [];
+    const isLoading = yachtData.isLoading;
 
     return (
       <ItemSelector
-        label={'Existing Yachts'}
+        label={label}
         inputPropsId={'selectedYacht'}
         selectedValue={selectedYacht}
         list={yachts}
-        buttonText={'Select Yacht'}
         onChangeEvent={onChange}
+        buttonText={'Select Yacht'}
         buttonClickEvent={setIsYachtSelected}
+        buttonLoading={isLoading}
         sectionTitle={sectionTitle}
+        card={card}
       />
     )
   }

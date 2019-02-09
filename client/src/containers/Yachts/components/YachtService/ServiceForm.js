@@ -12,14 +12,18 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { default as CompanySelector } from '../../../CompanySelector';
+import { default as YachtSelector } from '../../../YachtSelector';
 import SectionTitle from '../../../../components/SectionTitle';
-import TextFieldList from '../../../../components/TextFieldList';
 import TextField from '../../../../components/TextField';
 import Spinner from '../../../../components/Spinner';
 
 const styles = theme => ({
+  card: {
+    position: 'relative',
+  },
   serviceNameInput: {
-    width: 'calc(100% - 94px)',
+    width: '100%',
   },
   currencyInput: {
     width: '66px',
@@ -30,9 +34,13 @@ const styles = theme => ({
     width: 'calc(100% - 82px)',
   },
   paidInput: {
+    position: 'absolute',
+    top: '0',
+    right: '0',
     width: '76px',
     marginTop: '16px',
     marginBottom: '8px',
+    marginRight: '24px',
   },
   chargedInput: {
     width: 'calc(100% - 16px)'
@@ -57,7 +65,6 @@ const ServiceForm = (props) => {
   const {
     yachtService,
     handleCheckBox,
-    selectedCompany,
     onChange,
     onSubmit,
     onBlur,
@@ -95,28 +102,28 @@ const ServiceForm = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Card>
-        <CardContent>
-          <SectionTitle text="Service Info" />
-          <FormGroup row className={classes.formGroup}>
-            <FormControlLabel
-              className={classes.paidInput}
-              control={
-                <Checkbox
-                  checked={paid}
-                  onChange={handleCheckBox('paid')}
-                  value="paid"
-                />
-              }
-              label="Paid"
-            />
-            <TextField
-              item={serviceNameInputData}
-              onChange={onChange}
-              className={classes.serviceNameInput}
-            />
-          </FormGroup>
+    <Card className={classes.card}>
+      <CardContent>
+        <SectionTitle text="Service Info" />
+        <YachtSelector label="Choose yacht" />
+        <CompanySelector label="Choose company" />
+        <form onSubmit={onSubmit}>
+          <FormControlLabel
+            className={classes.paidInput}
+            control={
+              <Checkbox
+                checked={paid}
+                onChange={handleCheckBox('paid')}
+                value="paid"
+              />
+            }
+            label="Paid"
+          />
+          <TextField
+            item={serviceNameInputData}
+            onChange={onChange}
+            className={classes.serviceNameInput}
+          />
           <FormGroup row className={classes.formGroup}>
             <FormControl className={classes.currencyInput}>
               <InputLabel htmlFor="currency">Currency</InputLabel>
@@ -145,16 +152,16 @@ const ServiceForm = (props) => {
             onBlur={onBlur}
             className={classes.chargedInput}
           />
-        </CardContent>
-      </Card>
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-      >
-        Add Service
-      </Button>
-    </form>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Add Service
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 }
 

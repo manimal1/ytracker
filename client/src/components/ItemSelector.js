@@ -16,15 +16,15 @@ import Spinner from './Spinner';
 const styles = theme => ({
   wrapper: {
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '50%',
-    },
+    // [theme.breakpoints.up('md')]: {
+    //   width: '50%',
+    // },
   },
-  container: {
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '240px',
-    },
-  },
+  // container: {
+  //   [theme.breakpoints.down('sm')]: {
+  //     minWidth: '240px',
+  //   },
+  // },
   formControl: {
     minWidth: '110px',
     marginTop: '16px',
@@ -35,6 +35,30 @@ const styles = theme => ({
 const ItemSelector = (props) => {
   const {
     classes,
+    sectionTitle,
+    card,
+  } = props;
+  
+  return (
+    <form className={classes.wrapper}>
+      <div className={classes.container}>
+        {!!sectionTitle &&
+          <SectionTitle text={sectionTitle} />
+        }
+        {card &&
+          renderItemSelectorCard(props)
+        }
+        {!card &&
+          renderItemSelectorInput(props)
+        }
+      </div>
+    </form>
+  )
+}
+
+function renderItemSelectorInput(props) {
+  const {
+    classes,
     label,
     inputPropsId,
     selectedValue,
@@ -42,57 +66,55 @@ const ItemSelector = (props) => {
     buttonText,
     onChangeEvent,
     buttonClickEvent,
-    sectionTitle,
-    buttonLoading
+    buttonLoading,
   } = props;
-  
+
   return (
-    <form className={classes.wrapper}>
-      <div className={classes.container}>
-        <Card className={classes.card}>
-          <CardContent>
-            {!!sectionTitle &&
-              <SectionTitle text={sectionTitle} />
-            }
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor={inputPropsId}>{label}</InputLabel>
-              <Select
-                value={selectedValue}
-                onChange={onChangeEvent}
-                inputProps={{
-                  name: `${inputPropsId}`,
-                  id: `${inputPropsId}`,
-                }}
-              >
-                {
-                  list.map(item => {
-                    return (
-                    <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
-                  )})
-                }
-              </Select>
-              {buttonClickEvent &&
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="button"
-                  onClick={buttonClickEvent}
-                  className={classes.button}
-                  disabled={buttonLoading}
-                >
-                  {buttonLoading &&
-                    <Spinner />
-                  }
-                  {!buttonLoading &&
-                    <span>{buttonText}</span>
-                  }
-                </Button>
-              }
-            </FormControl>
-          </CardContent>
-        </Card>
-      </div>
-    </form>
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor={inputPropsId}>{label}</InputLabel>
+      <Select
+        value={selectedValue}
+        onChange={onChangeEvent}
+        inputProps={{
+          name: `${inputPropsId}`,
+          id: `${inputPropsId}`,
+        }}
+      >
+        {
+          list.map(item => {
+            return (
+            <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
+          )})
+        }
+      </Select>
+      {buttonClickEvent &&
+        <Button
+          variant="contained"
+          color="primary"
+          type="button"
+          onClick={buttonClickEvent}
+          className={classes.button}
+          disabled={buttonLoading}
+        >
+          {buttonLoading &&
+            <Spinner />
+          }
+          {!buttonLoading &&
+            <span>{buttonText}</span>
+          }
+        </Button>
+      }
+    </FormControl>
+  )
+}
+
+function renderItemSelectorCard(props) {
+  return (
+    <Card>
+      <CardContent>
+        {renderItemSelectorInput(props)}
+      </CardContent>
+    </Card>
   )
 }
 
