@@ -15,6 +15,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import BoatIcon from '@material-ui/icons/DirectionsBoat';
 import StoreIcon from '@material-ui/icons/Store';
 import RowingIcon from '@material-ui/icons/Rowing';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import { TopNav, BottomNav, AccountMenu } from './components';
 
@@ -109,7 +111,7 @@ class NavBar extends Component {
 
   render() {
     const { isMobile, selectedIndex, accountMenuAnchor, navMenu } = this.state;
-    const { classes } = this.props;
+    const { classes, toggleDrawer, isDrawerOpen, children } = this.props;
     const { isAuthenticated, user } = this.props.auth;
     const isMenuOpen = Boolean(accountMenuAnchor);
 
@@ -117,6 +119,14 @@ class NavBar extends Component {
       <AppBar position="sticky" color="primary" className={classes.appbar}>
         <Toolbar className="toolbar">
           <Typography variant="h5" color="inherit" className={classes.grow}>
+            <IconButton
+              color="inherit"
+              aria-label="Menu"
+              onClick={toggleDrawer(!isDrawerOpen)}
+            >
+              <MenuIcon/>
+            </IconButton>
+            { children }
             <Link
               className={classes.logo}
               to={isAuthenticated ? '/dashboard' : '/'}

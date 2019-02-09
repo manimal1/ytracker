@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { connect } from 'react-redux';
 
 import { default as PrivateRoute } from './components/PrivateRoute';
 import {
-  NavBar,
   Landing,
   Dashboard,
   Yachts,
@@ -22,9 +20,8 @@ class App extends Component {
     return (
       <Router>
         <React.Fragment>
-        <CssBaseline />
+          <CssBaseline />
           <div className="App">
-            <NavBar />
             <Route exact path="/" component={Landing} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
@@ -53,10 +50,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({  }) {
-  return {};
-}
-
-export default connect(
-  mapStateToProps,
-)(App);
+export default (App);

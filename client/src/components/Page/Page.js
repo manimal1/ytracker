@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-
 import { default as PageDrawer } from './PageDrawer';
 import { default as PageDrawerMobile } from './PageDrawerMobile';
-
 import { PageContext, PagePanel } from '.';
 
-const styles = theme => ({
-  menuIcon: {
-    zIndex: theme.zIndex.drawer + 2,
-    position: 'fixed',
-    top: '8px',
-    left: '0px',
-    color: '#FFFFFF',
-  },
-});
+import { default as NavBar } from '../../containers/NavBar';
 
 class Page extends Component {
   constructor(props) {
@@ -83,38 +70,28 @@ class Page extends Component {
 
   render() {
     const { isMobile, isDrawerOpen, selectedIndex, menu } = this.state;
-    const { classes } = this.props;
+    const toggleDrawer = this.toggleDrawer;
 
     return (
       <div>
         <PageContext.Provider
           value={this.state}
         >
+          <NavBar {...{ toggleDrawer, isDrawerOpen }}>
+            <PageDrawerMobile {...{
+              menu,
+              isDrawerOpen,
+              selectedIndex,
+              toggleDrawer,
+              handleMenuItemSelect: this.handleMenuItemSelect,
+            }} />
+          </NavBar>
           {!isMobile &&
             <PageDrawer {...{
               menu,
               selectedIndex,
               handleMenuItemSelect: this.handleMenuItemSelect,
             }} />
-          }
-          {isMobile &&
-            <React.Fragment>
-              <IconButton
-                className={classes.menuIcon}
-                color="inherit"
-                aria-label="Menu"
-                onClick={this.toggleDrawer(!isDrawerOpen)}
-              >
-                <MenuIcon/>
-              </IconButton>
-              <PageDrawerMobile {...{
-                menu,
-                isDrawerOpen,
-                selectedIndex,
-                toggleDrawer: this.toggleDrawer,
-                handleMenuItemSelect: this.handleMenuItemSelect,
-              }} />
-            </React.Fragment>
           }
           {
             menu.map((menuItem, index) => {
@@ -138,4 +115,4 @@ Page.childContextTypes = {
   isMobile: PropTypes.bool,
 }
 
-export default withStyles(styles)(Page);
+export default Page;
