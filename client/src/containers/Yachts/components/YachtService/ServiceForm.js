@@ -26,7 +26,7 @@ const styles = theme => ({
     width: '100%',
   },
   currencyInput: {
-    width: '66px',
+    width: '82px',
     marginTop: '16px',
     marginBottom: '8px',
   },
@@ -43,22 +43,8 @@ const styles = theme => ({
     marginRight: '24px',
   },
   chargedInput: {
-    width: 'calc(100% - 16px)'
+    width: '100%'
   },
-  // formGroup: {
-  //   marginTop: '16px',
-  //   marginLeft: '8px',
-  //   marginRight: '8px',
-  //   [theme.breakpoints.up('lg')]: {
-  //     minWidth: 'calc(33% - 16px)',
-  //   },
-  //   [theme.breakpoints.down('md')]: {
-  //     minWidth: 'calc(50% - 16px)',
-  //   },
-  //   [theme.breakpoints.down('sm')]: {
-  //     minWidth: '100%',
-  //   },
-  // },
 });
 
 const ServiceForm = (props) => {

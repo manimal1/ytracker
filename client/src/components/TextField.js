@@ -5,13 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   textField: {
-    marginLeft: '8px',
-    marginRight: '8px',
     [theme.breakpoints.up('lg')]: {
-      minWidth: 'calc(33% - 16px)',
+      minWidth: '33%',
     },
     [theme.breakpoints.down('md')]: {
-      minWidth: 'calc(50% - 16px)',
+      minWidth: '50%',
     },
     [theme.breakpoints.down('sm')]: {
       minWidth: '100%',
@@ -30,6 +28,9 @@ const TextFieldList = ({ item, onChange, onBlur, className, classes }) => {
       type={item.type ? item.type : ''}
       autoComplete="on"
       margin="normal"
+      min={item.min ? item.min : ''}
+      max={item.max ? item.max : ''}
+      step={item.step ? item.step : ''}
       value={item.value ? item.value : ''}
       onChange={onChange ? onChange : undefined}
       onBlur={onBlur ? onBlur : undefined}

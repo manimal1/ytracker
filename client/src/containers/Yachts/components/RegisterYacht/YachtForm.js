@@ -27,12 +27,14 @@ import TextFieldList from '../../../../components/TextFieldList';
 import ExpansionPanelGroup from '../../../../components/ExpansionPanelGroup';
 import Spinner from '../../../../components/Spinner';
 
+const yachttypeInputWidth = '120px';
+
 const styles = theme => ({
   nameField: {
-    width: 'calc(100% - 126px)',
+    width: `calc(100% - ${yachttypeInputWidth})`,
   },
   formControl: {
-    minWidth: '110px',
+    minWidth: yachttypeInputWidth,
     marginTop: '16px',
   },
 });
@@ -103,7 +105,7 @@ const YachtForm = (props) => {
             </FormControl>
             <TextFieldList
               list={nameInfo}
-              classname={classes.nameField}
+              className={classes.nameField}
               onChange={onChange}
             />
           </FormGroup>

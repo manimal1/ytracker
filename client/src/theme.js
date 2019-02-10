@@ -17,13 +17,24 @@ const theme = createMuiTheme({
     h6: {
       fontSize: "1.375rem",
       fontWeight: "400",
-    }
+    },
   },
   overrides: {
+    MuiFormControl: {
+      root: {
+        paddingLeft: '8px',
+        paddingRight: '8px',
+      },
+    },
+    MuiInputLabel: {
+      formControl: {
+        left: '8px',
+      },
+    },
     MuiInput: {
       root: {
         width: '100%',
-      }
+      },
     },
     MuiCard: {
       root: {

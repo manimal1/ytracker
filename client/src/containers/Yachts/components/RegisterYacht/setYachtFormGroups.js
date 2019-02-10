@@ -46,19 +46,19 @@ export const setYachtMetrics = (stateValues) => {
   return ([
     {
       keyname: 'yachtMetrics', label: 'loa', id: 'yachtLOA', name: 'loa',
-      type: 'number', value: loa, error: '', adornment: 'meters',
+      type: 'number', min: '1', max: '200', step: '1', value: loa, error: '', adornment: 'meters',
     },
     {
       keyname: 'yachtMetrics', label: 'draft', id: 'yachtDraft', name: 'draft',
-      type: 'number', value: draft, error: '', adornment: 'meters',
+      type: 'number',  min: '1', max: '20', value: draft, error: '', adornment: 'meters',
     },
     {
       keyname: 'yachtMetrics', label: 'beam', id: 'yachtBeam', name: 'beam',
-      type: 'number', value: beam, error: '', adornment: 'meters',
+      type: 'number',  min: 1, max: 30, value: beam, error: '', adornment: 'meters',
     },
     {
       keyname: 'yachtMetrics', label: 'gross tons', id: 'yachtGrosstonnage', name: 'grosstonnage',
-      type: 'number', value: grosstonnage, error: '', adornment: 'gt',
+      type: 'number',  min: 1, max: 800, value: grosstonnage, error: '', adornment: 'gt',
     },
   ])
 };
