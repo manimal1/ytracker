@@ -16,15 +16,13 @@ import Spinner from './Spinner';
 const styles = theme => ({
   wrapper: {
     width: '100%',
-    // [theme.breakpoints.up('md')]: {
-    //   width: '50%',
-    // },
   },
-  // container: {
-  //   [theme.breakpoints.down('sm')]: {
-  //     minWidth: '240px',
-  //   },
-  // },
+  pageWrapper: {
+    width: '100%',
+    [theme.breakpoints.up('lg')]: {
+      width: '50%',
+    },
+  },
   formControl: {
     minWidth: '110px',
     marginTop: '16px',
@@ -40,18 +38,16 @@ const ItemSelector = (props) => {
   } = props;
   
   return (
-    <form className={classes.wrapper}>
-      <div className={classes.container}>
-        {!!sectionTitle &&
-          <SectionTitle text={sectionTitle} />
-        }
-        {card &&
-          renderItemSelectorCard(props)
-        }
-        {!card &&
-          renderItemSelectorInput(props)
-        }
-      </div>
+    <form className={card ? classes.pageWrapper : classes.wrapper}>
+      {!!sectionTitle &&
+        <SectionTitle text={sectionTitle} />
+      }
+      {card &&
+        renderItemSelectorCard(props)
+      }
+      {!card &&
+        renderItemSelectorInput(props)
+      }
     </form>
   )
 }

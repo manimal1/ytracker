@@ -26,9 +26,6 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: '1.2em',
-    },
   },
   logo: {
     textDecoration: 'none',

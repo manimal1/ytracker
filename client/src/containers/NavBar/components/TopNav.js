@@ -8,7 +8,6 @@ import Tab from '@material-ui/core/Tab';
 
 const styles = theme => ({
   topNav: {
-    paddingLeft: '8px',
     backgroundColor: '#FFFFFF',
   },
   tab: {

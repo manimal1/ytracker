@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { PageContext } from './PageContext';
 
-const drawerWidth = 220;
+const drawerWidth = 226;
 
 const styles = theme => ({
   desktopWindow: {
@@ -12,9 +12,9 @@ const styles = theme => ({
     paddingBottom: '16px',
   },
   mobileWindow: {
-    paddingLeft: '8px',
-    paddingRight: '8px',
-    paddingTop: '8px',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    paddingTop: '16px',
     paddingBottom: '72px',
   }
 });
