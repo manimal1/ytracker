@@ -26,7 +26,6 @@ const styles = theme => ({
   formControl: {
     minWidth: '110px',
     marginTop: '16px',
-    width: '100%',
   },
 });
 
@@ -63,10 +62,11 @@ function renderItemSelectorInput(props) {
     onChangeEvent,
     buttonClickEvent,
     buttonLoading,
+    required,
   } = props;
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} fullWidth={true} required={required}>
       <InputLabel htmlFor={inputPropsId}>{label}</InputLabel>
       <Select
         value={selectedValue}

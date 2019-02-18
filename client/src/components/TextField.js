@@ -11,7 +11,7 @@ const styles = theme => ({
     [theme.breakpoints.down('md')]: {
       minWidth: '50%',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       minWidth: '100%',
     },
   },
