@@ -6,10 +6,8 @@ WORKDIR /var/www/ytracker
 
 RUN mkdir client
 COPY ./client/package.json client/package.json
-COPY ./client/package-lock.json client/package-lock.json
 
 COPY package.json .
-COPY package-lock.json .
 
 COPY client/public client/public
 COPY client/src client/src
