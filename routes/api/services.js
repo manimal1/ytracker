@@ -96,9 +96,7 @@ router.post(
 
     const createdby = req.user.id;
     const service = Object.assign({}, req.body, {createdby});
-
     const newService = new Service(service);
-
     newService.save().then(post => res.json(post));
   }
 );
