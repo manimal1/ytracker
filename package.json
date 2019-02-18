@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Yacht Services tracking and managment application",
   "main": "server.js",
+  "engines": {
+    "node": "9.10.0"
+  },
   "scripts": {
     "linter": "eslint --ignore-pattern ./client .",
     "linter-fix": "npm run linter -- --fix",
