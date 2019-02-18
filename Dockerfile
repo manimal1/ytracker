@@ -16,6 +16,5 @@ COPY . /var/www/ytracker
 
 RUN npm run client-install
 RUN npm install
-RUN npm run client-build
 
 CMD [ "npm", "start" ]
