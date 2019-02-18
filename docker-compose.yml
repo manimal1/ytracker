@@ -1,11 +1,27 @@
 version: '3.3'
 
 services:
-  web:
-    build: .
-    command: npm run dev
+  server:
+    container_name: server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "npm run server"
+    ports:
+      - "5000:3000"
+  
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "npm run client"
     volumes:
-      - .:/app/
-      - /app/node_modules
+      - ./client/src:/var/www/ytracker/client/src
+      - ./client/public:/var/www/ytracker/client/public
     ports:
       - "3000:3000"
+    links:
+      - server
+    depends_on:
+      - server

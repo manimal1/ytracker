@@ -131,7 +131,7 @@ router.get(
           return res.status(404).json(errors);
         }
 
-        res.json(users);
+        res.status(200).json(users);
       })
       .catch(err => {
         err.msg = { users: 'There are no users' };

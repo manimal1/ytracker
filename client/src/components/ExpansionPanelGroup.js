@@ -15,7 +15,7 @@ const ExpansionPanelGroup = ({ label, classes, children, }) => {
         <SectionTitle text={label} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <div className={classes.panelContent}>
+        <div style={{width: "100%"}}>
           { children }
         </div>
       </ExpansionPanelDetails>

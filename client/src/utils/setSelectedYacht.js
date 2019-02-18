@@ -15,7 +15,7 @@ export const selectedYacht = {
   cruisinglicense: '',
   taxid: '',
   billingcompany: {
-    companyname: '',
+    name: '',
     email: '',
     phone: '',
     mobile: '',
@@ -28,7 +28,7 @@ export const selectedYacht = {
     },
   },
   owningcompany: {
-    companyname: '',
+    name: '',
     email: '',
     phone: '',
     mobile: '',
@@ -41,7 +41,7 @@ export const selectedYacht = {
     },
   },
   managementcompany: {
-    companyname: '',
+    name: '',
     email: '',
     phone: '',
     mobile: '',

@@ -1,8 +1,7 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from './TextField';
 
-const TextFieldList = ({ list, classname, onChange, }) => {
+const TextFieldList = ({ list, onChange, className }) => {
   
   return (
     <React.Fragment>
@@ -10,23 +9,8 @@ const TextFieldList = ({ list, classname, onChange, }) => {
         list.map((item, index) => {
           return (
             <TextField
-              key={`${item.keyname}-${index}`}
-              id={item.id}
-              name={item.name}
-              label={item.label}
-              className={classname}
-              type={item.type}
-              autoComplete={`current-${item.label}`}
-              margin="normal"
-              value={item.value}
-              onChange={onChange}
-              error={item.error ? true : false}
-              helperText={item.error}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">
-                  {item.adornment ? item.adornment : ''}
-                </InputAdornment>,
-              }}
+              key={`${item.keyname}--${index}`}
+              {...{item, onChange, className, index}}
             />
           )
         })

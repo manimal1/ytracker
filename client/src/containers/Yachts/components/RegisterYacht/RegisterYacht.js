@@ -106,9 +106,8 @@ class RegisterYacht extends Component {
     const handleCheckBox = this.handleCheckBox;
     const onSubmit = this.onSubmit;
     const setIsYachtSelected = this.setIsYachtSelected;
-    const isDataFetching = this.yachtRegister && this.yachtRegister.isFetching
-      ? this.yachtRegister.isFetching
-      : false;
+    const isDataFetching = this.props.yachtRegister 
+      && this.props.yachtRegister.isFetching === true;
 
     return (
       <YachtFormSwitcher {...{
