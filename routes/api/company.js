@@ -64,7 +64,7 @@ router.post(
   '/register',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const companyname = req.body.companyname;
+    const name = req.body.name;
     const servicetype = req.body.servicetype;
     const email = req.body.email;
     const phone = req.body.phone;
@@ -84,7 +84,7 @@ router.post(
           return res.status(400).json(errors);
         } else {
           const newCompany = new Company({
-            companyname,
+            name,
             servicetype,
             email,
             phone,
@@ -96,6 +96,47 @@ router.post(
             .then(yacht => res.json(yacht))
             .catch(err => console.log(err));
         }
+      });
+  }
+);
+
+// @route   POST api/company/:company_id
+// @des     Update a company
+// @access  Private
+router.post(
+  '/:company_id',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    const name = req.body.name;
+    const servicetype = req.body.servicetype;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const mobile = req.body.mobile;
+    const address = req.body.address;
+    const { errors, isValid } = validateCompanyRegisterInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    Company.findByIdAndUpdate(
+      req.params.company_id,
+      {
+        name,
+        servicetype,
+        email,
+        phone,
+        mobile,
+        address,
+      },
+      { new: true }
+    )
+      .then(company => res.json(company))
+      .catch(err => {
+        errors.name = 'Company does not exist';
+        console.log(err);
+        return res.status(400).json(errors);
       });
   }
 );

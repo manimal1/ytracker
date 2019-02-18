@@ -44,7 +44,11 @@ const YachtFormSwitcher = (props) => {
   return (
     <div className="yacht-forms">
       <Heading text="Update Yacht" class={classes.heading} />
-      <YachtSelector {...{ setIsYachtSelected }} />
+      <YachtSelector {...{ 
+        setIsYachtSelected,
+        card: true,
+        label: 'Existing Yachts',
+      }} />
       {!isYachtSelected &&
         <React.Fragment>
           <Heading text="or Add New Yacht" class={classes.heading} />

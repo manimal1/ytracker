@@ -7,6 +7,10 @@ const serviceSchema = new Schema({
     type: String,
     required: true,
   },
+  yacht: {
+    type: Schema.Types.ObjectId,
+    ref: 'Yacht',
+  },
   company: {
     type: Schema.Types.ObjectId,
     ref: 'Company',
@@ -14,10 +18,6 @@ const serviceSchema = new Schema({
   createdby: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-  },
-  yacht: {
-    type: Schema.Types.ObjectId,
-    ref: 'Yacht',
   },
   cost: {
     type: Number,

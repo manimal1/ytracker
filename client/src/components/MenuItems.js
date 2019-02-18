@@ -3,8 +3,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-const MenuItems = ({ selectedIndex, handleMenuItemSelect, component, link, index, item }) => {
-  
+const MenuItems = ({
+  selectedIndex,
+  handleMenuItemSelect,
+  component,
+  link,
+  index,
+  item,
+}) => {
   return (
     <ListItem
       button
@@ -17,7 +23,10 @@ const MenuItems = ({ selectedIndex, handleMenuItemSelect, component, link, index
       <ListItemIcon>
         {item.icon}
       </ListItemIcon>
-      <ListItemText inset primary={item.label} />
+      <ListItemText
+        inset
+        primary={item.label}
+      />
     </ListItem>
   )
 }

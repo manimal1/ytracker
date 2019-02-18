@@ -19,7 +19,7 @@ const initialState = {
   yachtData: {
     yachts: [],
     selectedYacht: selectedYacht,
-  }
+  },
 };
 
 /* eslint-disable no-underscore-dangle */
@@ -51,7 +51,7 @@ if (localStorage.jwtToken) {
     // TODO: clear current profile
     
     // redirect to login
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 }
 

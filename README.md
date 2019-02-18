@@ -36,11 +36,10 @@ module.exports = {
 };
 ```
 
-While this app is intended to use [Docker](https://www.docker.com/) and run in a container, you do not have to. It will work just fine so long as you have [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/) installed on your device locally.  That being said, I would highly recommend installing and using Docker instead.  Once you have the keys.development.js file setup, you're ready to run in development.
+### Running with Docker
+This app uses [Docker](https://www.docker.com/), so once you have the keys.development.js file setup, you're ready to run in development.
 
 For the initial setup:<br>
-- First, run `npm install` in the root folder
-- Next, run `npm run client-install` in the root folder
 - On your first build, run `docker-compose up --build`
 - Open [http://localhost:3000](http://localhost:3000) to view the app in the browser<br>
 <br>
@@ -49,8 +48,16 @@ After the initial setup:<br>
 - After the first build you can simply use the `docker-compose up` command.<br>
 <br>
 
-- After running either of the `up` commands you can run `docker-compose down` to gracefully stop and remove the container created by the `up` command.
+- After running either of the `up` commands you can run `docker-compose down` to gracefully stop and remove the server and client containers created by the `up` command.<br>
+<br>
 
+### Running without Docker
+If you are unfamiliar with Docker and want to run the app without it, replace the "proxy" property "http://server:5000" in ./client/package.json with "http://localhost:5000".  Make you have [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/) installed on your device locally.  Then follow these steps:<br>
+- First, run `npm install` in the root folder
+- Next, run `npm run client-install` in the root folder
+- Finally, run `npm run dev` in the root folder
+- Navigate to [localhost 3000](http://localhost:3000) and you should be up and running<br>
+<br>
 
 ## Available Scripts
 
@@ -59,12 +66,16 @@ After the initial setup:<br>
 Runs the app in development mode without using docker.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
+The page will reload if you make edits, but you must be sure to change the proxy property in ./client/package.json as mentioned above.<br>
 You will also see any lint errors in the console.
 
 ### npm run client-install
 
 Installs newly added dependencies in the client folder (React App) if necessary
+
+### npm run client-build
+
+Builds the react client application
 
 ### npm run linter-fix
 

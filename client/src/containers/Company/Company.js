@@ -4,7 +4,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 import {
   CompanyDashboard,
-  CompanyForm,
+  RegisterCompany,
   CompanyService,
 } from './components';
 
@@ -25,7 +25,7 @@ class Company extends Component {
           id: 'company-create',
           label: 'Add Company',
           icon: <InboxIcon />,
-          component: <CompanyForm />
+          component: <RegisterCompany />
         },
         {
           id: 'company-service',

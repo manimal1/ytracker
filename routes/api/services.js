@@ -85,7 +85,7 @@ router.get(
 // @des     Add a service linked to a yacht
 // @access  Private
 router.post(
-  '/add/:yacht_id&:company_id',
+  '/add',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateServiceInput(req.body);
@@ -94,17 +94,9 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    let company = req.params.company_id || '';
-    const newService = new Service({
-      name: req.body.name,
-      company,
-      createdby: req.user.id,
-      yachtprofile: req.params.yacht_id,
-      cost: req.body.cost,
-      charged: req.body.charged,
-      paid: req.body.paid,
-    });
-
+    const createdby = req.user.id;
+    const service = Object.assign({}, req.body, {createdby});
+    const newService = new Service(service);
     newService.save().then(post => res.json(post));
   }
 );

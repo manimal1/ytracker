@@ -25,7 +25,7 @@ router.get(
           return res.status(404).json(errors);
         }
 
-        res.json(profile);
+        res.status(200).json(profile);
       })
       .catch(err => res.status(404).json(err));
   }
@@ -47,7 +47,7 @@ router.get(
           return res.status(404).json(errors);
         }
 
-        res.json(profiles);
+        res.status(200).json(profiles);
       })
       .catch(err => {
         err.msg = { profile: 'There is no profiles' };
