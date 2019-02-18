@@ -69,6 +69,7 @@ class YachtSelector extends Component {
 
     return (
       <ItemSelector
+        required={true}
         label={label}
         inputPropsId={'selectedYacht'}
         selectedValue={selectedYacht}

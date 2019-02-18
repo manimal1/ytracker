@@ -8,7 +8,7 @@ export const CLEAR_YACHT_SERVICE = 'CLEAR_YACHT_SERVICE';
 
 export const addYachtService = (yachtId, companyId, service) => dispatch => {
   axios
-    .post(`/api/yachts/service/${yachtId}&${companyId}`, service)
+    .post(`/api/yachts/services/${yachtId}&${companyId}`, service)
     .then(res => {
       dispatch({ type: ADD_YACHT_SERVICE });
       dispatch({
