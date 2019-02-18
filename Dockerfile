@@ -1,8 +1,23 @@
 FROM mhart/alpine-node:10.14.0
 
-WORKDIR /app
+LABEL author="Jeremiah McCurdy"
+
+WORKDIR /var/www/ytracker
+
+RUN mkdir client
+COPY ./client/package.json client/package.json
+COPY ./client/package-lock.json client/package-lock.json
 
 COPY package.json .
-RUN npm install --quiet
+COPY package-lock.json .
 
-COPY . .
+COPY client/public client/public
+COPY client/src client/src
+
+COPY . /var/www/ytracker
+
+RUN npm run client-install
+RUN npm install
+RUN npm run client-build
+
+CMD [ "npm", "start" ]
