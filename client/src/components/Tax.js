@@ -39,7 +39,7 @@ const Tax = (props) => {
   const {
     onChange,
     onBlur,
-    handleCalculateTax,
+    handleCalculateTaxOnBlur,
     checkboxHandler,
     taxIncluded,
     taxIncludedName,
@@ -55,13 +55,24 @@ const Tax = (props) => {
 
   return (
     <div>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={taxIncluded}
+            onChange={(e) => checkboxHandler(e)}
+            value={taxIncludedName}
+            name={taxIncludedName}
+          />
+        }
+        label="Tax included in cost"
+      />
       <FormGroup row>
         <FormControl className={classes.taxSelect}>
           <InputLabel htmlFor="currency">Tax</InputLabel>
           <Select
             value={taxSelected}
             onChange={onChange}
-            onBlur={handleCalculateTax}
+            onBlur={handleCalculateTaxOnBlur}
             inputProps={{
               name: `${taxName}`,
               id: `${taxName}`,
@@ -84,17 +95,6 @@ const Tax = (props) => {
           onBlur={onBlur}
         />
       </FormGroup>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={taxIncluded}
-            onChange={(e) => checkboxHandler(e)}
-            value={taxIncludedName}
-            name={taxIncludedName}
-          />
-        }
-        label="Include Tax"
-      />
       <TextField
         id={totalAmountName}
         name={totalAmountName}
