@@ -45,6 +45,7 @@ const Service = (props) => {
     checkboxHandler,
     onChange,
     onBlur,
+    handleCalculateTax,
     errors,
     classes,
   } = props;
@@ -175,6 +176,7 @@ const Service = (props) => {
                 <Tax
                   onChange={onChange}
                   onBlur={onBlur}
+                  handleCalculateTax={handleCalculateTax}
                   checkboxHandler={checkboxHandler}
                   taxSelected={costTaxSelected}
                   taxName="costTaxSelected"
@@ -216,6 +218,7 @@ const Service = (props) => {
                 <Tax
                   onChange={onChange}
                   onBlur={onBlur}
+                  handleCalculateTax={handleCalculateTax}
                   checkboxHandler={checkboxHandler}
                   taxSelected={chargedTaxSelected}
                   taxName="chargedTaxSelected"

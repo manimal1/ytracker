@@ -28,6 +28,7 @@ const ServiceForm = (props) => {
     onChange,
     onSubmit,
     onBlur,
+    handleCalculateTax,
     errors,
     classes,
     isDataFetching,
@@ -53,6 +54,7 @@ const ServiceForm = (props) => {
           onChange={onChange}
           onSubmit={onSubmit}
           onBlur={onBlur}
+          handleCalculateTax={handleCalculateTax}
           errors={errors}
         />
         <Button

@@ -39,6 +39,7 @@ const Tax = (props) => {
   const {
     onChange,
     onBlur,
+    handleCalculateTax,
     checkboxHandler,
     taxIncluded,
     taxIncludedName,
@@ -60,14 +61,15 @@ const Tax = (props) => {
           <Select
             value={taxSelected}
             onChange={onChange}
+            onBlur={handleCalculateTax}
             inputProps={{
               name: `${taxName}`,
               id: `${taxName}`,
             }}
           >
             {
-              taxValues.map(tax => (
-                <MenuItem value={tax}>{tax}</MenuItem>
+              taxValues.map((tax, index) => (
+                <MenuItem key={`${taxName}-${index}`} value={tax}>{tax}</MenuItem>
               ))
             }
           </Select>
@@ -120,8 +122,6 @@ Tax.propTypes = {
   totalAmount: PropTypes.string,
   totalAmountName: PropTypes.string,
   classes: PropTypes.object,
-  text: PropTypes.string.isRequired,
-  class: PropTypes.string,
 }
 
 export default withStyles(styles)(Tax);
