@@ -9,7 +9,7 @@ import {
   CLEAR_YACHTS,
 } from './actions';
 
-import { selectedYacht } from '../../utils/setSelectedYacht';
+import { selectedYacht } from '../../utils/objectModels';
 
 const initialState = {
   yachts: [],

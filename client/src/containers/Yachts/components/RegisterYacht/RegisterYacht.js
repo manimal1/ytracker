@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import {selectedYacht} from '../../../../utils/setSelectedYacht';
+import { selectedYacht } from '../../../../utils/objectModels';
 
 import { registerYacht, clearYachtRegistrationData } from './actions';
 import { default as YachtFormSwitcher } from './YachtFormSwitcher';

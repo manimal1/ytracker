@@ -1,38 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { addYachtService, clearYachtServiceData } from './actions';
 
 import { default as ServiceForm } from './ServiceForm';
+import { yachtService } from '../../../../utils/objectModels';
+import calculatedTax from '../../../../utils/calculatedTax';
 
 class AddYachtService extends Component {
   constructor(props, context) {
     super(props);
 
     this.state = {
-      yachtService: {
-        currency: 'EUR',
-        name: '',
-        cost: 0,
-        charged: 0,
-        paid: false,
-        completed: false,
-        assignedDate: moment(Date.now()).format('YY-MM-DD'),
-        taxValues: [0, 7, 10, 25, 'custom'],
-        addCostTax: false,
-        costTaxIncluded: false,
-        costTaxSelected: 0,
-        taxCost: 0,
-        totalCost: 0,
-        addChargedTax: false,
-        chargedTaxIncluded: false,
-        chargedTaxSelected: 0,
-        taxCharged: 0,
-        totalCharged: 0,
-        totalValue: 0,
-      },
+      yachtService: yachtService,
       selectedCompany: {},
       errors: {},
     };
@@ -85,6 +66,22 @@ class AddYachtService extends Component {
     this.setState({ yachtService });
   }
 
+  handleCalculateTax = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    let yachtService = {...this.state.yachtService};
+    const isCostTax = name === 'costTaxSelected';
+    const taxableAmount = isCostTax ? yachtService.cost : yachtService.charged;
+    const isTaxIncluded = isCostTax ? yachtService.costTaxIncluded : yachtService.chargedTaxIncluded;
+    const calculatedTaxTotal = calculatedTax(taxableAmount, value, isTaxIncluded);
+    const taxTotal = isCostTax ? 'taxCost' : 'taxCharged';
+    yachtService[taxTotal] = calculatedTaxTotal;
+    const totalValue = isCostTax ? 'totalCost' : 'totalCharged';
+    yachtService[totalValue] = parseFloat(+taxableAmount + +calculatedTaxTotal).toFixed(2).toString();
+    this.setState({ yachtService });
+    console.log('tax blur');
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     const newService = this.state.yachtService;
@@ -108,6 +105,7 @@ class AddYachtService extends Component {
     const onChange = this.onChange;
     const onSubmit = this.onSubmit;
     const onBlur = this.onBlur;
+    const handleCalculateTax = this.handleCalculateTax;
     const isDataFetching = this.props.yachtService 
       && this.props.yachtService.isAddingService === true;
 
@@ -119,6 +117,7 @@ class AddYachtService extends Component {
           onChange,
           onSubmit,
           onBlur,
+          handleCalculateTax,
           isDataFetching,
         }} />
       </div>
