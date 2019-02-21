@@ -12,7 +12,7 @@
     "linter-fix": "npm run linter -- --fix",
     "client-install": "npm install --prefix client",
     "client-build": "npm run build --prefix client",
-    "client-tests": "npm run test --prefix client",
+    "client-tests": "CI=true npm run test --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
