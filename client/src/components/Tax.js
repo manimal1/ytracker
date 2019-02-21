@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   serviceNameInput: {
@@ -33,12 +34,23 @@ const styles = theme => ({
   chargedInput: {
     width: '100%'
   },
+  totalAmountWrapper: {
+    marginTop: '16px',
+  },
+  totalAmountLabel: {
+    display: 'inline',
+  },
+  totalAmount: {
+    display: 'inline',
+    marginLeft: '16px',
+  },
 });
 
 const Tax = (props) => {
   const {
     onChange,
     onBlur,
+    handleCalculateTaxOnBlur,
     checkboxHandler,
     taxIncluded,
     taxIncludedName,
@@ -48,26 +60,38 @@ const Tax = (props) => {
     taxAmount,
     taxAmountName,
     totalAmount,
-    totalAmountName,
+    totalAmountLabel,
     classes,
   } = props;
 
   return (
     <div>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={taxIncluded}
+            onChange={(e) => checkboxHandler(e)}
+            value={taxIncludedName}
+            name={taxIncludedName}
+          />
+        }
+        label="Tax included in cost"
+      />
       <FormGroup row>
         <FormControl className={classes.taxSelect}>
           <InputLabel htmlFor="currency">Tax</InputLabel>
           <Select
             value={taxSelected}
             onChange={onChange}
+            onBlur={handleCalculateTaxOnBlur}
             inputProps={{
               name: `${taxName}`,
               id: `${taxName}`,
             }}
           >
             {
-              taxValues.map(tax => (
-                <MenuItem value={tax}>{tax}</MenuItem>
+              taxValues.map((tax, index) => (
+                <MenuItem key={`${taxName}-${index}`} value={tax}>{tax}</MenuItem>
               ))
             }
           </Select>
@@ -82,26 +106,14 @@ const Tax = (props) => {
           onBlur={onBlur}
         />
       </FormGroup>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={taxIncluded}
-            onChange={(e) => checkboxHandler(e)}
-            value={taxIncludedName}
-            name={taxIncludedName}
-          />
-        }
-        label="Include Tax"
-      />
-      <TextField
-        id={totalAmountName}
-        name={totalAmountName}
-        label="Total Amount"
-        type="number"
-        value={totalAmount}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
+      <div className={classes.totalAmountWrapper}>
+        <Typography variant="h6" className={classes.totalAmountLabel}>
+          {totalAmountLabel}:
+        </Typography>
+        <Typography variant="subtitle1" className={classes.totalAmount}>
+          {totalAmount}
+        </Typography>
+      </div>
     </div>
   )
 }
@@ -120,8 +132,6 @@ Tax.propTypes = {
   totalAmount: PropTypes.string,
   totalAmountName: PropTypes.string,
   classes: PropTypes.object,
-  text: PropTypes.string.isRequired,
-  class: PropTypes.string,
 }
 
 export default withStyles(styles)(Tax);

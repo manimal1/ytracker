@@ -4,13 +4,15 @@
   "description": "Yacht Services tracking and managment application",
   "main": "server.js",
   "engines": {
-    "node": "9.10.0"
+    "node": "9.10.0",
+    "npm": "6.8.0"
   },
   "scripts": {
     "linter": "eslint --ignore-pattern ./client .",
     "linter-fix": "npm run linter -- --fix",
     "client-install": "npm install --prefix client",
     "client-build": "npm run build --prefix client",
+    "client-tests": "npm run test --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
@@ -32,6 +34,7 @@
     "validator": "^10.7.1"
   },
   "devDependencies": {
+    "eslint": "5.12.0",
     "eslint-config-strongloop": "^2.1.0",
     "nodemon": "^1.18.4"
   }
