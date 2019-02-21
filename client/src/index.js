@@ -8,7 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
-import { selectedYacht } from './utils/setSelectedYacht';
+import { selectedYacht } from './utils/objectModels';
 import { setCurrentUser, logoutUser } from './containers/LoginUser/actions';
 
 import App from './App';

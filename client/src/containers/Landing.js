@@ -16,14 +16,12 @@ const styles = theme => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     minHeight: '100vh',
-    marginTop: '-64px',
   },
   mobileHeader: {
     backgroundImage: `url(${mobileImg})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     minHeight: '100vh',
-    marginTop: '-56px',
   },
   imageWrapper: {
     position: 'relative',

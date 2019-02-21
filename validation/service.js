@@ -15,6 +15,10 @@ module.exports = function validateServiceInput(data) {
     errors.name = 'Name field is required';
   }
 
+  if (!validator.isEmpty(data.yachtId)) {
+    errors.yacht = 'Yacht is required';
+  }
+
   return {
     errors,
     isValid: isEmpty(errors),

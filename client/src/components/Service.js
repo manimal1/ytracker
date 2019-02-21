@@ -12,7 +12,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
+import SectionTitle from './SectionTitle';
 import Tax from './Tax';
 
 const styles = theme => ({
@@ -29,13 +31,13 @@ const styles = theme => ({
   costInput: {
     width: 'calc(100% - 82px)',
   },
+  chargedInput: {
+    width: 'calc(100% - 82px)',
+  },
   checkboxGroup: {
     position: 'relative',
     width: 'auto',
     paddingLeft: '8px',
-  },
-  chargedInput: {
-    width: '100%'
   },
 });
 
@@ -45,29 +47,33 @@ const Service = (props) => {
     checkboxHandler,
     onChange,
     onBlur,
+    handleCalculateTaxOnBlur,
+    handleAddPercentageToChargedAmountOnBlur,
     errors,
     classes,
   } = props;
 
   const {
-    currency,
     name,
-    charged,
-    cost,
-    paid,
-    completed,
+    isPaid,
+    isCompleted,
     assignedDate,
-    addCostTax,
-    costTaxIncluded,
+    isCostTaxAdded,
+    isCostTaxIncluded,
     costTaxSelected,
     taxValues,
-    taxCost,
-    totalCost,
-    addChargedTax,
-    chargedTaxIncluded,
+    costCurrency,
+    cost,
+    costTax,
+    costTotal,
+    chargedCurrency,
+    charged,
+    isChargedTaxAdded,
+    isChargedTaxIncluded,
     chargedTaxSelected,
-    taxCharged,
-    totalCharged,
+    chargedTaxPercentageOnTop,
+    chargedTax,
+    chargedTotal,
     totalValue,
   } = service;
 
@@ -75,27 +81,28 @@ const Service = (props) => {
     <React.Fragment>
       <Card className={classes.card}>
         <CardContent>
+          <SectionTitle text="Service Info" />
           <FormGroup row className={classes.checkboxGroup}>
             <FormControlLabel
-              className={classes.paidInput}
+              className={classes.isPaidInput}
               control={
                 <Checkbox
-                  checked={paid}
+                  checked={isPaid}
                   onChange={(e) => checkboxHandler(e)}
-                  value="paid"
-                  name="paid"
+                  value="isPaid"
+                  name="isPaid"
                 />
               }
               label="Paid"
             />
             <FormControlLabel
-              className={classes.completedInput}
+              className={classes.isCompletedInput}
               control={
                 <Checkbox
-                  checked={completed}
+                  checked={isCompleted}
                   onChange={(e) => checkboxHandler(e)}
-                  value="completed"
-                  name="completed"
+                  value="isCompleted"
+                  name="isCompleted"
                 />
               }
               label="Completed"
@@ -132,63 +139,91 @@ const Service = (props) => {
       </Card>
       <Card className={classes.card}>
         <CardContent>
-          <FormGroup row>
-            <FormControl className={classes.currencyInput}>
-              <InputLabel htmlFor="currency">Currency</InputLabel>
-              <Select
-                value={currency}
-                onChange={onChange}
-                inputProps={{
-                  name: 'currency',
-                  id: 'currency',
-                }}
-              >
-                <MenuItem value={'EUR'}>Euro</MenuItem>
-                <MenuItem value={'HRK'}>HRK</MenuItem>
-              </Select>
-            </FormControl>
-            <TextField
-              id="serviceCost"
-              name="cost"
-              label="Service Cost"
-              type="number"
-              value={cost}
+          <SectionTitle text="Service Cost" />
+          <FormControl className={classes.currencyInput}>
+            <InputLabel htmlFor="costCurrency">Currency</InputLabel>
+            <Select
+              value={costCurrency}
               onChange={onChange}
-              onBlur={onBlur}
-              className={classes.costInput}
-            />
-          </FormGroup>
+              inputProps={{
+                name: 'costCurrency',
+                id: 'costCurrency',
+              }}
+            >
+              <MenuItem value={'EUR'}>Euro</MenuItem>
+              <MenuItem value={'HRK'}>HRK</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            id="serviceCost"
+            name="cost"
+            label="Service Cost"
+            type="number"
+            value={cost}
+            onChange={onChange}
+            onBlur={onBlur}
+            className={classes.costInput}
+          />
           <FormControlLabel
             control={
               <Checkbox
-                checked={addCostTax}
+                checked={isCostTaxAdded}
                 onChange={(e) => checkboxHandler(e)}
-                value="addCostTax"
-                name="addCostTax"
+                value="isCostTaxAdded"
+                name="isCostTaxAdded"
               />
             }
             label="Add Cost Tax"
           />
-          {addCostTax &&
+          {isCostTaxAdded &&
             <Card>
               <CardContent>
                 <Tax
                   onChange={onChange}
                   onBlur={onBlur}
+                  handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
                   checkboxHandler={checkboxHandler}
                   taxSelected={costTaxSelected}
                   taxName="costTaxSelected"
-                  taxIncluded={costTaxIncluded}
-                  taxIncludedName="costTaxIncluded"
+                  taxIncluded={isCostTaxIncluded}
+                  taxIncludedName="isCostTaxIncluded"
                   taxValues={taxValues}
-                  taxAmount={taxCost}
-                  taxAmountName="taxCost"
-                  totalAmount={totalCost}
-                  totalAmountName="totalCost"
+                  taxAmount={costTax}
+                  taxAmountName="costTax"
+                  totalAmount={costTotal}
+                  totalAmountLabel="Total Cost"
                 />
               </CardContent>
             </Card>
           }
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <SectionTitle text="Service Charge" />
+          <FormControl className={classes.currencyInput}>
+            <InputLabel htmlFor="chargedCurrency">Currency</InputLabel>
+            <Select
+              value={chargedCurrency}
+              onChange={onChange}
+              inputProps={{
+                name: 'chargedCurrency',
+                id: 'chargedCurrency',
+              }}
+            >
+              <MenuItem value={'EUR'}>Euro</MenuItem>
+              <MenuItem value={'HRK'}>HRK</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            id="chargedTaxPercentageOnTop"
+            name="chargedTaxPercentageOnTop"
+            label="Add Service Charge Percentage"
+            type="number"
+            value={chargedTaxPercentageOnTop}
+            onChange={onChange}
+            onBlur={handleAddPercentageToChargedAmountOnBlur}
+          />
           <TextField
             id="serviceCharged"
             name="charged"
@@ -202,48 +237,41 @@ const Service = (props) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={addChargedTax}
+                checked={isChargedTaxAdded}
                 onChange={(e) => checkboxHandler(e)}
-                value="addChargedTax"
-                name="addChargedTax"
+                value="isChargedTaxAdded"
+                name="isChargedTaxAdded"
               />
             }
             label="Add Charge Tax"
           />
-          {addChargedTax &&
+          {isChargedTaxAdded &&
             <Card>
               <CardContent>
                 <Tax
                   onChange={onChange}
                   onBlur={onBlur}
+                  handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
                   checkboxHandler={checkboxHandler}
                   taxSelected={chargedTaxSelected}
                   taxName="chargedTaxSelected"
-                  taxIncluded={chargedTaxIncluded}
-                  taxIncludedName="chargedTaxIncluded"
+                  taxIncluded={isChargedTaxIncluded}
+                  taxIncludedName="isChargedTaxIncluded"
                   taxValues={taxValues}
-                  taxAmount={taxCharged}
-                  taxAmountName="taxCharged"
-                  totalAmount={totalCharged}
-                  totalAmountName="totalCharged"
+                  taxAmount={chargedTax}
+                  taxAmountName="chargedTax"
+                  totalAmount={chargedTotal}
+                  totalAmountLabel="Total Charge"
                 />
               </CardContent>
             </Card>
           }
-      </CardContent>
+        </CardContent>
       </Card>
       <Card>
         <CardContent>
-          <TextField
-            fullWidth={true}
-            id="totalValue"
-            name="totalValue"
-            label="Total Price"
-            type="number"
-            value={totalValue}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
+          <Typography variant="h4" gutterBottom>Total Price</Typography>
+          <Typography variant="subtitle1" gutterBottom>{ totalValue }</Typography>
         </CardContent>
       </Card>
     </React.Fragment>

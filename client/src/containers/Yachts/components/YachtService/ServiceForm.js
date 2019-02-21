@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 import { default as CompanySelector } from '../../../CompanySelector';
 import { default as YachtSelector } from '../../../YachtSelector';
-import SectionTitle from '../../../../components/SectionTitle';
+import Heading from '../../../../components/Heading';
 import Spinner from '../../../../components/Spinner';
 import Service from '../../../../components/Service';
 
@@ -28,6 +28,8 @@ const ServiceForm = (props) => {
     onChange,
     onSubmit,
     onBlur,
+    handleCalculateTaxOnBlur,
+    handleAddPercentageToChargedAmountOnBlur,
     errors,
     classes,
     isDataFetching,
@@ -39,7 +41,7 @@ const ServiceForm = (props) => {
 
   return (
     <div>
-      <SectionTitle text="Service Info" />
+      <Heading text="Add Service" />
       <Card className={classes.card}>
         <CardContent>
           <YachtSelector label="Choose yacht" />
@@ -53,6 +55,8 @@ const ServiceForm = (props) => {
           onChange={onChange}
           onSubmit={onSubmit}
           onBlur={onBlur}
+          handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
+          handleAddPercentageToChargedAmountOnBlur={handleAddPercentageToChargedAmountOnBlur}
           errors={errors}
         />
         <Button
