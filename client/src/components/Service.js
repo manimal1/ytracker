@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import SectionTitle from './SectionTitle';
 import Tax from './Tax';
@@ -47,6 +48,7 @@ const Service = (props) => {
     onChange,
     onBlur,
     handleCalculateTaxOnBlur,
+    handleAddPercentageToChargedAmountOnBlur,
     errors,
     classes,
   } = props;
@@ -69,6 +71,7 @@ const Service = (props) => {
     isChargedTaxAdded,
     isChargedTaxIncluded,
     chargedTaxSelected,
+    chargedTaxPercentageOnTop,
     chargedTax,
     chargedTotal,
     totalValue,
@@ -188,7 +191,7 @@ const Service = (props) => {
                   taxAmount={costTax}
                   taxAmountName="costTax"
                   totalAmount={costTotal}
-                  totalAmountName="costTotal"
+                  totalAmountLabel="Total Cost"
                 />
               </CardContent>
             </Card>
@@ -212,6 +215,15 @@ const Service = (props) => {
               <MenuItem value={'HRK'}>HRK</MenuItem>
             </Select>
           </FormControl>
+          <TextField
+            id="chargedTaxPercentageOnTop"
+            name="chargedTaxPercentageOnTop"
+            label="Add Service Charge Percentage"
+            type="number"
+            value={chargedTaxPercentageOnTop}
+            onChange={onChange}
+            onBlur={handleAddPercentageToChargedAmountOnBlur}
+          />
           <TextField
             id="serviceCharged"
             name="charged"
@@ -249,7 +261,7 @@ const Service = (props) => {
                   taxAmount={chargedTax}
                   taxAmountName="chargedTax"
                   totalAmount={chargedTotal}
-                  totalAmountName="chargedTotal"
+                  totalAmountLabel="Total Charge"
                 />
               </CardContent>
             </Card>
@@ -258,8 +270,8 @@ const Service = (props) => {
       </Card>
       <Card>
         <CardContent>
-          <h4>Total Price</h4>
-          <div>{ totalValue }</div>
+          <Typography variant="h4" gutterBottom>Total Price</Typography>
+          <Typography variant="subtitle1" gutterBottom>{ totalValue }</Typography>
         </CardContent>
       </Card>
     </React.Fragment>

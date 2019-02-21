@@ -15,6 +15,10 @@ export const addTaxOnTopOfAmount = (taxableAmount, calculatedTaxTotal) => {
   return (+taxableAmount + +calculatedTaxTotal).toFixed(2).toString();
 }
 
+export const calculatePercentageOnTop = (amount, percentage) => {
+  return (+amount * (+percentage / 100 + 1)).toFixed(2).toString();
+}
+
 export const formatCurrencyNumber = (amount) => {
   return parseFloat(amount).toFixed(2);
 }

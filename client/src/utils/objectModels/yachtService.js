@@ -18,6 +18,7 @@ export const yachtService = {
   isChargedTaxAdded: false,
   isChargedTaxIncluded: false,
   chargedTaxSelected: '0.00',
+  chargedTaxPercentageOnTop: '0.00',
   chargedTax: '0.00',
   chargedTotal: '0.00',
   totalValue: '0.00',

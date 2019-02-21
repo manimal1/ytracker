@@ -9,6 +9,7 @@ import { yachtService } from '../../../../utils/objectModels';
 import {
   calculatedTax,
   addTaxOnTopOfAmount,
+  calculatePercentageOnTop,
   formatCurrencyNumber,
   formatCurrency,
 } from '../../../../utils/calculate';
@@ -133,6 +134,33 @@ class AddYachtService extends Component {
     this.setState({ yachtService });
   }
 
+  handleAddPercentageToChargedAmountOnBlur = (e) => {
+    const value = e.target.value;
+    const cost = this.state.yachtService.cost;
+    const costTaxSelected = this.state.yachtService.costTaxSelected;
+    const isCostTaxAdded = this.state.yachtService.isCostTaxAdded;
+    const isCostTaxIncluded = this.state.yachtService.isCostTaxIncluded;
+    this.handleAddPercentageToChargedAmount(cost, costTaxSelected, isCostTaxAdded, isCostTaxIncluded, value);
+  }
+
+  handleAddPercentageToChargedAmount = (baseAmount, taxSelected, isTaxAdded, isTaxIncluded, percentageToAdd) => {
+    let yachtService = {...this.state.yachtService};
+    const addPercentageToPrice = calculatePercentageOnTop(baseAmount, percentageToAdd);
+    yachtService['charged'] = addPercentageToPrice;
+
+    if (isTaxAdded) {
+      yachtService['isChargedTaxAdded'] = true;
+      yachtService['chargedTaxSelected'] = taxSelected;
+
+      if (isTaxIncluded) {
+        yachtService['isChargedTaxIncluded'] = true;
+      } else {
+        yachtService['isChargedTaxIncluded'] = false;
+      }
+    }
+    this.setState({ yachtService });
+  }
+
   handleCalculateTotalPrice = (isChargedTaxAdded, chargedCurrency, charged, chargedTotal) => {
     if (isChargedTaxAdded) {
       return formatCurrency(chargedCurrency, chargedTotal);
@@ -164,6 +192,7 @@ class AddYachtService extends Component {
     const onSubmit = this.onSubmit;
     const onBlur = this.onBlur;
     const handleCalculateTaxOnBlur = this.handleCalculateTaxOnBlur;
+    const handleAddPercentageToChargedAmountOnBlur = this.handleAddPercentageToChargedAmountOnBlur;
     const isDataFetching = this.props.yachtService 
       && this.props.yachtService.isAddingService === true;
 
@@ -176,6 +205,7 @@ class AddYachtService extends Component {
           onSubmit,
           onBlur,
           handleCalculateTaxOnBlur,
+          handleAddPercentageToChargedAmountOnBlur,
           isDataFetching,
         }} />
       </div>

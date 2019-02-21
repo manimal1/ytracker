@@ -29,6 +29,7 @@ const ServiceForm = (props) => {
     onSubmit,
     onBlur,
     handleCalculateTaxOnBlur,
+    handleAddPercentageToChargedAmountOnBlur,
     errors,
     classes,
     isDataFetching,
@@ -55,6 +56,7 @@ const ServiceForm = (props) => {
           onSubmit={onSubmit}
           onBlur={onBlur}
           handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
+          handleAddPercentageToChargedAmountOnBlur={handleAddPercentageToChargedAmountOnBlur}
           errors={errors}
         />
         <Button

@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   serviceNameInput: {
@@ -33,6 +34,16 @@ const styles = theme => ({
   chargedInput: {
     width: '100%'
   },
+  totalAmountWrapper: {
+    marginTop: '16px',
+  },
+  totalAmountLabel: {
+    display: 'inline',
+  },
+  totalAmount: {
+    display: 'inline',
+    marginLeft: '16px',
+  },
 });
 
 const Tax = (props) => {
@@ -49,7 +60,7 @@ const Tax = (props) => {
     taxAmount,
     taxAmountName,
     totalAmount,
-    totalAmountName,
+    totalAmountLabel,
     classes,
   } = props;
 
@@ -95,15 +106,14 @@ const Tax = (props) => {
           onBlur={onBlur}
         />
       </FormGroup>
-      <TextField
-        id={totalAmountName}
-        name={totalAmountName}
-        label="Total Amount"
-        type="number"
-        value={totalAmount}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
+      <div className={classes.totalAmountWrapper}>
+        <Typography variant="h6" className={classes.totalAmountLabel}>
+          {totalAmountLabel}:
+        </Typography>
+        <Typography variant="subtitle1" className={classes.totalAmount}>
+          {totalAmount}
+        </Typography>
+      </div>
     </div>
   )
 }
