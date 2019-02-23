@@ -286,7 +286,6 @@ Service.propTypes = {
   handleCalculateChargedAmountOnBlur: PropTypes.func,
   handleCalculateTaxOnBlur: PropTypes.func,
   handleAddPercentageToChargedAmountOnBlur: PropTypes.func,
-  errors: PropTypes.object,
   classes: PropTypes.object,
 }
 

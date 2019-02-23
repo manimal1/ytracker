@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -80,6 +81,11 @@ const ServiceForm = (props) => {
       </form>
     </div>
   );
+}
+
+ServiceForm.propTypes = {
+  onSubmit: PropTypes.func,
+  classes: PropTypes.object,
 }
 
 export default withStyles(styles)(ServiceForm);

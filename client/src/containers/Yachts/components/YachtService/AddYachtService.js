@@ -395,7 +395,6 @@ AddYachtService.propTypes = {
   yachtService: PropTypes.object,
   yachtData: PropTypes.object.isRequired,
   companyData: PropTypes.object.isRequired,
-  errors: PropTypes.object,
 }
 
 AddYachtService.contextTypes = {
