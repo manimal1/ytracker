@@ -273,7 +273,7 @@ router.post(
     // Add service to the company's services array
     company.services.push(newService);
     await company.save();
-    res.status(201).json(newService);
+    return res.status(201).json(newService);
   })
 );
 
