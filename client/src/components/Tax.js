@@ -173,10 +173,11 @@ Tax.propTypes = {
   taxValues: PropTypes.array,
   taxSelected: PropTypes.any,
   taxName: PropTypes.string,
-  taxAmount: PropTypes.string,
   taxAmountName: PropTypes.string,
+  taxAmountLabel: PropTypes.string,
+  taxAmount: PropTypes.string,
+  totalAmountLabel: PropTypes.string,
   totalAmount: PropTypes.string,
-  totalAmountName: PropTypes.string,
   classes: PropTypes.object,
 }
 

@@ -278,9 +278,14 @@ const Service = (props) => {
 
 Service.propTypes = {
   service: PropTypes.object.isRequired,
+  totalPrice: PropTypes.string,
+  taxValues: PropTypes.array,
   checkboxHandler: PropTypes.func,
   onChange: PropTypes.func,
-  onBlur: PropTypes.func,
+  handleCaclulateCostOnBlur: PropTypes.func,
+  handleCalculateChargedAmountOnBlur: PropTypes.func,
+  handleCalculateTaxOnBlur: PropTypes.func,
+  handleAddPercentageToChargedAmountOnBlur: PropTypes.func,
   errors: PropTypes.object,
   classes: PropTypes.object,
 }

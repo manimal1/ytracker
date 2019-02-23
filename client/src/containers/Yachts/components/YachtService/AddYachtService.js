@@ -21,8 +21,8 @@ class AddYachtService extends Component {
     this.state = {
       yachtService: yachtService,
       statefulYachtService: this.props.yachtService,
-      totalPrice: '0.00',
       taxValues: [ 0, 7, 10, 25, 'custom'],
+      totalPrice: '0.00',
       errors: {},
     };
   }
