@@ -19,19 +19,77 @@ const serviceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  cost: {
-    type: Number,
-  },
-  charged: {
-    type: Number,
-  },
-  paid: {
+  isPaid: {
     type: Boolean,
     default: false,
   },
-  date: {
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  assignedDate: {
     type: Date,
     default: Date.now,
+  },
+  invoiceNumber: {
+    type: String,
+  },
+  costCurrency: {
+    type: String,
+  },
+  cost: {
+    type: Number,
+  },
+  isCostTaxAdded: {
+    type: Boolean,
+    default: false,
+  },
+  isCostTaxIncluded: {
+    type: Boolean,
+    default: false,
+  },
+  costTaxSelected: {
+    type: Number,
+    default: 0,
+  },
+  costTax: {
+    type: Number,
+    default: 0.00,
+  },
+  costTotal: {
+    type: Number,
+    default: 0.00,
+  },
+  chargedCurrency: {
+    type: String,
+  },
+  charged: {
+    type: Number,
+    default: 0.00,
+  },
+  isChargedTaxAdded: {
+    type: Boolean,
+    default: false,
+  },
+  isChargedTaxIncluded: {
+    type: Boolean,
+    default: false,
+  },
+  chargedTaxSelected: {
+    type: Number,
+    default: 0,
+  },
+  chargedTaxPercentageOnTop: {
+    type: Number,
+    default: 0,
+  },
+  chargedTax: {
+    type: Number,
+    default: 0.00,
+  },
+  chargedTotal: {
+    type: Number,
+    default: 0.00,
   },
 });
 
