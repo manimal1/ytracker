@@ -10,7 +10,7 @@ export const setNameInfo = (stateValues) => {
   return ([
     {
       keyname: 'yacht-required-info', label: 'name', id: 'yachtName', name: 'name',
-      type: 'text', value: name, error: err,
+      type: 'text', value: name, required: true, error: err,
     },
   ])
 };
@@ -28,11 +28,11 @@ export const setRequiredInfo = (stateValues) => {
   return ([
     {
       keyname: 'yacht-required-info', label: 'email', id: 'yachtEmail', name: 'email',
-      type: 'email', value: email, error: err,
+      type: 'email', value: email, required: true, error: err,
     },
     {
       keyname: 'yacht-required-info', label: 'phone', id: 'yachtPhone', name: 'phone',
-      type: 'text', value: phone, error: '',
+      type: 'text', value: phone, required: true, error: '',
     },
   ])
 };

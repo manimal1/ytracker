@@ -18,7 +18,7 @@ class Yachts extends Component {
       menu: [
         {
           id: 'yacht-dashboard',
-          label: 'Dashboard',
+          label: 'Yachts',
           icon: <InboxIcon />,
           component: <YachtDashboard />
         },
@@ -30,7 +30,7 @@ class Yachts extends Component {
         },
         {
           id: 'yacht-service',
-          label: 'Add Service',
+          label: 'Services',
           icon: <InboxIcon />,
           component: <YachtService />
         },
