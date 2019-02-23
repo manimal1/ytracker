@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { default as CompanySelector } from '../../../CompanySelector';
 import { default as YachtSelector } from '../../../YachtSelector';
 import Heading from '../../../../components/Heading';
+import SectionTitle from '../../../../components/SectionTitle';
 import Spinner from '../../../../components/Spinner';
 import Service from '../../../../components/Service';
 
@@ -24,10 +26,13 @@ const styles = theme => ({
 const ServiceForm = (props) => {
   const {
     yachtService,
+    taxValues,
+    totalPrice,
     handleCheckBox,
     onChange,
     onSubmit,
-    onBlur,
+    handleCaclulateCostOnBlur,
+    handleCalculateChargedAmountOnBlur,
     handleCalculateTaxOnBlur,
     handleAddPercentageToChargedAmountOnBlur,
     errors,
@@ -44,20 +49,26 @@ const ServiceForm = (props) => {
       <Heading text="Add Service" />
       <Card className={classes.card}>
         <CardContent>
+          <SectionTitle text="Yacht" />
           <YachtSelector label="Choose yacht" />
           <CompanySelector label="Choose company" />
         </CardContent>
       </Card>
       <form onSubmit={onSubmit}>
         <Service
-          service={yachtService}
-          checkboxHandler={handleCheckBox}
-          onChange={onChange}
-          onSubmit={onSubmit}
-          onBlur={onBlur}
-          handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
-          handleAddPercentageToChargedAmountOnBlur={handleAddPercentageToChargedAmountOnBlur}
-          errors={errors}
+          {...{
+            service: yachtService,
+            checkboxHandler: handleCheckBox,
+            taxValues,
+            totalPrice,
+            onChange,
+            onSubmit,
+            handleCaclulateCostOnBlur,
+            handleCalculateChargedAmountOnBlur,
+            handleCalculateTaxOnBlur,
+            handleAddPercentageToChargedAmountOnBlur,
+            errors,
+          }}
         />
         <Button
           className={classes.submitButton}
@@ -70,6 +81,11 @@ const ServiceForm = (props) => {
       </form>
     </div>
   );
+}
+
+ServiceForm.propTypes = {
+  onSubmit: PropTypes.func,
+  classes: PropTypes.object,
 }
 
 export default withStyles(styles)(ServiceForm);

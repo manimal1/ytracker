@@ -89,7 +89,7 @@ const YachtForm = (props) => {
             label="Active"
           />
           <FormGroup row>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControl} required={true}>
               <InputLabel htmlFor="yachttype">Yacht Type</InputLabel>
               <Select
                 value={yachttype}

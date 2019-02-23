@@ -7,16 +7,12 @@ module.exports = function validateServiceInput(data) {
   // so the validator library works
   data.name = !isEmpty(data.name) ? data.name : '';
 
-  if (!validator.isLength(data.name, { min: 1, max: 30 })) {
-    errors.name = 'Name must be between 1 and 30 characters';
+  if (!validator.isLength(data.name, { min: 1, max: 50 })) {
+    errors.name = 'Name must be between 1 and 50 characters';
   }
 
   if (validator.isEmpty(data.name)) {
     errors.name = 'Name field is required';
-  }
-
-  if (!validator.isEmpty(data.yachtId)) {
-    errors.yacht = 'Yacht is required';
   }
 
   return {

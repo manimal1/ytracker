@@ -34,13 +34,13 @@ const styles = theme => ({
   chargedInput: {
     width: '100%'
   },
-  totalAmountWrapper: {
+  fixedAmountWrapper: {
     marginTop: '16px',
   },
-  totalAmountLabel: {
+  fixedAmountLabel: {
     display: 'inline',
   },
-  totalAmount: {
+  fixedAmount: {
     display: 'inline',
     marginLeft: '16px',
   },
@@ -48,6 +48,7 @@ const styles = theme => ({
 
 const Tax = (props) => {
   const {
+    fixed,
     onChange,
     onBlur,
     handleCalculateTaxOnBlur,
@@ -63,6 +64,10 @@ const Tax = (props) => {
     totalAmountLabel,
     classes,
   } = props;
+
+  if (fixed) {
+    return fixedTaxComponent(props);
+  }
 
   return (
     <div>
@@ -118,6 +123,47 @@ const Tax = (props) => {
   )
 }
 
+function fixedTaxComponent(props) {
+  const {
+    taxSelectedLabel,
+    taxSelected,
+    taxAmountLabel,
+    taxAmount,
+    totalAmountLabel,
+    totalAmount,
+    classes,
+  } = props;
+
+  return (
+    <div>
+      <div className={classes.fixedAmountWrapper}>
+        <Typography variant="subtitle1" gutterBottom className={classes.fixedAmountLabel}>
+          {taxSelectedLabel}:
+        </Typography>
+        <Typography variant="subtitle2" className={classes.fixedAmount}>
+          {taxSelected}%
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="subtitle1" gutterBottom className={classes.fixedAmountLabel}>
+          {taxAmountLabel}:
+        </Typography>
+        <Typography variant="subtitle2" className={classes.fixedAmount}>
+          {taxAmount}
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="subtitle1" className={classes.fixedAmountLabel}>
+          {totalAmountLabel}:
+        </Typography>
+        <Typography variant="subtitle2" className={classes.fixedAmount}>
+          {totalAmount}
+        </Typography>
+      </div>
+    </div>
+  )
+}
+
 Tax.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
@@ -127,10 +173,11 @@ Tax.propTypes = {
   taxValues: PropTypes.array,
   taxSelected: PropTypes.any,
   taxName: PropTypes.string,
-  taxAmount: PropTypes.string,
   taxAmountName: PropTypes.string,
+  taxAmountLabel: PropTypes.string,
+  taxAmount: PropTypes.string,
+  totalAmountLabel: PropTypes.string,
   totalAmount: PropTypes.string,
-  totalAmountName: PropTypes.string,
   classes: PropTypes.object,
 }
 
