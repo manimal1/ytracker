@@ -20,7 +20,9 @@ class AddYachtService extends Component {
 
     this.state = {
       yachtService: yachtService,
-      selectedCompany: {},
+      statefulYachtService: this.props.yachtService,
+      totalPrice: '0.00',
+      taxValues: [ 0, 7, 10, 25, 'custom'],
       errors: {},
     };
   }
@@ -32,6 +34,10 @@ class AddYachtService extends Component {
 
     if (nextProps.companyData.selectedCompany !== prevState.selectedCompany) {
       return {selectedCompany: nextProps.companyData.selectedCompany};
+    }
+
+    if (nextProps.yachtService !== prevState.yachtService) {
+      return {statefulYachtService: nextProps.yachtService};
     }
     
     else return null;
@@ -46,48 +52,104 @@ class AddYachtService extends Component {
       this.setState({ selectedCompany: this.state.selectedCompany });
     }
 
-    if (prevState.yachtService.isCostTaxIncluded !== this.state.yachtService.isCostTaxIncluded) {
-      const { cost, costTaxSelected, isCostTaxIncluded } = this.state.yachtService;
-      return this.handleCalculateTax(cost, costTaxSelected, isCostTaxIncluded, 'costTax', 'costTotal');
+    if (prevState.statefulYachtService !== this.state.statefulYachtService) {
+      this.setState({ statefulYachtService: this.state.statefulYachtService });
     }
 
-    if (prevState.yachtService.isChargedTaxIncluded !== this.state.yachtService.isChargedTaxIncluded) {
-      const { charged, chargedTaxSelected, isChargedTaxIncluded } = this.state.yachtService;
-      return this.handleCalculateTax(charged, chargedTaxSelected, isChargedTaxIncluded, 'chargedTax', 'chargedTotal');
+    if (prevState.yachtService.isCostTaxIncluded !== this.state.yachtService.isCostTaxIncluded) {
+        const yachtService = {...this.state.yachtService};
+        let {
+          cost,
+          isCostTaxAdded,
+          costTaxSelected,
+          isCostTaxIncluded,
+          charged,
+          chargedTaxPercentageOnTop
+        } = yachtService;
+        const hasChargedTax = chargedTaxPercentageOnTop && chargedTaxPercentageOnTop !== '0';
+        const hasChargedAmount = charged && charged !== '0.00';
+
+        if (hasChargedTax) {
+          return Promise.resolve(this.handleCalculateTax(cost, costTaxSelected, isCostTaxIncluded, 'costTax', 'costTotal'))
+            .then(() => this.handleAddPercentageToChargedAmount(cost, costTaxSelected, isCostTaxAdded, isCostTaxIncluded, chargedTaxPercentageOnTop))
+            .then(() => {
+              let yachtService = {...this.state.yachtService};
+              const { isChargedTaxAdded, chargedCurrency, charged, chargedTotal } = this.state.yachtService;
+              yachtService['totalPrice'] = this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
+              this.setState({ yachtService });
+            });
+        }
+
+        if (!hasChargedTax && hasChargedAmount) {
+          return Promise.resolve(this.handleCalculateTax(cost, costTaxSelected, isCostTaxIncluded, 'costTax', 'costTotal'))
+            .then(() => this.handleCalculateTax(charged, costTaxSelected, isCostTaxIncluded, 'chargedTax', 'chargedTotal'))
+            .then(() => {
+              let yachtService = {...this.state.yachtService};
+              const { isChargedTaxAdded, chargedCurrency, charged, chargedTotal } = this.state.yachtService;
+              yachtService['totalPrice'] = this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
+              this.setState({ yachtService });
+            });
+        }
+        return this.handleCalculateTax(cost, costTaxSelected, isCostTaxIncluded, 'costTax', 'costTotal');
     }
 
     if (prevState.yachtService.isCostTaxAdded !== this.state.yachtService.isCostTaxAdded) {
       if (!this.state.yachtService.isCostTaxAdded) {
         let yachtService = {...this.state.yachtService};
+        const {
+          isChargedTaxAdded,
+          chargedCurrency,
+          charged,
+          chargedTotal
+        } = yachtService;
         yachtService['isCostTaxIncluded'] = false;
-        yachtService['costTaxSelected'] = '0.00';
-        yachtService['costTaxSelected'] = '0.00';
-        yachtService['costTaxSelected'] = '0.00';
-        return this.setState({ yachtService });
+        yachtService['costTaxSelected'] = '0';
+        yachtService['costTax'] = '0.00';
+        yachtService['costTotal'] = this.state.cost;
+        yachtService['isChargedTaxAdded'] = false;
+        yachtService['isChargedTaxIncluded'] = false;
+        yachtService['chargedTaxSelected'] = '0';
+        yachtService['chargedTax'] = '0.00';
+        yachtService['chargedTotal'] = charged;
+        return Promise.resolve(this.setState({ yachtService }))
+        .then(() => this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal));
       }
     }
 
     if (prevState.yachtService.isChargedTaxAdded !== this.state.yachtService.isChargedTaxAdded) {
-      if (!this.state.yachtService.isChargedTaxAdded) {
-        let yachtService = {...this.state.yachtService};
+      let yachtService = {...this.state.yachtService};
+      const {
+        isChargedTaxAdded,
+        chargedCurrency,
+        charged,
+        chargedTotal
+      } = yachtService;
+      if (isChargedTaxAdded) {
+        return this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
+      }
+      if (!isChargedTaxAdded) {
         yachtService['isChargedTaxIncluded'] = false;
-        yachtService['chargedTaxSelected'] = '0.00';
+        yachtService['chargedTaxSelected'] = '0';
         yachtService['chargedTax'] = '0.00';
-        yachtService['chargedTotal'] = '0.00';
+        yachtService['chargedTotal'] = charged;
         return this.setState({ yachtService });
       }
     }
 
     if (prevState.yachtService.charged !== this.state.yachtService.charged
-      || prevState.yachtService.chargedTotal !== this.state.yachtService.chargedTotal
       || prevState.yachtService.chargedCurrency !== this.state.yachtService.chargedCurrency) {
-        const { isChargedTaxAdded, chargedCurrency, charged, chargedTotal } = this.state.yachtService;
+        let {
+          isChargedTaxAdded,
+          chargedCurrency,
+          charged,
+          chargedTotal
+        } = this.state.yachtService;
         let yachtService = {...this.state.yachtService};
-        yachtService['totalValue'] = this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
+        yachtService['totalPrice'] = this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
         this.setState({ yachtService });
     }
 
-    if (this.state.yachtService.isAdded) {
+    if (this.state.statefulYachtService.isServiceAdded) {
       this.context.handlePanelSwitch('yacht-dashboard');
       this.context.setSelectedIndex(0);
     }
@@ -113,16 +175,72 @@ class AddYachtService extends Component {
     this.setState({ yachtService });
   }
 
-  handleCalculateTaxOnBlur = (e) => {
+  handleCaclulateCostOnBlur = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    let formattedCurrencyValue = formatCurrencyNumber(value);
     let yachtService = {...this.state.yachtService};
-    const isCostTax = name === 'costTaxSelected';
-    const taxableAmount = isCostTax ? yachtService.cost : yachtService.charged;
-    const isTaxIncluded = isCostTax ? yachtService.isCostTaxIncluded : yachtService.isChargedTaxIncluded;
-    const taxTotal = isCostTax ? 'costTax' : 'chargedTax';
-    const totalValue = isCostTax ? 'costTotal' : 'chargedTotal';
-    return this.handleCalculateTax(taxableAmount, value, isTaxIncluded, taxTotal, totalValue);
+    let {
+      cost,
+      isCostTaxAdded,
+      costTaxSelected,
+      isCostTaxIncluded,
+      chargedTaxPercentageOnTop
+    } = yachtService;
+    let hasChargedTaxPercentageAdded = chargedTaxPercentageOnTop && chargedTaxPercentageOnTop !== '0';
+    yachtService[name] = formattedCurrencyValue;
+    
+    if (!hasChargedTaxPercentageAdded) {
+      return this.setState({ yachtService });
+    }
+
+    if (hasChargedTaxPercentageAdded && !isCostTaxAdded) {
+      yachtService['charged'] = calculatePercentageOnTop(value, chargedTaxPercentageOnTop);
+      return this.setState({ yachtService });
+    }
+
+    if (isCostTaxAdded && (costTaxSelected && costTaxSelected !== '0')) {
+      if (!hasChargedTaxPercentageAdded) {
+        return this.handleCalculateTax(cost, costTaxSelected, isCostTaxAdded, 'costTax', 'costTotal');
+      }
+      if (hasChargedTaxPercentageAdded) {
+        return Promise.resolve(this.handleCalculateTax(cost, costTaxSelected, isCostTaxAdded, 'costTax', 'costTotal'))
+          .then(() => this.handleAddPercentageToChargedAmount(cost, costTaxSelected, isCostTaxAdded, isCostTaxIncluded, chargedTaxPercentageOnTop));
+      }
+    }
+  }
+
+  handleCalculateTaxOnBlur = (e) => {
+    const value = e.target.value;
+    let yachtService = {...this.state.yachtService};
+    const {
+      cost,
+      isCostTaxIncluded,
+      charged,
+      chargedTaxPercentageOnTop
+    } = yachtService;
+    const hasChargedAmount = charged && charged !== '0.00';
+    const hasNoChargedPercentage = !chargedTaxPercentageOnTop || chargedTaxPercentageOnTop === '0';
+
+    if (!hasChargedAmount && hasNoChargedPercentage) {
+      return this.handleCalculateTax(cost, value, isCostTaxIncluded, 'costTax', 'costTotal');
+    }
+
+    if (hasNoChargedPercentage && hasChargedAmount) {
+      return Promise.resolve(this.handleCalculateTax(cost, value, isCostTaxIncluded, 'costTax', 'costTotal'))
+      .then(() => {
+        let yachtService = {...this.state.yachtService};
+        yachtService['isChargedTaxAdded'] = true;
+        yachtService['chargedTaxSelected'] = value;
+        return this.setState({ yachtService });
+      })
+      .then(() => this.handleCalculateTax(charged, value, isCostTaxIncluded, 'chargedTax', 'chargedTotal'))
+      .then(() => {
+        let yachtService = {...this.state.yachtService};
+        const {isChargedTaxAdded, chargedCurrency, charged, chargedTotal } = yachtService;
+        return this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
+      });
+    }
   }
 
   handleCalculateTax = (taxableAmount, value, isTaxIncluded, taxTotal, totalValue) => {
@@ -136,21 +254,31 @@ class AddYachtService extends Component {
 
   handleAddPercentageToChargedAmountOnBlur = (e) => {
     const value = e.target.value;
-    const cost = this.state.yachtService.cost;
-    const costTaxSelected = this.state.yachtService.costTaxSelected;
-    const isCostTaxAdded = this.state.yachtService.isCostTaxAdded;
-    const isCostTaxIncluded = this.state.yachtService.isCostTaxIncluded;
+    if (value === '0') {
+      return null;
+    }
+    const { 
+      cost,
+      costTaxSelected,
+      isCostTaxAdded,
+      isCostTaxIncluded
+    } = this.state.yachtService;
     this.handleAddPercentageToChargedAmount(cost, costTaxSelected, isCostTaxAdded, isCostTaxIncluded, value);
   }
 
   handleAddPercentageToChargedAmount = (baseAmount, taxSelected, isTaxAdded, isTaxIncluded, percentageToAdd) => {
     let yachtService = {...this.state.yachtService};
     const addPercentageToPrice = calculatePercentageOnTop(baseAmount, percentageToAdd);
+    const calculatedTaxTotal = calculatedTax(addPercentageToPrice, taxSelected, isTaxIncluded);
     yachtService['charged'] = addPercentageToPrice;
 
     if (isTaxAdded) {
       yachtService['isChargedTaxAdded'] = true;
       yachtService['chargedTaxSelected'] = taxSelected;
+      yachtService['chargedTax'] = calculatedTaxTotal;
+      yachtService['chargedTotal'] = isTaxIncluded
+        ? formatCurrencyNumber(addPercentageToPrice)
+        : addTaxOnTopOfAmount(addPercentageToPrice, calculatedTaxTotal);
 
       if (isTaxIncluded) {
         yachtService['isChargedTaxIncluded'] = true;
@@ -161,11 +289,55 @@ class AddYachtService extends Component {
     this.setState({ yachtService });
   }
 
+  handleCalculateChargedAmountOnBlur = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    let formattedCurrencyValue = formatCurrencyNumber(value);
+    let yachtService = {...this.state.yachtService};
+    const {
+      isCostTaxAdded,
+      isCostTaxIncluded,
+      costTaxSelected,
+      charged,
+      chargedTaxPercentageOnTop
+    } = yachtService;
+
+    if (!isCostTaxAdded && (!costTaxSelected || costTaxSelected !== '0')) {
+      if (chargedTaxPercentageOnTop && chargedTaxPercentageOnTop !== '0') {
+        yachtService['chargedTaxPercentageOnTop'] = '0';
+      }
+      yachtService[name] = formattedCurrencyValue;
+      return this.setState({ yachtService });
+    } else {
+      return Promise.resolve(this.handleCalculateTax(charged, costTaxSelected, isCostTaxIncluded, 'chargedTax', 'chargedTotal'))
+      .then(() => {
+        let yachtService = {...this.state.yachtService};
+        if (chargedTaxPercentageOnTop && chargedTaxPercentageOnTop !== '0') {
+          yachtService['chargedTaxPercentageOnTop'] = '0';
+        }
+        yachtService['isChargedTaxAdded'] = true;
+        yachtService['chargedTaxSelected'] = costTaxSelected;
+        yachtService[name] = formattedCurrencyValue;
+        return this.setState({ yachtService });
+      })
+      .then(() => {
+        let yachtService = {...this.state.yachtService};
+        const {
+          isChargedTaxAdded,
+          chargedCurrency,
+          charged,
+          chargedTotal
+        } = yachtService;
+        return this.handleCalculateTotalPrice(isChargedTaxAdded, chargedCurrency, charged, chargedTotal);
+      });
+    }
+  }
+
   handleCalculateTotalPrice = (isChargedTaxAdded, chargedCurrency, charged, chargedTotal) => {
     if (isChargedTaxAdded) {
-      return formatCurrency(chargedCurrency, chargedTotal);
+      return this.setState({ totalPrice: formatCurrency(chargedCurrency, chargedTotal) });
     }
-    return formatCurrency(chargedCurrency, charged);
+    return this.setState({ totalPrice: formatCurrency(chargedCurrency, charged) });
   }
 
   onSubmit = (e) => {
@@ -191,6 +363,8 @@ class AddYachtService extends Component {
     const onChange = this.onChange;
     const onSubmit = this.onSubmit;
     const onBlur = this.onBlur;
+    const handleCaclulateCostOnBlur = this.handleCaclulateCostOnBlur;
+    const handleCalculateChargedAmountOnBlur = this.handleCalculateChargedAmountOnBlur;
     const handleCalculateTaxOnBlur = this.handleCalculateTaxOnBlur;
     const handleAddPercentageToChargedAmountOnBlur = this.handleAddPercentageToChargedAmountOnBlur;
     const isDataFetching = this.props.yachtService 
@@ -204,6 +378,8 @@ class AddYachtService extends Component {
           onChange,
           onSubmit,
           onBlur,
+          handleCaclulateCostOnBlur,
+          handleCalculateChargedAmountOnBlur,
           handleCalculateTaxOnBlur,
           handleAddPercentageToChargedAmountOnBlur,
           isDataFetching,
@@ -219,7 +395,7 @@ AddYachtService.propTypes = {
   yachtService: PropTypes.object,
   yachtData: PropTypes.object.isRequired,
   companyData: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object,
 }
 
 AddYachtService.contextTypes = {

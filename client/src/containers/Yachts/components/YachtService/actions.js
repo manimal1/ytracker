@@ -2,8 +2,8 @@ import axios from 'axios';
 import { errorConstants } from '../../../../constants';
 
 export const ADD_YACHT_SERVICE = 'ADD_YACHT_SERVICE';
-export const ADD_YACHT_SERVICE_SUCCESS = 'ADD_YACHT_SUCCESS';
-export const ADD_YACHT_SERVICE_FAIL = 'ADD_YACHT_FAIL';
+export const ADD_YACHT_SERVICE_SUCCESS = 'ADD_YACHT_SERVICE_SUCCESS';
+export const ADD_YACHT_SERVICE_FAIL = 'ADD_YACHT_SERVICE_FAIL';
 export const CLEAR_YACHT_SERVICE = 'CLEAR_YACHT_SERVICE';
 
 export const addYachtService = (yachtId, companyId, service) => dispatch => {

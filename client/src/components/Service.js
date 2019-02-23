@@ -8,6 +8,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -44,9 +45,12 @@ const styles = theme => ({
 const Service = (props) => {
   const {
     service,
+    taxValues,
+    totalPrice,
     checkboxHandler,
     onChange,
-    onBlur,
+    handleCaclulateCostOnBlur,
+    handleCalculateChargedAmountOnBlur,
     handleCalculateTaxOnBlur,
     handleAddPercentageToChargedAmountOnBlur,
     errors,
@@ -58,10 +62,10 @@ const Service = (props) => {
     isPaid,
     isCompleted,
     assignedDate,
+    invoiceNumber,
     isCostTaxAdded,
     isCostTaxIncluded,
     costTaxSelected,
-    taxValues,
     costCurrency,
     cost,
     costTax,
@@ -69,12 +73,10 @@ const Service = (props) => {
     chargedCurrency,
     charged,
     isChargedTaxAdded,
-    isChargedTaxIncluded,
     chargedTaxSelected,
     chargedTaxPercentageOnTop,
     chargedTax,
     chargedTotal,
-    totalValue,
   } = service;
 
   return (
@@ -129,11 +131,20 @@ const Service = (props) => {
             fullWidth={true}
             defaultValue={assignedDate}
             onChange={onChange}
-            required={true}
             InputLabelProps={{
               shrink: true,
             }}
             className={classes.assignedDate}
+          />
+          <TextField
+            id="invoiceNumber"
+            name="invoiceNumber"
+            label="Invoice Number"
+            type="text"
+            fullWidth={true}
+            value={invoiceNumber}
+            onChange={onChange}
+            className={classes.input}
           />
         </CardContent>
       </Card>
@@ -161,7 +172,7 @@ const Service = (props) => {
             type="number"
             value={cost}
             onChange={onChange}
-            onBlur={onBlur}
+            onBlur={handleCaclulateCostOnBlur}
             className={classes.costInput}
           />
           <FormControlLabel
@@ -180,7 +191,6 @@ const Service = (props) => {
               <CardContent>
                 <Tax
                   onChange={onChange}
-                  onBlur={onBlur}
                   handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
                   checkboxHandler={checkboxHandler}
                   taxSelected={costTaxSelected}
@@ -223,6 +233,11 @@ const Service = (props) => {
             value={chargedTaxPercentageOnTop}
             onChange={onChange}
             onBlur={handleAddPercentageToChargedAmountOnBlur}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">
+                %
+              </InputAdornment>,
+            }}
           />
           <TextField
             id="serviceCharged"
@@ -231,37 +246,20 @@ const Service = (props) => {
             type="number"
             value={charged}
             onChange={onChange}
-            onBlur={onBlur}
+            onBlur={handleCalculateChargedAmountOnBlur}
             className={classes.chargedInput}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isChargedTaxAdded}
-                onChange={(e) => checkboxHandler(e)}
-                value="isChargedTaxAdded"
-                name="isChargedTaxAdded"
-              />
-            }
-            label="Add Charge Tax"
           />
           {isChargedTaxAdded &&
             <Card>
               <CardContent>
                 <Tax
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
-                  checkboxHandler={checkboxHandler}
+                  fixed={true}
+                  taxSelectedLabel="Tax Percentage"
                   taxSelected={chargedTaxSelected}
-                  taxName="chargedTaxSelected"
-                  taxIncluded={isChargedTaxIncluded}
-                  taxIncludedName="isChargedTaxIncluded"
-                  taxValues={taxValues}
+                  taxAmountLabel="Tax Amount"
                   taxAmount={chargedTax}
-                  taxAmountName="chargedTax"
-                  totalAmount={chargedTotal}
                   totalAmountLabel="Total Charge"
+                  totalAmount={chargedTotal}
                 />
               </CardContent>
             </Card>
@@ -271,7 +269,7 @@ const Service = (props) => {
       <Card>
         <CardContent>
           <Typography variant="h4" gutterBottom>Total Price</Typography>
-          <Typography variant="subtitle1" gutterBottom>{ totalValue }</Typography>
+          <Typography variant="subtitle1" gutterBottom>{ totalPrice }</Typography>
         </CardContent>
       </Card>
     </React.Fragment>
