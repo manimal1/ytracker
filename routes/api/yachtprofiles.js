@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 const validateYachtProfileInput = require('../../validation/yacht-profile');
@@ -16,19 +17,19 @@ router.get(
 
     YachtProfile.find()
       .populate('yacht', ['type', 'name', 'email', 'avatar'])
-      .then(profiles => {
+      .then((profiles) => {
         if (!profiles) {
           errors.noprofile = 'There are no yacht profiles';
           return res.status(404).json(errors);
         }
 
-        res.json(profiles);
+        return res.json(profiles);
       })
-      .catch(err => {
+      .catch((err) => {
         err.msg = { profile: 'There are no profiles' };
         return res.status(404).json(err.msg);
       });
-  }
+  },
 );
 
 // @route   GET api/yachtprofiles/:id
@@ -36,22 +37,22 @@ router.get(
 // @access  Private
 router.get(
   '/:id',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
     YachtProfile.findOne({ yacht: req.params.id })
       .populate('yacht', ['type', 'name', 'email', 'avatar'])
       .populate('services')
-      .then(profile => {
+      .then((profile) => {
         if (!profile) {
           errors.yachtdoesnotexist = 'This yacht does not exist';
           return res.status(404).json(errors);
         }
 
-        res.json(profile);
+        return res.json(profile);
       })
       .catch(err => res.status(404).json(err));
-  }
+  },
 );
 
 // @route   POST api/yachtprofiles/:id
@@ -59,7 +60,7 @@ router.get(
 // @access  Private
 router.post(
   '/:id',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateYachtProfileInput(req.body);
 
@@ -78,25 +79,25 @@ router.post(
     if (req.body.taxid) profileFields.taxid = req.body.taxid;
     /* eslint-enable */
 
-    YachtProfile.findOne({ yacht: req.params.id })
+    return YachtProfile.findOne({ yacht: req.params.id })
       .populate('services')
-      .then(profile => {
+      .then((profile) => {
         if (profile) {
           profileFields.services = profile.services;
           // Update
           YachtProfile.findOneAndUpdate(
             { yacht: req.params.id },
             { $set: profileFields },
-            { new: true }
+            { new: true },
           )
-            .then(profile => res.json(profile));
+            .then(existingProfile => res.json(existingProfile));
         } else {
           new YachtProfile(profileFields)
             .save()
-            .then(profile => res.json(profile));
+            .then(newProfile => res.json(newProfile));
         }
       });
-  }
+  },
 );
 
 module.exports = router;

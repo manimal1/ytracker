@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 const validateServiceInput = require('../../validation/service');
@@ -16,16 +17,16 @@ router.get(
     const errors = {};
 
     Service.find()
-      .then(services => {
+      .then((services) => {
         if (!services) {
           errors.noservices = 'There are no services';
           return res.status(404).json(errors);
         }
 
-        res.json(services);
+        return res.json(services);
       })
-      .catch(err => {
-        err.msg = { services: 'There are no services' };
+      .catch((err) => {
+        err.msg = { services: 'There are no services' }; // eslint-disable-line no-param-reassign
         return res.status(404).json(err.msg);
       });
   }
@@ -41,16 +42,16 @@ router.get(
     const errors = {};
 
     Service.find({ yachtprofile: req.params.yachtprofile_id })
-      .then(services => {
+      .then((services) => {
         if (!services) {
           errors.noservices = 'There are no services for this yacht';
           return res.status(404).json(errors);
         }
 
-        res.json(services);
+        return res.json(services);
       })
-      .catch(err => {
-        err.msg = { services: 'There are no services for this yacht' };
+      .catch((err) => {
+        err.msg = { services: 'There are no services for this yacht' }; // eslint-disable-line no-param-reassign
         return res.status(404).json(err.msg);
       });
   }
@@ -66,16 +67,16 @@ router.get(
     const errors = {};
 
     Service.find({ company: req.params.company_id })
-      .then(services => {
+      .then((services) => {
         if (!services) {
           errors.noservices = 'There are no services for this company';
           return res.status(404).json(errors);
         }
 
-        res.json(services);
+        return res.json(services);
       })
-      .catch(err => {
-        err.msg = { services: 'There are no services for this company' };
+      .catch((err) => {
+        err.msg = { services: 'There are no services for this company' }; // eslint-disable-line no-param-reassign
         return res.status(404).json(err.msg);
       });
   }
@@ -95,9 +96,9 @@ router.post(
     }
 
     const createdby = req.user.id;
-    const service = Object.assign({}, req.body, {createdby});
+    const service = Object.assign({}, req.body, { createdby });
     const newService = new Service(service);
-    newService.save().then(post => res.json(post));
+    return newService.save().then(post => res.json(post));
   }
 );
 

@@ -2,7 +2,7 @@ const validator = require('validator');
 const isEmpty = require('./is-empty');
 
 module.exports = function validateProfileInput(data) {
-  let errors = {};
+  const errors = {};
   // make sure an empty fields are set as strings
   // so the validator library works
   data.handle = !isEmpty(data.handle) ? data.handle : '';

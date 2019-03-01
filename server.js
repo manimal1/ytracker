@@ -16,7 +16,7 @@ const posts = require('./routes/api/posts');
 const app = express();
 
 // Body parser middleware
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB config
@@ -25,8 +25,8 @@ const db = require('./config/keys').mongoURI;
 // Connect to mongodb
 mongoose
   .connect(db, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .then(() => console.log('MongoDB connected')) // eslint-disable-line no-console
+  .catch(err => console.log(err)); // eslint-disable-line no-console
 
 // Passport middleware
 app.use(passport.initialize());
@@ -56,4 +56,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`)); // eslint-disable-line no-console

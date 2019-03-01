@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 
@@ -17,19 +18,19 @@ router.get(
     const errors = {};
 
     Company.find()
-      .then(companies => {
+      .then((companies) => {
         if (!companies) {
           errors.nocompanies = 'There are no companies';
           return res.status(404).json(errors);
         }
 
-        res.json(companies);
+        return res.json(companies);
       })
-      .catch(err => {
+      .catch((err) => {
         err.msg = { companies: 'There are no companies' };
         return res.status(404).json(err.msg);
       });
-  }
+  },
 );
 
 // @route   GET api/company/:id
@@ -42,19 +43,19 @@ router.get(
     const errors = {};
 
     Company.findById(req.params.id)
-      .then(company => {
+      .then((company) => {
         if (!company) {
           errors.nocompany = 'This company does not exist';
           return res.status(404).json(errors);
         }
 
-        res.json(company);
+        return res.json(company);
       })
-      .catch(err => {
+      .catch((err) => {
         err.msg = { company: 'There is no matching company' };
         return res.status(404).json(err.msg);
       });
-  }
+  },
 );
 
 // @route   POST api/company/register
@@ -64,12 +65,14 @@ router.post(
   '/register',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const name = req.body.name;
-    const servicetype = req.body.servicetype;
-    const email = req.body.email;
-    const phone = req.body.phone;
-    const mobile = req.body.mobile;
-    const address = req.body.address;
+    const {
+      name,
+      servicetype,
+      email,
+      phone,
+      mobile,
+      address,
+    } = req.body;
     const { errors, isValid } = validateCompanyRegisterInput(req.body);
 
     // Check validation
@@ -77,27 +80,26 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Company.findOne({ email: email })
-      .then(company => {
+    return Company.findOne({ email })
+      .then((company) => {
         if (company) {
           errors.email = 'Email already exists';
           return res.status(400).json(errors);
-        } else {
-          const newCompany = new Company({
-            name,
-            servicetype,
-            email,
-            phone,
-            mobile,
-            address,
-          });
-
-          newCompany.save()
-            .then(yacht => res.json(yacht))
-            .catch(err => console.log(err));
         }
+        const newCompany = new Company({
+          name,
+          servicetype,
+          email,
+          phone,
+          mobile,
+          address,
+        });
+
+        return newCompany.save()
+          .then(yacht => res.json(yacht))
+          .catch(err => console.log(err)); // eslint-disable-line no-console
       });
-  }
+  },
 );
 
 // @route   POST api/company/:company_id
@@ -105,14 +107,16 @@ router.post(
 // @access  Private
 router.post(
   '/:company_id',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const name = req.body.name;
-    const servicetype = req.body.servicetype;
-    const email = req.body.email;
-    const phone = req.body.phone;
-    const mobile = req.body.mobile;
-    const address = req.body.address;
+    const {
+      name,
+      servicetype,
+      email,
+      phone,
+      mobile,
+      address,
+    } = req.body;
     const { errors, isValid } = validateCompanyRegisterInput(req.body);
 
     // Check validation
@@ -120,7 +124,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Company.findByIdAndUpdate(
+    return Company.findByIdAndUpdate(
       req.params.company_id,
       {
         name,
@@ -130,15 +134,15 @@ router.post(
         mobile,
         address,
       },
-      { new: true }
+      { new: true },
     )
       .then(company => res.json(company))
-      .catch(err => {
+      .catch((err) => {
         errors.name = 'Company does not exist';
-        console.log(err);
+        console.log(err); // eslint-disable-line no-console
         return res.status(400).json(errors);
       });
-  }
+  },
 );
 
 // @route   DELETE api/company/:company_id
@@ -152,7 +156,7 @@ router.delete(
       .deleteOne({ _id: req.params.company_id })
       .exec()
       .then(() => res.json({ success: true }));
-  }
+  },
 );
 
 module.exports = router;

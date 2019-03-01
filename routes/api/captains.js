@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 
@@ -17,19 +18,19 @@ router.get(
     const errors = {};
 
     Captain.find()
-      .then(captains => {
+      .then((captains) => {
         if (!captains) {
           errors.nocaptains = 'There are no captains';
           return res.status(404).json(errors);
         }
 
-        res.json(captains);
+        return res.status(200).json(captains);
       })
-      .catch(err => {
-        err.msg = { captains: 'There are no captains' };
-        return res.status(404).json(err.msg);
+      .catch((err) => {
+        const msg = { captains: 'There are no captains' };
+        return res.status(404).json(err, msg);
       });
-  }
+  },
 );
 
 // @route   GET api/captains/:id
@@ -42,19 +43,19 @@ router.get(
     const errors = {};
 
     Captain.findById(req.params.id)
-      .then(captain => {
+      .then((captain) => {
         if (!captain) {
           errors.nocaptain = 'This captain does not exist';
           return res.status(404).json(errors);
         }
 
-        res.json(captain);
+        return res.status(200).json(captain);
       })
-      .catch(err => {
-        err.msg = { captain: 'There is no matching captain' };
-        return res.status(404).json(err.msg);
+      .catch((err) => {
+        const msg = { captain: 'There is no matching captain' };
+        return res.status(404).json(err, msg);
       });
-  }
+  },
 );
 
 // @route   POST api/captians/register
@@ -62,7 +63,7 @@ router.get(
 // @access  Private
 router.post(
   '/register',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateCaptainInput(req.body);
     // Check validation
@@ -70,29 +71,28 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    const email = req.body.email;
+    const { email } = req.body;
 
-    Captain.findOne({ email: email })
-      .then(captain => {
+    return Captain.findOne({ email })
+      .then((captain) => {
         if (captain) {
           errors.email = 'Email already exists';
           return res.status(400).json(errors);
-        } else {
-          const newCaptain = new Captain({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email,
-            phone: req.body.phone,
-            mobile: req.body.mobile,
-            address: req.body.address,
-          });
-
-          newCaptain.save()
-            .then(captain => res.json(captain))
-            .catch(err => console.log(err));
         }
+        const newCaptain = new Captain({
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email,
+          phone: req.body.phone,
+          mobile: req.body.mobile,
+          address: req.body.address,
+        });
+
+        return newCaptain.save()
+          .then(newCaptainObj => res.json(newCaptainObj))
+          .catch(err => res.status(400).json(err));
       });
-  }
+  },
 );
 
 // @route   DELETE api/captians/:captain_id
@@ -106,7 +106,7 @@ router.delete(
       .deleteOne({ _id: req.params.captain_id })
       .exec()
       .then(() => res.json({ success: true }));
-  }
+  },
 );
 
 module.exports = router;
