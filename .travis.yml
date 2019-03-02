@@ -1,6 +1,6 @@
 before_script:
   - npm install
-  - cd client && npm install --suppress-optional fsevents@1.2.7
+  - cd client && npm install --ignore-optional
 script:
   - npm run linter
   - npm run client-tests
