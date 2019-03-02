@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: mhart/alpine-node:10
+      - image: mhart/alpine-node:10.14.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -27,19 +27,14 @@ jobs:
             - v1-dependencies-
 
       - run: |
-        npm install
-        npm run linter
-
-      - run: |
-        cd ~/ytracker/client
-        npm install
-        npm test
-        npm run check-staged
+          cd ~/ytracker/client
+          npm install
+          npm test
 
       - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       # - run: |
       #     cd ~/ytracker/client

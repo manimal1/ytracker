@@ -1,0 +1,9 @@
+before_script:
+  - npm install
+script: npm run linter
+language: node_js
+env:
+  - PORT=7777
+node_js:
+  - '10'
+  - '9'
