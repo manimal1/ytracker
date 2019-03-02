@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const yachtService = {
+const yachtService = {
   name: '',
   isPaid: false,
   isCompleted: false,
@@ -22,3 +22,5 @@ export const yachtService = {
   chargedTax: '',
   chargedTotal: '',
 };
+
+export default yachtService;

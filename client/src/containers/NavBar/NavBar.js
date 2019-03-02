@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router";
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../containers/LoginUser/actions';
-import { clearCurrentProfile } from '../../containers/Profile/actions';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import BoatIcon from '@material-ui/icons/DirectionsBoat';
@@ -17,6 +14,8 @@ import StoreIcon from '@material-ui/icons/Store';
 import RowingIcon from '@material-ui/icons/Rowing';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { clearCurrentProfile } from '../Profile/actions';
+import { logoutUser } from '../LoginUser/actions';
 
 import { TopNav, BottomNav, AccountMenu } from './components';
 
@@ -30,7 +29,7 @@ const styles = theme => ({
   logo: {
     textDecoration: 'none',
     color: '#FFFFFF',
-  }
+  },
 });
 
 class NavBar extends Component {
@@ -41,13 +40,18 @@ class NavBar extends Component {
       selectedIndex: 0,
       accountMenuAnchor: null,
       navMenu: [
-        { label: 'Dashboard', icon: <DashboardIcon/>, path: '/dashboard' },
-        { label: 'Yachts', icon: <BoatIcon/>, path: '/yachts' },
-        { label: 'Companies', icon: <StoreIcon/>, path: '/company' },
-        { label: 'Crew', icon: <RowingIcon/>, path: '/crew' },
+        { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+        { label: 'Yachts', icon: <BoatIcon />, path: '/yachts' },
+        { label: 'Companies', icon: <StoreIcon />, path: '/company' },
+        { label: 'Crew', icon: <RowingIcon />, path: '/crew' },
         // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
-      ]
-    }
+      ],
+    };
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.checkViewportWidth);
+    this.checkViewportWidth();
   }
 
   componentDidMount() {
@@ -61,11 +65,6 @@ class NavBar extends Component {
     });
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.checkViewportWidth);
-    this.checkViewportWidth();
-  }
-
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkViewportWidth);
   }
@@ -73,38 +72,38 @@ class NavBar extends Component {
   checkViewportWidth = () => {
     if (window.innerWidth <= 768) {
       this.setState({
-        isMobile: true
+        isMobile: true,
       });
     } else {
       this.setState({
-        isMobile: false
+        isMobile: false,
       });
     }
-  }
+  };
 
   handleNavMenuItemSelect = (e, index) => {
-    this.setState({selectedIndex: index});
-  }
+    this.setState({ selectedIndex: index });
+  };
 
-  handleAccountMenu = (event) => {
-    this.setState({accountMenuAnchor: event.currentTarget});
-  }
+  handleAccountMenu = event => {
+    this.setState({ accountMenuAnchor: event.currentTarget });
+  };
 
   handleAccountMenuClose = () => {
-    this.setState({accountMenuAnchor: null});
-  }
+    this.setState({ accountMenuAnchor: null });
+  };
 
   handleAuthPageRedirect = () => {
     this.setState({ selectedIndex: 0 });
     this.handleAccountMenuClose();
-  }
+  };
 
-  handleLogoutUser = (e) => {
+  handleLogoutUser = e => {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
     this.handleAccountMenuClose();
-  }
+  };
 
   render() {
     const { isMobile, selectedIndex, accountMenuAnchor, navMenu } = this.state;
@@ -121,44 +120,49 @@ class NavBar extends Component {
               aria-label="Menu"
               onClick={toggleDrawer(!isDrawerOpen)}
             >
-              <MenuIcon/>
+              <MenuIcon />
             </IconButton>
-            { children }
+            {children}
             <Link
               className={classes.logo}
               to={isAuthenticated ? '/dashboard' : '/'}
-              onClick={(e) => this.handleNavMenuItemSelect(e, 0)}
+              onClick={e => this.handleNavMenuItemSelect(e, 0)}
             >
               YTracker
             </Link>
           </Typography>
-          <AccountMenu {...{
-            isMobile,
-            isMenuOpen,
-            accountMenuAnchor,
-            isAuthenticated,
-            user,
-            handleAuthPageRedirect: this.handleAuthPageRedirect,
-            handleAccountMenu: this.handleAccountMenu,
-            handleAccountMenuClose: this.handleAccountMenuClose,
-            handleLogoutUser: this.handleLogoutUser,
+          <AccountMenu
+            {...{
+              isMobile,
+              isMenuOpen,
+              accountMenuAnchor,
+              isAuthenticated,
+              user,
+              handleAuthPageRedirect: this.handleAuthPageRedirect,
+              handleAccountMenu: this.handleAccountMenu,
+              handleAccountMenuClose: this.handleAccountMenuClose,
+              handleLogoutUser: this.handleLogoutUser,
             }}
           />
         </Toolbar>
-        {!isMobile && isAuthenticated &&
-          <TopNav {...{
-            navMenu,
-            selectedIndex,
-            handleNavMenuItemSelect: this.handleNavMenuItemSelect
-          }} />
-        }
-        {isMobile && isAuthenticated &&
-          <BottomNav {...{
-            navMenu,
-            selectedIndex,
-            handleNavMenuItemSelect: this.handleNavMenuItemSelect
-          }} />
-        }
+        {!isMobile && isAuthenticated && (
+          <TopNav
+            {...{
+              navMenu,
+              selectedIndex,
+              handleNavMenuItemSelect: this.handleNavMenuItemSelect,
+            }}
+          />
+        )}
+        {isMobile && isAuthenticated && (
+          <BottomNav
+            {...{
+              navMenu,
+              selectedIndex,
+              handleNavMenuItemSelect: this.handleNavMenuItemSelect,
+            }}
+          />
+        )}
       </AppBar>
     );
   }
@@ -166,8 +170,8 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-}
+  auth: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -177,6 +181,6 @@ export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    { logoutUser, clearCurrentProfile }
+    { logoutUser, clearCurrentProfile },
   ),
 )(withRouter(NavBar));

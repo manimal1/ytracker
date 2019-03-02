@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { registerUser } from './actions';
-import { Register } from './Register';
+import Register from './Register';
 
 class RegisterUser extends Component {
   constructor(props) {
@@ -19,18 +19,12 @@ class RegisterUser extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
-    if (nextProps.errors !== prevState.errors ){
-      return {errors : nextProps.errors};
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.errors !== prevState.errors) {
+      return { errors: nextProps.errors };
     }
-    
-    else return null;
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.errors !== this.state.errors) {
-      this.setState({ errors: this.state.errors });
-    }
+    return null;
   }
 
   componentDidMount() {
@@ -39,11 +33,17 @@ class RegisterUser extends Component {
     }
   }
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.errors !== this.state.errors) {
+      this.setState({ errors: this.state.errors });
+    }
   }
 
-  onSubmit = (e) => {
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = e => {
     e.preventDefault();
     const newUser = {
       firstname: this.state.firstname,
@@ -51,10 +51,10 @@ class RegisterUser extends Component {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
-    }
+    };
 
     this.props.registerUser(newUser, this.props.history);
-  }
+  };
 
   render() {
     const {
@@ -69,32 +69,33 @@ class RegisterUser extends Component {
     const onSubmit = this.onSubmit;
 
     return (
-      <Register {...{
-        firstname,
-        lastname,
-        email,
-        password,
-        password2,
-        onChange,
-        onSubmit,
-        errors,
-      }} />
+      <Register
+        {...{
+          firstname,
+          lastname,
+          email,
+          password,
+          password2,
+          onChange,
+          onSubmit,
+          errors,
+        }}
+      />
     );
   }
 }
 
 RegisterUser.propTypes = {
   registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-}
+  auth: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
 });
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { registerUser },
 )(withRouter(RegisterUser));

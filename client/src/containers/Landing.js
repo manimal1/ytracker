@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import desktopImg from '../img/bg-login.jpg';
 import mobileImg from '../img/bg-login-mobile.jpg';
 
-const styles = theme => ({
+const styles = () => ({
   desktopHeader: {
     backgroundImage: `url(${desktopImg})`,
     backgroundSize: 'cover',
@@ -27,7 +27,8 @@ const styles = theme => ({
     position: 'relative',
   },
   gradient: {
-    background: 'linear-gradient(90deg, rgba(72,188,250,0.40) 0%, rgba(73,105,242,0.40) 100%)',
+    background:
+      'linear-gradient(90deg, rgba(72,188,250,0.40) 0%, rgba(73,105,242,0.40) 100%)',
     position: 'absolute',
     top: '0',
     bottom: '4px',
@@ -62,7 +63,7 @@ const styles = theme => ({
   },
   button: {
     width: '100px',
-  }
+  },
 });
 
 class Landing extends Component {
@@ -70,18 +71,18 @@ class Landing extends Component {
     super(props);
     this.state = {
       isMobile: false,
-    }
+    };
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.checkViewportWidth);
+    this.checkViewportWidth();
   }
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
-  }
-
-  componentWillMount() {
-    window.addEventListener('resize', this.checkViewportWidth);
-    this.checkViewportWidth();
   }
 
   componentWillUnmount() {
@@ -91,20 +92,22 @@ class Landing extends Component {
   checkViewportWidth = () => {
     if (window.innerWidth <= 768) {
       this.setState({
-        isMobile: true
+        isMobile: true,
       });
     } else {
       this.setState({
-        isMobile: false
+        isMobile: false,
       });
     }
-  }
+  };
 
   render() {
     const { isMobile } = this.state;
     const { classes } = this.props;
     // const bgImage = isMobile ? mobileImg : desktopImg;
-    const bgImageClass = isMobile ? classes.mobileHeader : classes.desktopHeader;
+    const bgImageClass = isMobile
+      ? classes.mobileHeader
+      : classes.desktopHeader;
 
     return (
       <div>
@@ -143,8 +146,8 @@ class Landing extends Component {
 }
 
 Landing.propTypes = {
-  auth: PropTypes.object.isRequired,
-}
+  auth: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,

@@ -1,19 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import { default as CompanySelector } from '../../../CompanySelector';
-import { default as YachtSelector } from '../../../YachtSelector';
-import Heading from '../../../../components/Heading';
-import SectionTitle from '../../../../components/SectionTitle';
-import Spinner from '../../../../components/Spinner';
-import Service from '../../../../components/Service';
+import CompanySelector from 'containers/CompanySelector';
+import YachtSelector from 'containers/YachtSelector';
+import Heading from 'components/Heading';
+import SectionTitle from 'components/SectionTitle';
+import Spinner from 'components/Spinner';
+import Service from 'components/Service';
 
-const styles = theme => ({
+const styles = () => ({
   card: {
     position: 'relative',
   },
@@ -23,7 +22,7 @@ const styles = theme => ({
   },
 });
 
-const ServiceForm = (props) => {
+const ServiceForm = props => {
   const {
     yachtService,
     taxValues,
@@ -81,11 +80,6 @@ const ServiceForm = (props) => {
       </form>
     </div>
   );
-}
-
-ServiceForm.propTypes = {
-  onSubmit: PropTypes.func,
-  classes: PropTypes.object,
-}
+};
 
 export default withStyles(styles)(ServiceForm);

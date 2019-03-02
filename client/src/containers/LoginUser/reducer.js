@@ -9,8 +9,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  switch(type) {
-
+  switch (type) {
     case SET_CURRENT_USER:
       return {
         ...state,
@@ -20,6 +19,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

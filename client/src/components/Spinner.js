@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   component: {
     position: 'relative',
-  }
+  },
 });
 
 const Spinner = props => {
@@ -38,10 +38,10 @@ const Spinner = props => {
       />
     </div>
   );
-}
+};
 
 Spinner.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(Spinner);

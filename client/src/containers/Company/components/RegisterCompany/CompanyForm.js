@@ -35,7 +35,7 @@ const styles = theme => ({
   },
 });
 
-const CompanyForm = (props) => {
+const CompanyForm = props => {
   const {
     company,
     onChange,
@@ -50,54 +50,93 @@ const CompanyForm = (props) => {
   }
 
   const nameInputData = {
-    id: 'companyname', name: 'name', label: 'Company Name', type: 'text',
-    value: company.name, error: errors && errors.name,
+    id: 'companyname',
+    name: 'name',
+    label: 'Company Name',
+    type: 'text',
+    value: company.name,
+    error: errors && errors.name,
     helperText: errors && errors.name ? errors.name : '',
   };
 
   const primaryCompanyInputData = [
     {
-      keyname: 'companyData', id: 'email', name: 'email',
-      label: 'Company Email', type: 'text',
-      value: company.email, error: errors && errors.email,
+      keyname: 'companyData',
+      id: 'email',
+      name: 'email',
+      label: 'Company Email',
+      type: 'text',
+      value: company.email,
+      error: errors && errors.email,
       helperText: errors && errors.email ? errors.email : '',
     },
     {
-      keyname: 'companyData', id: 'phone', name: 'phone',
-      label: 'Company phone', type: 'number',
-      value: company.phone, error: false, helperText: '',
+      keyname: 'companyData',
+      id: 'phone',
+      name: 'phone',
+      label: 'Company phone',
+      type: 'number',
+      value: company.phone,
+      error: false,
+      helperText: '',
     },
     {
-      keyname: 'companyData', id: 'mobile', name: 'mobile',
-      label: 'Company mobile', type: 'number',
-      value: company.mobile, error: false, helperText: '',
+      keyname: 'companyData',
+      id: 'mobile',
+      name: 'mobile',
+      label: 'Company mobile',
+      type: 'number',
+      value: company.mobile,
+      error: false,
+      helperText: '',
     },
   ];
 
   const setCompanyAddressInputData = [
     {
-      keyname: 'companyAddress', label: 'Address Line 1',
-      id: 'addressline1', name: 'addressline1',
-      type: 'text', value: company.address.addressline1, error: '',
+      keyname: 'companyAddress',
+      label: 'Address Line 1',
+      id: 'addressline1',
+      name: 'addressline1',
+      type: 'text',
+      value: company.address.addressline1,
+      error: '',
     },
     {
-      keyname: 'companyAddress', label: 'Address Line 2',
-      id: 'addressline2', name: 'addressline2',
-      type: 'text', value: company.address.addressline2, error: '',
+      keyname: 'companyAddress',
+      label: 'Address Line 2',
+      id: 'addressline2',
+      name: 'addressline2',
+      type: 'text',
+      value: company.address.addressline2,
+      error: '',
     },
     {
-      keyname: 'companyAddress', label: 'Postal Code',
-      id: 'postalcode', name: 'postalcode',
-      type: 'text', value: company.address.postalcode, error: '',
+      keyname: 'companyAddress',
+      label: 'Postal Code',
+      id: 'postalcode',
+      name: 'postalcode',
+      type: 'text',
+      value: company.address.postalcode,
+      error: '',
     },
     {
-      keyname: 'companyAddress', label: 'City',
-      id: 'city', name: 'city',
-      type: 'text', value: company.address.city, error: '',
+      keyname: 'companyAddress',
+      label: 'City',
+      id: 'city',
+      name: 'city',
+      type: 'text',
+      value: company.address.city,
+      error: '',
     },
     {
-      keyname: 'companyAddress', label: 'Country', id: 'country', name: 'country',
-      type: 'text', value: company.address.country, error: '',
+      keyname: 'companyAddress',
+      label: 'Country',
+      id: 'country',
+      name: 'country',
+      type: 'text',
+      value: company.address.country,
+      error: '',
     },
   ];
 
@@ -121,36 +160,24 @@ const CompanyForm = (props) => {
                 id: 'servicetype',
               }}
             >
-              <MenuItem value={'Provisions'}>Provisions</MenuItem>
-              <MenuItem value={'Government'}>Government</MenuItem>
-              <MenuItem value={'Boat Supplies'}>Boat Supplies</MenuItem>
+              <MenuItem value="Provisions">Provisions</MenuItem>
+              <MenuItem value="Government">Government</MenuItem>
+              <MenuItem value="Boat Supplies">Boat Supplies</MenuItem>
             </Select>
           </FormControl>
-          <TextFieldList
-            list={primaryCompanyInputData}
-            onChange={onChange}
-          />
+          <TextFieldList list={primaryCompanyInputData} onChange={onChange} />
         </CardContent>
       </Card>
 
-      <ExpansionPanelGroup
-        label="Address"
-      >
-        <TextFieldList
-          list={setCompanyAddressInputData}
-          onChange={onChange}
-        />
+      <ExpansionPanelGroup label="Address">
+        <TextFieldList list={setCompanyAddressInputData} onChange={onChange} />
       </ExpansionPanelGroup>
 
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-      >
+      <Button variant="contained" color="primary" type="submit">
         Add Company
       </Button>
     </form>
   );
-}
+};
 
 export default withStyles(styles)(CompanyForm);

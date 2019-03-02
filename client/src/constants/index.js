@@ -1,2 +1,4 @@
-export { default as alertConstants } from './alertConstants';
-export { default as errorConstants } from './errorConstants';
+import alertConstants from './alertConstants';
+import errorConstants from './errorConstants';
+
+export { alertConstants, errorConstants };

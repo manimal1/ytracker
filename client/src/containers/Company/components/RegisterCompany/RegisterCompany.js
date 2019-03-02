@@ -7,7 +7,7 @@ import { registerCompany, clearCompanyRegistrationData } from './actions';
 import CompanyFormSwitcher from './CompanyFormSwitcher';
 
 class RegisterCompany extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -32,16 +32,16 @@ class RegisterCompany extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.errors !== prevState.errors) {
-      return {errors: nextProps.errors};
+      return { errors: nextProps.errors };
     }
 
     if (nextProps.companyRegister !== prevState.companyRegister) {
-      return {companyRegister: nextProps.companyRegister};
+      return { companyRegister: nextProps.companyRegister };
     }
-    
-    else return null;
+
+    return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -63,9 +63,9 @@ class RegisterCompany extends Component {
     this.props.clearCompanyRegistrationData();
   }
 
-  onChange = (e) => {
-    let name = e.target.name;
-    let company = {...this.state.company};
+  onChange = e => {
+    const name = e.target.name;
+    const company = { ...this.state.company };
     const addressFields = [
       'addressline1',
       'addressline2',
@@ -81,7 +81,7 @@ class RegisterCompany extends Component {
     }
 
     this.setState({ company });
-  }
+  };
 
   setIsCompanySelected = () => {
     if (this.state.isCompanySelected === true) {
@@ -89,31 +89,33 @@ class RegisterCompany extends Component {
     }
 
     window.setTimeout(() => this.setState({ isCompanySelected: true }), 20);
-  }
+  };
 
-
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const newCompany = this.state.company;
 
     this.props.registerCompany(newCompany);
-  }
+  };
 
   render() {
     const onChange = this.onChange;
     const setIsCompanySelected = this.setIsCompanySelected;
     const onSubmit = this.onSubmit;
-    const isDataFetching = this.props.registerCompany 
-      && this.props.registerCompany.isFetching === true;
+    const isDataFetching =
+      this.props.registerCompany &&
+      this.props.registerCompany.isFetching === true;
 
     return (
-      <CompanyFormSwitcher {...{
-        ...this.state,
-        onChange,
-        setIsCompanySelected,
-        onSubmit,
-        isDataFetching
-      }} />
+      <CompanyFormSwitcher
+        {...{
+          ...this.state,
+          onChange,
+          setIsCompanySelected,
+          onSubmit,
+          isDataFetching,
+        }}
+      />
     );
   }
 }
@@ -121,15 +123,15 @@ class RegisterCompany extends Component {
 RegisterCompany.propTypes = {
   registerCompany: PropTypes.func.isRequired,
   clearCompanyRegistrationData: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-}
+  errors: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 RegisterCompany.contextTypes = {
   handlePanelSwitch: PropTypes.func,
   setSelectedIndex: PropTypes.func,
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   companyData: state.companyData,
   companyRegister: state.companyRegister,
   errors: state.errors,

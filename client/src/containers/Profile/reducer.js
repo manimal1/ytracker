@@ -1,18 +1,14 @@
-import {
-  PROFILE_LOADING,
-  GET_PROFILE,
-  CLEAR_CURRENT_PROFILE,
-} from './actions';
+import { PROFILE_LOADING, GET_PROFILE, CLEAR_CURRENT_PROFILE } from './actions';
 
 const initialState = {
   profile: null,
-  loading: false
+  loading: false,
 };
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  switch(type) {
+  switch (type) {
     case PROFILE_LOADING:
       return {
         ...state,
@@ -32,6 +28,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

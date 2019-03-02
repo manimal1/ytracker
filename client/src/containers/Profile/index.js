@@ -1,4 +1,4 @@
-import { default as Profile } from './Profile';
+import Profile from './Profile';
 import * as actions from './actions';
 import reducer from './reducer';
 

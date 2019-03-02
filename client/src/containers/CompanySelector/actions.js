@@ -27,9 +27,9 @@ export const getAllCompanies = () => dispatch => {
         payload: err.response.data,
       });
     });
-}
+};
 
-export const getCompanyById = (id) => dispatch => {
+export const getCompanyById = id => dispatch => {
   axios
     .get(`/api/company/${id}`)
     .then(res => {
@@ -46,18 +46,18 @@ export const getCompanyById = (id) => dispatch => {
         payload: err.response.data,
       });
     });
-}
+};
 
 export const clearCompanies = () => dispatch => {
   dispatch({
     type: CLEAR_COMPANIES,
     payload: [],
-  })
-}
+  });
+};
 
 export const clearSelectedCompany = () => dispatch => {
   dispatch({
     type: CLEAR_SELECTED_COMPANY,
     payload: {},
-  })
-}
+  });
+};

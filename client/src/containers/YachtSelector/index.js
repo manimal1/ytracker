@@ -1,4 +1,4 @@
-import { default as YachtSelector } from './YachtSelector';
+import YachtSelector from './YachtSelector';
 import * as actions from './actions';
 import reducer from './reducer';
 

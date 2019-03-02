@@ -1,22 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { default as CompanySelector } from '../../../CompanySelector';
-import { default as UpdateCompanyForm } from './UpdateCompanyForm';
-import { default as CompanyForm } from './CompanyForm';
 
 import { withStyles } from '@material-ui/core/styles';
+import CompanySelector from '../../../CompanySelector';
+import UpdateCompanyForm from './UpdateCompanyForm';
+import CompanyForm from './CompanyForm';
 
 import Heading from '../../../../components/Heading';
 
-const styles = theme => ({
+const styles = () => ({
   heading: {
     marginTop: '16px',
     marginBottom: '16px',
   },
 });
 
-const YachtFormSwitcher = (props) => {
+const YachtFormSwitcher = props => {
   const {
     classes,
     company,
@@ -39,31 +37,27 @@ const YachtFormSwitcher = (props) => {
   return (
     <div className="company-forms">
       <Heading text="Update Company" class={classes.heading} />
-      <CompanySelector {...{
-        setIsCompanySelected,
-        card: true,
-        label: 'Existing Companies',
-      }} />
-      {!isCompanySelected &&
+      <CompanySelector
+        {...{
+          setIsCompanySelected,
+          card: true,
+          label: 'Existing Companies',
+        }}
+      />
+      {!isCompanySelected && (
         <React.Fragment>
           <Heading text="or Add New Company" class={classes.heading} />
           <CompanyForm {...companyProps} />
         </React.Fragment>
-      }
-      {isCompanySelected &&
+      )}
+      {isCompanySelected && (
         <React.Fragment>
           <Heading text="Updating Company" class={classes.heading} />
-          <UpdateCompanyForm {...{isCompanySelected}} />
+          <UpdateCompanyForm {...{ isCompanySelected }} />
         </React.Fragment>
-      }
+      )}
     </div>
   );
-}
-
-YachtFormSwitcher.propTypes = {
-  selectedYachtProps: PropTypes.object,
-  isCompanySelected: PropTypes.bool,
-  setIsCompanySelected: PropTypes.func,
-}
+};
 
 export default withStyles(styles)(YachtFormSwitcher);

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
@@ -8,9 +7,9 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import Heading from '../../../components/Heading';
+import Heading from 'components/Heading';
 
-const styles = theme => ({
+const styles = () => ({
   pagewrapper: {
     marginLeft: '16px',
     marginRight: '16px',
@@ -29,7 +28,7 @@ const styles = theme => ({
   },
 });
 
-const Register = (props) => {
+const Register = props => {
   const {
     classes,
     firstname,
@@ -42,11 +41,31 @@ const Register = (props) => {
     errors,
   } = props;
   const inputItems = [
-    { label: 'firstname', type: 'text', value: firstname, error: errors.firstname },
-    { label: 'lastname', type: 'text', value: lastname, error: errors.lastname },
+    {
+      label: 'firstname',
+      type: 'text',
+      value: firstname,
+      error: errors.firstname,
+    },
+    {
+      label: 'lastname',
+      type: 'text',
+      value: lastname,
+      error: errors.lastname,
+    },
     { label: 'email', type: 'email', value: email, error: errors.email },
-    { label: 'password', type: 'password', value: password, error: errors.password },
-    { label: 'confirm password', type: 'password', value: password2, error: errors.password2 },
+    {
+      label: 'password',
+      type: 'password',
+      value: password,
+      error: errors.password,
+    },
+    {
+      label: 'confirm password',
+      type: 'password',
+      value: password2,
+      error: errors.password2,
+    },
   ];
 
   return (
@@ -55,33 +74,29 @@ const Register = (props) => {
         <Card>
           <CardContent>
             <Heading text="Register" />
-            {
-              inputItems.map((item, index) => {
-                return (
-                  <TextField
-                    key={`register-${index}`}
-                    id={item.label}
-                    name={item.label === 'confirm password' ? 'password2' : item.label}
-                    label={item.label}
-                    className={classes.textField}
-                    type={item.type}
-                    autoComplete={`current-${item.label}`}
-                    margin="normal"
-                    value={item.value}
-                    onChange={onChange}
-                    error={item.error ? true : false}
-                    helperText={item.error}
-                  />
-                )
-              })
-            }
+            {inputItems.map((item, index) => {
+              return (
+                <TextField
+                  key={`register-${index}`}
+                  id={item.label}
+                  name={
+                    item.label === 'confirm password' ? 'password2' : item.label
+                  }
+                  label={item.label}
+                  className={classes.textField}
+                  type={item.type}
+                  autoComplete={`current-${item.label}`}
+                  margin="normal"
+                  value={item.value}
+                  onChange={onChange}
+                  error={!!item.error}
+                  helperText={item.error}
+                />
+              );
+            })}
           </CardContent>
           <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
+            <Button variant="contained" color="primary" type="submit">
               Register
             </Button>
           </CardActions>
@@ -89,18 +104,6 @@ const Register = (props) => {
       </div>
     </form>
   );
-}
-
-Register.propTypes = {
-  classes: PropTypes.object,
-  firstname: PropTypes.string,
-  lastname: PropTypes.string,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  password2: PropTypes.string,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  errors: PropTypes.object,
-}
+};
 
 export default withStyles(styles)(Register);

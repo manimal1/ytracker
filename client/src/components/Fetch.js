@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
+/* eslint-disable no-unused-vars */
 class Fetch extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: void 0,
-      error: void 0,
+      data: void 0, // eslint-disable-line no-void
+      error: void 0, // eslint-disable-line no-void
       loading: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -28,16 +29,15 @@ class Fetch extends Component {
       const json = await response.json();
       this.setState({ data: json });
       this.setState({ loading: false });
-    }
-    catch (err) {
-      this.setState({ error: err })
+    } catch (err) {
+      this.setState({ error: err });
     }
   }
 
   render() {
-    if(this.state.loading) return <div>Loading...</div>
-    if(this.state.error) return this.props.error(this.state.error);
+    if (this.state.loading) return <div>Loading...</div>;
+    if (this.state.error) return this.props.error(this.state.error);
     if (this.props.render(this.state.data)) return null;
-    else return null;
+    return null;
   }
 }

@@ -13,7 +13,7 @@ export const addYachtService = (yachtId, companyId, service) => dispatch => {
       dispatch({ type: ADD_YACHT_SERVICE });
       dispatch({
         type: ADD_YACHT_SERVICE_SUCCESS,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(err => {
@@ -25,8 +25,8 @@ export const addYachtService = (yachtId, companyId, service) => dispatch => {
       });
       return err;
     });
-}
+};
 
 export const clearYachtServiceData = () => dispatch => {
   dispatch({ type: CLEAR_YACHT_SERVICE });
-}
+};

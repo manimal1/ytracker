@@ -1,4 +1,4 @@
-export const selectedYacht = {
+const selectedYacht = {
   _id: '',
   name: '',
   email: '',
@@ -53,4 +53,6 @@ export const selectedYacht = {
       country: '',
     },
   },
-}
+};
+
+export default selectedYacht;

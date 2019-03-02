@@ -6,7 +6,7 @@ import Drawer from '@material-ui/core/Drawer';
 
 const drawerWidth = 226;
 
-const styles = theme => ({
+const styles = () => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-const PermanentDrawer = ({classes, children }) => (
+const PermanentDrawer = ({ classes, children }) => (
   <Drawer
     className={classes.drawer}
     variant="permanent"
@@ -30,7 +30,7 @@ const PermanentDrawer = ({classes, children }) => (
 );
 
 PermanentDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
+  classes: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default withStyles(styles)(PermanentDrawer);

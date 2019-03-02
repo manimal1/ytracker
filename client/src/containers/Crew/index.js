@@ -1,4 +1,4 @@
-import { default as Crew } from "./Crew";
+import Crew from './Crew';
 // import * as actions from "./actions";
 // import reducer from "./reducer";
 

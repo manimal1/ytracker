@@ -18,13 +18,12 @@ const styles = theme => ({
 });
 
 const TextFieldList = ({ item, onChange, onBlur, className, classes }) => {
-  
   return (
     <TextField
       id={item.id ? item.id : ''}
       name={item.name ? item.name : ''}
       label={item.label ? item.label : ''}
-      className={`${classes.textField} ${className ? className : ''}`}
+      className={`${classes.textField} ${className || ''}`}
       type={item.type ? item.type : ''}
       autoComplete="on"
       margin="normal"
@@ -32,18 +31,20 @@ const TextFieldList = ({ item, onChange, onBlur, className, classes }) => {
       max={item.max ? item.max : ''}
       step={item.step ? item.step : ''}
       value={item.value ? item.value : ''}
-      onChange={onChange ? onChange : undefined}
-      onBlur={onBlur ? onBlur : undefined}
-      required={item.required ? true : false}
-      error={item.error ? true : false}
+      onChange={onChange || undefined}
+      onBlur={onBlur || undefined}
+      required={!!item.required}
+      error={!!item.error}
       helperText={item.error ? item.error : ''}
       InputProps={{
-        endAdornment: <InputAdornment position="end">
-          {item.adornment ? item.adornment : ''}
-        </InputAdornment>,
+        endAdornment: (
+          <InputAdornment position="end">
+            {item.adornment ? item.adornment : ''}
+          </InputAdornment>
+        ),
       }}
     />
-  )
-}
+  );
+};
 
 export default withStyles(styles)(TextFieldList);

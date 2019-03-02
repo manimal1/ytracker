@@ -27,9 +27,9 @@ export const getAllYachts = () => dispatch => {
         payload: err.response.data,
       });
     });
-}
+};
 
-export const getYachtById = (id) => dispatch => {
+export const getYachtById = id => dispatch => {
   axios
     .get(`/api/yachts/${id}`)
     .then(res => {
@@ -46,18 +46,18 @@ export const getYachtById = (id) => dispatch => {
         payload: err.response.data,
       });
     });
-}
+};
 
 export const clearYachts = () => dispatch => {
   dispatch({
     type: CLEAR_YACHTS,
     payload: [],
-  })
-}
+  });
+};
 
 export const clearSelectedYacht = () => dispatch => {
   dispatch({
     type: CLEAR_SELECTED_YACHT,
     payload: {},
-  })
-}
+  });
+};
