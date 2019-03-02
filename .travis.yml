@@ -1,6 +1,10 @@
 before_script:
   - npm install
-script: npm run linter
+  - npm run client-install
+script:
+  - npm run linter
+  - npm run client-tests
+  - npm run client-commit-check
 language: node_js
 env:
   - PORT=7777

@@ -13,6 +13,7 @@
     "client-install": "npm install --prefix client",
     "client-build": "npm run build --prefix client",
     "client-tests": "CI=true npm run test --prefix client",
+    "client-commit-check": "npm run check-staged --prefix client",
     "start": "node server.js",
     "server": "FORCE_COLOR=true nodemon server.js",
     "client": "npm start --prefix client",
