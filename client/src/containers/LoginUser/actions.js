@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'; // eslint-disable-line camelcase
 import setAuthToken from 'utils/setAuthToken';
-import errorConstants from 'constants';
+import errorConstants from 'constants/errorConstants';
 
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
@@ -28,12 +28,12 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(decoded));
       dispatch({ type: errorConstants.CLEAR_ERRORS });
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
-      }),
-    );
+      });
+    });
 };
 
 export const logoutUser = () => dispatch => {
