@@ -1,6 +1,6 @@
 before_script:
   - npm install
-  - npm run client-install
+  - cd client && npm install --no-optional
 script:
   - npm run linter
   - npm run client-tests
