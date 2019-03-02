@@ -28,7 +28,7 @@ jobs:
 
       - run: |
           cd ~/ytracker/client
-          npm install --suppress-optional fsevents@1.2.7
+          npm install --no-optional
           npm test
 
       - save_cache:
