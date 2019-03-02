@@ -32,7 +32,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose=true",
     "eject": "react-scripts eject",
-    "lint": "eslint src -c .eslintrc --ext js,jsx --fix"
+    "lint": "eslint src -c .eslintrc --ext js,jsx --fix",
+    "check-staged": "lint-staged"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +49,19 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint"
+    ],
+    "src/**/*.{js,jsx,json,md}": [
+      "prettier --list-different"
+    ]
+  },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
     "babel-eslint": "^10.0.1",
