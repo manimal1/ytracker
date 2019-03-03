@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { PropTypes } from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -144,10 +143,6 @@ class Landing extends Component {
     );
   }
 }
-
-Landing.propTypes = {
-  auth: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 const mapStateToProps = state => ({
   auth: state.auth,

@@ -119,7 +119,6 @@ class UpdateYachtForm extends Component {
 UpdateYachtForm.propTypes = {
   updateYacht: PropTypes.func.isRequired,
   clearYachtRegistrationData: PropTypes.func.isRequired,
-  yachtRegister: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 UpdateYachtForm.contextTypes = {

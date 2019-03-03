@@ -123,7 +123,6 @@ class RegisterCompany extends Component {
 RegisterCompany.propTypes = {
   registerCompany: PropTypes.func.isRequired,
   clearCompanyRegistrationData: PropTypes.func.isRequired,
-  errors: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 RegisterCompany.contextTypes = {

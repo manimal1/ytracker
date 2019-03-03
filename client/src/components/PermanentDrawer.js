@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -28,9 +27,5 @@ const PermanentDrawer = ({ classes, children }) => (
     {children}
   </Drawer>
 );
-
-PermanentDrawer.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 export default withStyles(styles)(PermanentDrawer);

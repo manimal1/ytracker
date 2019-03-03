@@ -601,8 +601,6 @@ class AddYachtService extends Component {
 AddYachtService.propTypes = {
   addYachtService: PropTypes.func.isRequired,
   clearYachtServiceData: PropTypes.func.isRequired,
-  yachtData: PropTypes.objectOf(PropTypes.object).isRequired,
-  companyData: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 AddYachtService.contextTypes = {

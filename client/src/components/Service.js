@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
@@ -276,10 +275,6 @@ const Service = props => {
       </Card>
     </React.Fragment>
   );
-};
-
-Service.propTypes = {
-  service: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(Service);

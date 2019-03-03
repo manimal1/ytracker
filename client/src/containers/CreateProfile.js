@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import userProfile from 'utils/objectModels';
 
@@ -37,10 +36,6 @@ class CreateProfile extends Component {
     return <div>Create Profile Page</div>;
   }
 }
-
-CreateProfile.propTypes = {
-  profile: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 const mapStateToProps = state => ({
   profile: state.profile,

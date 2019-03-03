@@ -119,8 +119,6 @@ class UpdateCompanyForm extends Component {
 UpdateCompanyForm.propTypes = {
   updateCompany: PropTypes.func.isRequired,
   clearCompanyRegistrationData: PropTypes.func.isRequired,
-  companyRegister: PropTypes.objectOf(PropTypes.object).isRequired,
-  errors: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 UpdateCompanyForm.contextTypes = {

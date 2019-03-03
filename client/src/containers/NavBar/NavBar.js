@@ -170,7 +170,6 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = state => ({

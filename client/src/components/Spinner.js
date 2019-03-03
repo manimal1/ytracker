@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -38,10 +37,6 @@ const Spinner = props => {
       />
     </div>
   );
-};
-
-Spinner.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(Spinner);

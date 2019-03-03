@@ -128,8 +128,6 @@ class RegisterYacht extends Component {
 RegisterYacht.propTypes = {
   registerYacht: PropTypes.func.isRequired,
   clearYachtRegistrationData: PropTypes.func.isRequired,
-  yachtRegister: PropTypes.objectOf(PropTypes.object).isRequired,
-  errors: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 RegisterYacht.contextTypes = {
