@@ -20,28 +20,28 @@ class Yachts extends Component {
           id: 'yacht-dashboard',
           label: 'Yachts',
           icon: <InboxIcon />,
-          component: <YachtDashboard />
+          component: <YachtDashboard />,
         },
         {
           id: 'yacht-create',
           label: 'Add Yacht',
           icon: <InboxIcon />,
-          component: <RegisterYacht />
+          component: <RegisterYacht />,
         },
         {
           id: 'yacht-service',
           label: 'Services',
           icon: <InboxIcon />,
-          component: <YachtService />
+          component: <YachtService />,
         },
         {
           id: 'yacht-calendar',
           label: 'Calendar',
           icon: <InboxIcon />,
-          component: <YachtCalendar />
+          component: <YachtCalendar />,
         },
       ],
-    }
+    };
   }
 
   render() {
@@ -49,7 +49,7 @@ class Yachts extends Component {
 
     return (
       <div>
-        <Page {...{menu}} defaultPanel="yacht-dashboard" />
+        <Page {...{ menu }} defaultPanel="yacht-dashboard" />
       </div>
     );
   }

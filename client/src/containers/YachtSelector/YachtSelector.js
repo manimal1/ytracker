@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import ItemSelector from '../../components/ItemSelector';
+import ItemSelector from 'components/ItemSelector';
 
 import {
   getAllYachts,
@@ -22,27 +22,28 @@ class YachtSelector extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.yachtData !== prevState.yachtData) {
-      return {yachtData: nextProps.yachtData};
+      return { yachtData: nextProps.yachtData };
     }
-    
-    else return null;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedYacht !== this.state.selectedYacht) {
-      this.props.getYachtById(this.state.selectedYacht);
-    }
-    if (prevState.yachtData !== this.state.yachtData) {
-      this.setState({ yachtData: this.state.yachtData });
-    }
+    return null;
   }
 
   componentDidMount() {
-    if (!this.props.yachtData.yachts
-      || this.props.yachtData.yachts.length === 0) {
+    const { yachtData } = this.props; // eslint-disable-rule no-shadow
+    if (!yachtData.yachts || yachtData.yachts.length === 0) {
       this.props.getAllYachts();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedYacht, yachtData } = this.state;
+
+    if (prevState.selectedYacht !== selectedYacht) {
+      this.props.getYachtById(selectedYacht);
+    }
+    if (prevState.yachtData !== yachtData) {
+      this.resetYachtDataState(yachtData);
     }
   }
 
@@ -51,37 +52,41 @@ class YachtSelector extends Component {
     this.props.clearSelectedYacht();
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  resetYachtDataState(yachtData) {
+    return this.setState({ yachtData });
   }
 
   render() {
     const { selectedYacht, yachtData } = this.state;
-    const { 
+    const {
       card,
       sectionTitle,
       label,
       setIsYachtSelected, // function that sets parent-component boolean for whether a yacht is selected
     } = this.props;
-    const onChange = this.onChange;
-    const yachts = yachtData.yachts || [];
-    const isLoading = yachtData.isLoading;
+    const { onChange } = this;
+    const { yachts } = yachtData || [];
+    const { isLoading } = yachtData;
 
     return (
       <ItemSelector
-        required={true}
+        required
         label={label}
-        inputPropsId={'selectedYacht'}
+        inputPropsId="selectedYacht"
         selectedValue={selectedYacht}
         list={yachts}
         onChangeEvent={onChange}
-        buttonText={'Select Yacht'}
+        buttonText="Select Yacht"
         buttonClickEvent={setIsYachtSelected}
         buttonLoading={isLoading}
         sectionTitle={sectionTitle}
         card={card}
       />
-    )
+    );
   }
 }
 
@@ -90,9 +95,9 @@ YachtSelector.propTypes = {
   getYachtById: PropTypes.func.isRequired,
   clearSelectedYacht: PropTypes.func.isRequired,
   clearYachts: PropTypes.func.isRequired,
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   errors: state.errors,
   yachtData: state.yachtData,
 });
@@ -106,5 +111,5 @@ export default compose(
       clearYachts,
       clearSelectedYacht,
     },
-  )
+  ),
 )(YachtSelector);

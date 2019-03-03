@@ -8,22 +8,21 @@ import {
 } from './actions';
 
 const initialState = {
-    newYacht: {},
-    isRegistered: false,
-    isUpdated: false,
-    isFetching: false,
+  newYacht: {},
+  isRegistered: false,
+  isUpdated: false,
+  isFetching: false,
 };
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  switch(type) {
-
+  switch (type) {
     case REGISTERING_YACHT:
       return {
         ...state,
         isFetching: true,
-      }
+      };
     case REGISTER_YACHT_SUCCESS:
       return {
         ...state,
@@ -43,23 +42,23 @@ const reducer = (state = initialState, action) => {
         isFetching: false,
         isRegistered: false,
         newYacht: {},
-      }
+      };
     case UPDATE_YACHT_SUCCESS:
       return {
         ...state,
         newYacht: payload,
         isFetching: false,
         isUpdated: true,
-      }
+      };
     case UPDATE_YACHT_FAIL:
       return {
         ...state,
         isFetching: false,
         isUpdated: false,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageContext } from './PageContext';
+import PageContext from './PageContext';
 
 const MenuPanel = props => {
   const id = !props.id ? props.item.id : props.id;
@@ -9,16 +9,21 @@ const MenuPanel = props => {
     <PageContext.Consumer>
       {({ handlePanelSwitch }) => {
         const clonedChildren = React.Children.map(children, child => {
-            return React.cloneElement(child, props);
-          });
+          return React.cloneElement(child, props);
+        });
+        /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
         return (
-          <div onClick={() => handlePanelSwitch(id)}>
+          <div
+            onClick={() => handlePanelSwitch(id)}
+            onKeyPress={() => handlePanelSwitch(id)}
+            role="navigation"
+          >
             {clonedChildren}
           </div>
         );
       }}
     </PageContext.Consumer>
-  )
+  );
 };
 
 export default MenuPanel;

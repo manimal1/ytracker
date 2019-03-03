@@ -1,4 +1,4 @@
-import { default as Dashboard } from "./Dashboard";
+import Dashboard from './Dashboard';
 // import * as actions from "./actions";
 // import reducer from "./reducer";
 

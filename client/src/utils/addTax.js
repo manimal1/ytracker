@@ -1,11 +1,10 @@
 const addTax = (taxableAmount, taxValue, isTaxIncluded) => {
-  const taxOnTop = ((taxValue / 100) + 1);
-  
+  const taxOnTop = taxValue / 100 + 1;
+
   if (isTaxIncluded) {
-    return taxableAmount - (taxableAmount / taxOnTop);
-  } else {
-    return taxableAmount * taxOnTop;
+    return taxableAmount - taxableAmount / taxOnTop;
   }
+  return taxableAmount * taxOnTop;
 };
 
 export default addTax;

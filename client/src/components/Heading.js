@@ -2,18 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
-const Heading = (props) => {
-
+const Heading = props => {
   return (
     <Typography variant="h4" gutterBottom className={props.class}>
       {props.text}
     </Typography>
-  )
-}
+  );
+};
 
 Heading.propTypes = {
   text: PropTypes.string.isRequired,
-  class: PropTypes.string,
-}
+};
 
 export default Heading;

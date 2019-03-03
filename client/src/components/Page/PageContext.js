@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const PageContext = React.createContext({
+const PageContext = React.createContext({
   activePanel: '',
   handlePanelSwitch: () => {},
 });
+
+export default PageContext;

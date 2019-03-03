@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
@@ -18,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import SectionTitle from './SectionTitle';
 import Tax from './Tax';
 
-const styles = theme => ({
+const styles = () => ({
   serviceNameInput: {
     width: '100%',
   },
@@ -42,7 +41,7 @@ const styles = theme => ({
   },
 });
 
-const Service = (props) => {
+const Service = props => {
   const {
     service,
     taxValues,
@@ -90,7 +89,7 @@ const Service = (props) => {
               control={
                 <Checkbox
                   checked={isPaid}
-                  onChange={(e) => checkboxHandler(e)}
+                  onChange={e => checkboxHandler(e)}
                   value="isPaid"
                   name="isPaid"
                 />
@@ -102,7 +101,7 @@ const Service = (props) => {
               control={
                 <Checkbox
                   checked={isCompleted}
-                  onChange={(e) => checkboxHandler(e)}
+                  onChange={e => checkboxHandler(e)}
                   value="isCompleted"
                   name="isCompleted"
                 />
@@ -115,12 +114,12 @@ const Service = (props) => {
             name="name"
             label="Name of Service"
             type="text"
-            fullWidth={true}
+            fullWidth
             value={name}
             error={errors && errors.name}
             helperText={errors && errors.name ? errors.name : ''}
             onChange={onChange}
-            required={true}
+            required
             className={classes.serviceNameInput}
           />
           <TextField
@@ -128,7 +127,7 @@ const Service = (props) => {
             name="assignedDate"
             label="Date of Service"
             type="date"
-            fullWidth={true}
+            fullWidth
             defaultValue={assignedDate}
             onChange={onChange}
             InputLabelProps={{
@@ -141,7 +140,7 @@ const Service = (props) => {
             name="invoiceNumber"
             label="Invoice Number"
             type="text"
-            fullWidth={true}
+            fullWidth
             value={invoiceNumber}
             onChange={onChange}
             className={classes.input}
@@ -161,8 +160,8 @@ const Service = (props) => {
                 id: 'costCurrency',
               }}
             >
-              <MenuItem value={'EUR'}>Euro</MenuItem>
-              <MenuItem value={'HRK'}>HRK</MenuItem>
+              <MenuItem value="EUR">Euro</MenuItem>
+              <MenuItem value="HRK">HRK</MenuItem>
             </Select>
           </FormControl>
           <TextField
@@ -179,14 +178,14 @@ const Service = (props) => {
             control={
               <Checkbox
                 checked={isCostTaxAdded}
-                onChange={(e) => checkboxHandler(e)}
+                onChange={e => checkboxHandler(e)}
                 value="isCostTaxAdded"
                 name="isCostTaxAdded"
               />
             }
             label="Add Cost Tax"
           />
-          {isCostTaxAdded &&
+          {isCostTaxAdded && (
             <Card>
               <CardContent>
                 <Tax
@@ -205,7 +204,7 @@ const Service = (props) => {
                 />
               </CardContent>
             </Card>
-          }
+          )}
         </CardContent>
       </Card>
       <Card>
@@ -221,8 +220,8 @@ const Service = (props) => {
                 id: 'chargedCurrency',
               }}
             >
-              <MenuItem value={'EUR'}>Euro</MenuItem>
-              <MenuItem value={'HRK'}>HRK</MenuItem>
+              <MenuItem value="EUR">Euro</MenuItem>
+              <MenuItem value="HRK">HRK</MenuItem>
             </Select>
           </FormControl>
           <TextField
@@ -234,9 +233,7 @@ const Service = (props) => {
             onChange={onChange}
             onBlur={handleAddPercentageToChargedAmountOnBlur}
             InputProps={{
-              endAdornment: <InputAdornment position="end">
-                %
-              </InputAdornment>,
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
           />
           <TextField
@@ -249,11 +246,11 @@ const Service = (props) => {
             onBlur={handleCalculateChargedAmountOnBlur}
             className={classes.chargedInput}
           />
-          {isChargedTaxAdded &&
+          {isChargedTaxAdded && (
             <Card>
               <CardContent>
                 <Tax
-                  fixed={true}
+                  fixed
                   taxSelectedLabel="Tax Percentage"
                   taxSelected={chargedTaxSelected}
                   taxAmountLabel="Tax Amount"
@@ -263,30 +260,21 @@ const Service = (props) => {
                 />
               </CardContent>
             </Card>
-          }
+          )}
         </CardContent>
       </Card>
       <Card>
         <CardContent>
-          <Typography variant="h4" gutterBottom>Total Price</Typography>
-          <Typography variant="subtitle1" gutterBottom>{ totalPrice }</Typography>
+          <Typography variant="h4" gutterBottom>
+            Total Price
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            {totalPrice}
+          </Typography>
         </CardContent>
       </Card>
     </React.Fragment>
-  )
-}
-
-Service.propTypes = {
-  service: PropTypes.object.isRequired,
-  totalPrice: PropTypes.string,
-  taxValues: PropTypes.array,
-  checkboxHandler: PropTypes.func,
-  onChange: PropTypes.func,
-  handleCaclulateCostOnBlur: PropTypes.func,
-  handleCalculateChargedAmountOnBlur: PropTypes.func,
-  handleCalculateTaxOnBlur: PropTypes.func,
-  handleAddPercentageToChargedAmountOnBlur: PropTypes.func,
-  classes: PropTypes.object,
-}
+  );
+};
 
 export default withStyles(styles)(Service);

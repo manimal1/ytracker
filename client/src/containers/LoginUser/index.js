@@ -1,6 +1,6 @@
-import { default as LoginUser } from "./LoginUser";
-import * as actions from "./actions";
-import reducer from "./reducer";
+import LoginUser from './LoginUser';
+import * as actions from './actions';
+import reducer from './reducer';
 
 export { actions, reducer };
 export default LoginUser;

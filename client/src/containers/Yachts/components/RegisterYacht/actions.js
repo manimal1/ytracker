@@ -10,14 +10,14 @@ export const UPDATE_YACHT_FAIL = 'UPDATE_YACHT_FAIL';
 export const GET_ALL_YACHTS = 'GET_ALL_YACHTS';
 export const LOAD_YACHT = 'LOAD_YACHT';
 
-export const registerYacht = (yachtData) => dispatch => {
+export const registerYacht = yachtData => dispatch => {
   axios
     .post('/api/yachts/register', yachtData)
     .then(res => {
       dispatch({ type: REGISTERING_YACHT });
       dispatch({
         type: REGISTER_YACHT_SUCCESS,
-        payload: res.data
+        payload: res.data,
       });
     })
     .catch(err => {
@@ -29,7 +29,7 @@ export const registerYacht = (yachtData) => dispatch => {
       });
       return err;
     });
-}
+};
 
 export const updateYacht = (id, yachtData) => dispatch => {
   axios
@@ -47,10 +47,10 @@ export const updateYacht = (id, yachtData) => dispatch => {
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,
-      })
+      });
     });
-}
+};
 
 export const clearYachtRegistrationData = () => dispatch => {
   dispatch({ type: CLEAR_YACHT_REGISTRATION });
-}
+};

@@ -6,18 +6,18 @@ import {
 } from './actions';
 
 const initialState = {
-  yachtService: {}
+  yachtService: {},
 };
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  switch(type) {
+  switch (type) {
     case ADD_YACHT_SERVICE:
       return {
         ...state,
         isAddingService: true,
-      }
+      };
     case ADD_YACHT_SERVICE_SUCCESS:
       return {
         ...state,
@@ -37,10 +37,10 @@ const reducer = (state = initialState, action) => {
         isAddingService: false,
         isServiceAdded: false,
         newService: {},
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

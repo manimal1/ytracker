@@ -33,7 +33,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  switch(type) {
+  switch (type) {
     case GET_ALL_COMPANIES_REQUEST:
       return {
         ...state,
@@ -49,12 +49,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-      }
+      };
     case LOAD_COMPANY_REQUEST:
       return {
         ...state,
         isLoading: true,
-      }
+      };
     case LOAD_COMPANY_SUCCESS:
       return {
         ...state,
@@ -65,7 +65,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-      }
+      };
     case CLEAR_SELECTED_COMPANY:
       return {
         ...state,
@@ -75,10 +75,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         companies: payload,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

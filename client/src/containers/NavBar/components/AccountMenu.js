@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
@@ -7,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';
 
-const AccountMenu = (props) => {
+const AccountMenu = props => {
   const {
     isMenuOpen,
     accountMenuAnchor,
@@ -27,15 +26,8 @@ const AccountMenu = (props) => {
         onClick={handleAccountMenu}
         color="inherit"
       >
-        {isAuthenticated && 
-          <Avatar
-            alt="Adelle Charles"
-            src={user.avatar}
-          />
-        }
-        {!isAuthenticated && 
-          <AccountCircle />
-        }
+        {isAuthenticated && <Avatar alt="Adelle Charles" src={user.avatar} />}
+        {!isAuthenticated && <AccountCircle />}
       </IconButton>
       <Menu
         id="menu-appbar"
@@ -51,7 +43,7 @@ const AccountMenu = (props) => {
         open={isMenuOpen}
         onClose={handleAccountMenuClose}
       >
-        {!isAuthenticated &&
+        {!isAuthenticated && (
           <MenuItem
             component={Link}
             to="/login"
@@ -59,8 +51,8 @@ const AccountMenu = (props) => {
           >
             Login
           </MenuItem>
-        }
-        {!isAuthenticated &&
+        )}
+        {!isAuthenticated && (
           <MenuItem
             component={Link}
             to="/register"
@@ -68,8 +60,8 @@ const AccountMenu = (props) => {
           >
             Register
           </MenuItem>
-        }
-        {isAuthenticated &&
+        )}
+        {isAuthenticated && (
           <MenuItem
             component={Link}
             to="/profile"
@@ -77,23 +69,13 @@ const AccountMenu = (props) => {
           >
             profile
           </MenuItem>
-        }
-        {isAuthenticated &&
-          <MenuItem onClick={handleLogoutUser}>
-            logout
-          </MenuItem>
-        }
+        )}
+        {isAuthenticated && (
+          <MenuItem onClick={handleLogoutUser}>logout</MenuItem>
+        )}
       </Menu>
     </div>
-  )
-}
-
-AccountMenu.propTypes = {
-  user: PropTypes.object,
-  handleAuthPageRedirect: PropTypes.func,
-  handleAccountMenu: PropTypes.func,
-  handleAccountMenuClose: PropTypes.func,
-  handleLogoutUser: PropTypes.func,
+  );
 };
 
-export default (AccountMenu);
+export default AccountMenu;

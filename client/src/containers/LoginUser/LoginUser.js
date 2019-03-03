@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Login } from './Login';
+import Login from './Login';
 import { loginUser } from './actions';
 
 class LoginUser extends Component {
@@ -16,26 +16,16 @@ class LoginUser extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.auth.isAuthenticated) {
-      return {authenticated: true};
+      return { authenticated: true };
     }
 
-    if (nextProps.errors !== prevState.errors ) {
-      return {errors: nextProps.errors};
+    if (nextProps.errors !== prevState.errors) {
+      return { errors: nextProps.errors };
     }
-    
-    else return null;
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.authenticated === true) {
-      this.props.history.push('/dashboard');
-    }
-    
-    if (prevState.errors !== this.state.errors) {
-      this.setState({ errors: this.state.errors });
-    }
+    return null;
   }
 
   componentDidMount() {
@@ -44,23 +34,33 @@ class LoginUser extends Component {
     }
   }
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.authenticated === true) {
+      this.props.history.push('/dashboard');
+    }
+
+    if (prevState.errors !== this.state.errors) {
+      this.setState({ errors: this.state.errors });
+    }
   }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleClickShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const userData = {
       email: this.state.email,
       password: this.state.password,
     };
-    
+
     this.props.loginUser(userData);
-  }
+  };
 
   render() {
     const { email, password, showPassword, errors } = this.state;
@@ -69,26 +69,26 @@ class LoginUser extends Component {
     const handleClickShowPassword = this.handleClickShowPassword;
 
     return (
-      <Login {...{
-        email,
-        password,
-        onChange,
-        onSubmit,
-        showPassword,
-        handleClickShowPassword,
-        errors,
-      }} />
+      <Login
+        {...{
+          email,
+          password,
+          onChange,
+          onSubmit,
+          showPassword,
+          handleClickShowPassword,
+          errors,
+        }}
+      />
     );
   }
 }
 
 LoginUser.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
 });

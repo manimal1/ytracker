@@ -1,7 +1,5 @@
-import { selectedYacht } from './selectedYacht';
-import { yachtService } from './yachtService';
+import selectedYacht from './selectedYacht';
+import yachtService from './yachtService';
+import userProfile from './userProfile';
 
-export {
-  selectedYacht,
-  yachtService,
-};
+export { selectedYacht, yachtService, userProfile };

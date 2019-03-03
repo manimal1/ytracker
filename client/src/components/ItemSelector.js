@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -29,28 +28,6 @@ const styles = theme => ({
   },
 });
 
-const ItemSelector = (props) => {
-  const {
-    classes,
-    sectionTitle,
-    card,
-  } = props;
-  
-  return (
-    <form className={card ? classes.pageWrapper : classes.wrapper}>
-      {!!sectionTitle &&
-        <SectionTitle text={sectionTitle} />
-      }
-      {card &&
-        renderItemSelectorCard(props)
-      }
-      {!card &&
-        renderItemSelectorInput(props)
-      }
-    </form>
-  )
-}
-
 function renderItemSelectorInput(props) {
   const {
     classes,
@@ -66,7 +43,7 @@ function renderItemSelectorInput(props) {
   } = props;
 
   return (
-    <FormControl className={classes.formControl} fullWidth={true} required={required}>
+    <FormControl className={classes.formControl} fullWidth required={required}>
       <InputLabel htmlFor={inputPropsId}>{label}</InputLabel>
       <Select
         value={selectedValue}
@@ -76,14 +53,15 @@ function renderItemSelectorInput(props) {
           id: `${inputPropsId}`,
         }}
       >
-        {
-          list.map(item => {
-            return (
-            <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
-          )})
-        }
+        {list.map(item => {
+          return (
+            <MenuItem key={item._id} value={item._id}>
+              {item.name}
+            </MenuItem>
+          );
+        })}
       </Select>
-      {buttonClickEvent &&
+      {buttonClickEvent && (
         <Button
           variant="contained"
           color="primary"
@@ -92,35 +70,32 @@ function renderItemSelectorInput(props) {
           className={classes.button}
           disabled={buttonLoading}
         >
-          {buttonLoading &&
-            <Spinner />
-          }
-          {!buttonLoading &&
-            <span>{buttonText}</span>
-          }
+          {buttonLoading && <Spinner />}
+          {!buttonLoading && <span>{buttonText}</span>}
         </Button>
-      }
+      )}
     </FormControl>
-  )
+  );
 }
 
 function renderItemSelectorCard(props) {
   return (
     <Card>
-      <CardContent>
-        {renderItemSelectorInput(props)}
-      </CardContent>
+      <CardContent>{renderItemSelectorInput(props)}</CardContent>
     </Card>
-  )
+  );
 }
 
-ItemSelector.propTypes = {
-  label: PropTypes.string,
-  inputPropsId: PropTypes.string,
-  list: PropTypes.array,
-  buttonText: PropTypes.string,
-  buttonClickEvent: PropTypes.func,
-  sectionTitle: PropTypes.string
-}
+const ItemSelector = props => {
+  const { classes, sectionTitle, card } = props;
+
+  return (
+    <form className={card ? classes.pageWrapper : classes.wrapper}>
+      {!!sectionTitle && <SectionTitle text={sectionTitle} />}
+      {card && renderItemSelectorCard(props)}
+      {!card && renderItemSelectorInput(props)}
+    </form>
+  );
+};
 
 export default withStyles(styles)(ItemSelector);

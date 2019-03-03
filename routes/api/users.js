@@ -1,10 +1,11 @@
 const express = require('express');
+
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
 const passport = require('passport');
+const keys = require('../../config/keys');
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
@@ -17,7 +18,7 @@ const User = require('../../models/User');
 // @des     Register a user
 // @access  Public
 router.post('/register', (req, res) => {
-  const email = req.body.email;
+  const { email } = req.body;
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check validation
@@ -25,37 +26,36 @@ router.post('/register', (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: email })
-    .then(user => {
+  return User.findOne({ email })
+    .then((user) => {
       if (user) {
         errors.email = 'Email already exists';
         return res.status(400).json(errors);
-      } else {
-        const avatar = gravatar.url(email, {
-          s: '200', // size
-          r: 'pg', // rating
-          d: 'mm', // default
-        });
-
-        const newUser = new User({
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          email,
-          password: req.body.password,
-          avatar,
-        });
-        /* eslint-disable handle-callback-err */
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser.save()
-              .then(user => res.json(user))
-              .catch(err => console.log(err));
-          });
-        });
-        /* eslint-enable */
       }
+
+      const avatar = gravatar.url(email, {
+        s: '200', // size
+        r: 'pg', // rating
+        d: 'mm', // default
+      });
+      const newUser = new User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email,
+        password: req.body.password,
+        avatar,
+      });
+      /* eslint-disable handle-callback-err */
+      return bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (error, hash) => {
+          if (error) throw error;
+          newUser.password = hash;
+          newUser.save()
+            .then(newSavedUser => res.json(newSavedUser))
+            .catch(saveError => console.log(saveError)); // eslint-disable-line no-console
+        });
+      });
+      /* eslint-enable */
     });
 });
 
@@ -63,8 +63,7 @@ router.post('/register', (req, res) => {
 // @des     Login User / Returning JWT Token
 // @access  Public
 router.post('/login', (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check validation
@@ -73,8 +72,8 @@ router.post('/login', (req, res) => {
   }
 
   // Find user by email
-  User.findOne({email})
-    .then(user => {
+  return User.findOne({ email })
+    .then((user) => {
       // Check for user
       if (!user) {
         errors.email = 'User not found';
@@ -82,8 +81,8 @@ router.post('/login', (req, res) => {
       }
 
       // check Password
-      bcrypt.compare(password, user.password)
-        .then(isMatch => {
+      return bcrypt.compare(password, user.password)
+        .then((isMatch) => {
           if (isMatch) {
             // User matched
             // create JWT payload
@@ -96,21 +95,20 @@ router.post('/login', (req, res) => {
             };
 
             // Sign the token
-            jwt.sign(
+            return jwt.sign(
               payload,
               keys.secretOrKey,
               { expiresIn: 86400 },
               (err, token) => {
                 if (err) {
-                  console.log(err);
+                  console.log(err); // eslint-disable-line no-console
                 }
-                res.json({ success: true, token: 'Bearer ' + token });
+                res.json({ success: true, token: `Bearer ${token}` });
               }
             );
-          } else {
-            errors.password = 'Password incorrect';
-            return res.status(400).json(errors);
           }
+          errors.password = 'Password incorrect';
+          return res.status(400).json(errors);
         });
     });
 });
@@ -125,16 +123,16 @@ router.get(
     const errors = {};
 
     User.find()
-      .then(users => {
+      .then((users) => {
         if (!users) {
           errors.nousers = 'There are no users';
           return res.status(404).json(errors);
         }
 
-        res.status(200).json(users);
+        return res.status(200).json(users);
       })
-      .catch(err => {
-        err.msg = { users: 'There are no users' };
+      .catch((err) => {
+        err.msg = { users: 'There are no users' }; // eslint-disable-line no-param-reassign
         return res.status(404).json(err.msg);
       });
   }
@@ -152,7 +150,6 @@ router.get('/current',
       email: req.user.email,
       avatar: req.user.avatar,
     });
-  }
-);
+  });
 
 module.exports = router;

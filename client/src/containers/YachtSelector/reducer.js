@@ -13,14 +13,14 @@ import { selectedYacht } from '../../utils/objectModels';
 
 const initialState = {
   yachts: [],
-  selectedYacht: selectedYacht,
+  selectedYacht,
   isLoading: false,
 };
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action;
 
-  switch(type) {
+  switch (type) {
     case GET_ALL_YACHTS_REQUEST:
       return {
         ...state,
@@ -56,16 +56,16 @@ const reducer = (state = initialState, action) => {
     case CLEAR_SELECTED_YACHT:
       return {
         ...state,
-        selectedYacht: selectedYacht,
+        selectedYacht,
       };
     case CLEAR_YACHTS:
       return {
         ...state,
         yachts: payload,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

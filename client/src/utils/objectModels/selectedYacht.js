@@ -1,17 +1,17 @@
-export const selectedYacht = {
+const selectedYacht = {
   _id: '',
   name: '',
   email: '',
   yachttype: '',
   active: true,
   phone: '',
-  loa: 0,
-  draft: 0,
-  beam: 0,
-  grosstonnage: 0,
+  loa: '',
+  draft: '',
+  beam: '',
+  grosstonnage: '',
   buildcompany: '',
-  buildyear: 0,
-  refityear: 0,
+  buildyear: '',
+  refityear: '',
   cruisinglicense: '',
   taxid: '',
   billingcompany: {
@@ -53,4 +53,6 @@ export const selectedYacht = {
       country: '',
     },
   },
-}
+};
+
+export default selectedYacht;

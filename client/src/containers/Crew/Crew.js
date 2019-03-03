@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
-import {
-  CrewDashboard,
-  CrewForm,
-  CrewService,
-} from './components';
-
-import { Page } from '../../components/Page';
+import { Page } from 'components/Page';
+import { CrewDashboard, CrewForm, CrewService } from './components';
 
 class Crew extends Component {
   constructor(props) {
@@ -19,22 +14,22 @@ class Crew extends Component {
           id: 'crew-dashboard',
           label: 'Dashboard',
           icon: <InboxIcon />,
-          component: <CrewDashboard />
+          component: <CrewDashboard />,
         },
         {
           id: 'crew-create',
           label: 'Add Company',
           icon: <InboxIcon />,
-          component: <CrewForm />
+          component: <CrewForm />,
         },
         {
           id: 'crew-service',
           label: 'Add Service',
           icon: <InboxIcon />,
-          component: <CrewService />
+          component: <CrewService />,
         },
       ],
-    }
+    };
   }
 
   render() {
@@ -42,7 +37,7 @@ class Crew extends Component {
 
     return (
       <div>
-        <Page {...{menu}} defaultPanel="crew-dashboard" />
+        <Page {...{ menu }} defaultPanel="crew-dashboard" />
       </div>
     );
   }

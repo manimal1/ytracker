@@ -5,10 +5,10 @@ import _ from 'lodash';
 
 import { updateYacht, clearYachtRegistrationData } from './actions';
 
-import { default as YachtForm } from './YachtForm';
+import YachtForm from './YachtForm';
 
 class UpdateYachtForm extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -19,16 +19,16 @@ class UpdateYachtForm extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.errors !== prevState.errors) {
-      return {errors: nextProps.errors};
+      return { errors: nextProps.errors };
     }
 
     if (nextProps.yachtRegister !== prevState.yachtRegister) {
-      return {yachtRegister: nextProps.yachtRegister};
+      return { yachtRegister: nextProps.yachtRegister };
     }
-    
-    else return null;
+
+    return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -50,17 +50,17 @@ class UpdateYachtForm extends Component {
     this.props.clearYachtRegistrationData();
   }
 
-  onChange = (e) => {
+  onChange = e => {
     const name = e.target.name;
-    let selectedYacht = {...this.state.selectedYacht};
+    const selectedYacht = { ...this.state.selectedYacht };
     selectedYacht[name] = e.target.value;
 
     this.setState({ selectedYacht });
-  }
+  };
 
   onCompanyChange = (e, companyType) => {
-    let name = e.target.name;
-    let selectedYacht = {...this.state.selectedYacht};
+    const name = e.target.name;
+    const selectedYacht = { ...this.state.selectedYacht };
     const addressFields = [
       'addressline1',
       'addressline2',
@@ -68,7 +68,7 @@ class UpdateYachtForm extends Component {
       'postalcode',
       'country',
     ];
-    
+
     if (_.includes(addressFields, name)) {
       selectedYacht[companyType].address[name] = e.target.value;
     } else {
@@ -76,31 +76,32 @@ class UpdateYachtForm extends Component {
     }
 
     this.setState({ selectedYacht });
-  }
+  };
 
   handleCheckBox = name => event => {
-    let selectedYacht = {...this.state.selectedYacht};
+    const selectedYacht = { ...this.state.selectedYacht };
     selectedYacht[name] = event.target.checked;
 
     this.setState({ selectedYacht });
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     const yacht = this.state.selectedYacht;
     const id = this.state.selectedYacht._id;
-    
+
     this.props.updateYacht(id, yacht);
-  }
+  };
 
   render() {
     const onChange = this.onChange;
     const onCompanyChange = this.onCompanyChange;
     const handleCheckBox = this.handleCheckBox;
     const onSubmit = this.onSubmit;
-    const isDataFetching = this.yachtRegister && this.yachtRegister.isFetching
-      ? this.yachtRegister.isFetching
-      : false;
+    const isDataFetching =
+      this.yachtRegister && this.yachtRegister.isFetching
+        ? this.yachtRegister.isFetching
+        : false;
 
     const yachtProps = {
       ...this.state,
@@ -111,25 +112,21 @@ class UpdateYachtForm extends Component {
       isDataFetching,
     };
 
-    return (
-      <YachtForm yachtProps={ yachtProps } />
-    )
+    return <YachtForm yachtProps={yachtProps} />;
   }
 }
 
 UpdateYachtForm.propTypes = {
   updateYacht: PropTypes.func.isRequired,
   clearYachtRegistrationData: PropTypes.func.isRequired,
-  yachtRegister: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-}
+};
 
 UpdateYachtForm.contextTypes = {
   handlePanelSwitch: PropTypes.func,
   setSelectedIndex: PropTypes.func,
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   yachtRegister: state.yachtRegister,
   yachtData: state.yachtData,
   errors: state.errors,

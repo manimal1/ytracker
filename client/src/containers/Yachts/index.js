@@ -1,4 +1,4 @@
-import { default as Yachts } from './Yachts';
+import Yachts from './Yachts';
 // import * as actions from './actions';
 // import reducer from './reducer';
 
