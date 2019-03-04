@@ -4,7 +4,7 @@
   "description": "Yacht Services tracking and managment application",
   "main": "server.js",
   "engines": {
-    "node": "9.10.0",
+    "node": "10.0.0",
     "npm": "6.8.0"
   },
   "scripts": {

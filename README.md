@@ -1,25 +1,23 @@
 ## Table of Contents
 
 - [Production App](#production-app)
-- [CI/CD using CircleCI](#ci/cd-using-circleci)
+- [CI/CD using TravisCI](#ci/cd-using-travisci)
 - [Running the App](#running-the-app) - in development
 - [Available Scripts](#available-scripts)
 
 ## Production App
 
-This app is currently deployed on [Heroku](https://heroku.com/) and connects to an [mLab](https://mlab.com/) MongoDB database.  You can find it here: [here](https://secure-caverns-23669.herokuapp.com/).
+This app is currently deployed on [Heroku](https://heroku.com/) and connects to an [mLab](https://mlab.com/) MongoDB database. You can find it here: [here](https://secure-caverns-23669.herokuapp.com/).
 
-On the backend it uses [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/).  On the frontend it uses [React](https://reactjs.org/), [Redux](https://redux.js.org/introduction), and the [Material-UI](https://material-ui.com/) library.  Unit and integration tests employ [Jest](https://jestjs.io/en/) and [Enzyme](https://airbnb.io/enzyme/), while [ESLint](https://eslint.org/) maintains code standards.  [Docker](https://www.docker.com/) is used for containerzation, ensuring consistency across platforms.
+On the backend it uses [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/). On the frontend it uses [React](https://reactjs.org/), [Redux](https://redux.js.org/introduction), and the [Material-UI](https://material-ui.com/) library. Unit and integration tests employ [Jest](https://jestjs.io/en/) and [Enzyme](https://airbnb.io/enzyme/), while [ESLint](https://eslint.org/) maintains code standards. [Docker](https://www.docker.com/) is used for containerzation, ensuring consistency across platforms.
 
+## CI/CD using TravisCI
 
-## CI/CD using CircleCI
-
-I'm using [CircleCI](https://circleci.com/) and [Heroku](https://heroku.com/) for my deployment pipeline.  Whenever a new PR is created in [GitHub](https://github.com/) CircleCI checks the build and runs all tests.  On any merge to master it automatically builds and deploys to Heroku.
-
+I'm using [TravisCI](https://travis-ci.org/) and [Heroku](https://heroku.com/) for my deployment pipeline. Whenever a new commit is is added in [GitHub](https://github.com/), Travis runs all lint checks and Jest tests, and also runs a docker build, to ensure coding standards and build integrity. On any merge to master it automatically builds and deploys to Heroku.
 
 ## Running the App
 
-If you'd like to use it in development you'll have to add a keys.development.js file in the app config folder:
+This is a production ready build and uses a hosted Mongo database with mLab. The URI and secret or kept hidden in an untracked file. If you'd like to use it in development you'll have to add a keys.development.js file in the app config folder:
 
 ```
 app/
@@ -37,27 +35,32 @@ module.exports = {
 ```
 
 ### Running with Docker
+
 This app uses [Docker](https://www.docker.com/), so once you have the keys.development.js file setup, you're ready to run in development.
 
 For the initial setup:<br>
+
 - On your first build, run `docker-compose up --build`
 - Open [http://localhost:3000](http://localhost:3000) to view the app in the browser<br>
-<br>
+  <br>
 
 After the initial setup:<br>
+
 - After the first build you can simply use the `docker-compose up` command.<br>
-<br>
+  <br>
 
 - After running either of the `up` commands you can run `docker-compose down` to gracefully stop and remove the server and client containers created by the `up` command.<br>
-<br>
+  <br>
 
 ### Running without Docker
-If you are unfamiliar with Docker and want to run the app without it, replace the "proxy" property "http://server:5000" in ./client/package.json with "http://localhost:5000".  Make you have [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/) installed on your device locally.  Then follow these steps:<br>
+
+If you are unfamiliar with Docker and want to run the app without it, replace the "proxy" property "http://server:5000" in ./client/package.json with "http://localhost:5000". Make sure you have [Node](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/) installed on your device locally. Then follow these steps:<br>
+
 - First, run `npm install` in the root folder
 - Next, run `npm run client-install` in the root folder
 - Finally, run `npm run dev` in the root folder
 - Navigate to [localhost 3000](http://localhost:3000) and you should be up and running<br>
-<br>
+  <br>
 
 ## Available Scripts
 
