@@ -5,6 +5,7 @@ const yachtService = {
   isPaid: false,
   isCompleted: false,
   assignedDate: moment(Date.now()).format('YYYY-MM-DD'),
+  serviceType: '',
   invoiceNumber: '',
   costCurrency: 'EUR',
   cost: '',

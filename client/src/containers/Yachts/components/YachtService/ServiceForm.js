@@ -26,6 +26,7 @@ const ServiceForm = props => {
   const {
     yachtService,
     taxValues,
+    serviceTypes,
     totalPrice,
     handleCheckBox,
     onChange,
@@ -49,7 +50,7 @@ const ServiceForm = props => {
       <Heading text="Add Service" />
       <Card className={classes.card}>
         <CardContent>
-          <SectionTitle text="Yacht" />
+          <SectionTitle text="Select Yacht (& Company)" />
           <YachtSelector label="Choose yacht" />
           <CompanySelector label="Choose company" />
         </CardContent>
@@ -60,6 +61,7 @@ const ServiceForm = props => {
             service: yachtService,
             checkboxHandler: handleCheckBox,
             taxValues,
+            serviceTypes,
             totalPrice,
             onChange,
             onSubmit,

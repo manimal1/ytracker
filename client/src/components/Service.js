@@ -45,6 +45,7 @@ const Service = props => {
   const {
     service,
     taxValues,
+    serviceTypes,
     totalPrice,
     checkboxHandler,
     onChange,
@@ -62,6 +63,7 @@ const Service = props => {
     isPaid,
     isCompleted,
     assignedDate,
+    serviceType,
     invoiceNumber,
     isCostTaxAdded,
     isCostTaxIncluded,
@@ -136,6 +138,23 @@ const Service = props => {
             }}
             className={classes.assignedDate}
           />
+          <FormControl fullWidth>
+            <InputLabel htmlFor="serviceType">Service Type</InputLabel>
+            <Select
+              value={serviceType}
+              onChange={onChange}
+              inputProps={{
+                name: 'serviceType',
+                id: 'serviceType',
+              }}
+            >
+              {serviceTypes.map(serviceTypeName => {
+                return (
+                  <MenuItem value={serviceTypeName}>{serviceTypeName}</MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
           <TextField
             id="invoiceNumber"
             name="invoiceNumber"
@@ -237,6 +256,7 @@ const Service = props => {
             className={classes.chargedInput}
           />
           <TextField
+            fullWidth
             id="chargedTaxPercentageOnTop"
             name="chargedTaxPercentageOnTop"
             label="Add Service Charge Percentage"
