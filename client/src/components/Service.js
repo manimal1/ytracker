@@ -48,6 +48,7 @@ const Service = props => {
     totalPrice,
     checkboxHandler,
     onChange,
+    handleChangeChargedCurrency,
     handleCaclulateCostOnBlur,
     handleCalculateChargedAmountOnBlur,
     handleCalculateTaxOnBlur,
@@ -183,7 +184,7 @@ const Service = props => {
                 name="isCostTaxAdded"
               />
             }
-            label="Add Cost Tax"
+            label="Tax Included"
           />
           {isCostTaxAdded && (
             <Card>
@@ -215,6 +216,7 @@ const Service = props => {
             <Select
               value={chargedCurrency}
               onChange={onChange}
+              onBlur={handleChangeChargedCurrency}
               inputProps={{
                 name: 'chargedCurrency',
                 id: 'chargedCurrency',
@@ -224,6 +226,16 @@ const Service = props => {
               <MenuItem value="HRK">HRK</MenuItem>
             </Select>
           </FormControl>
+          <TextField
+            id="serviceCharged"
+            name="charged"
+            label="Service Charged"
+            type="number"
+            value={charged}
+            onChange={onChange}
+            onBlur={handleCalculateChargedAmountOnBlur}
+            className={classes.chargedInput}
+          />
           <TextField
             id="chargedTaxPercentageOnTop"
             name="chargedTaxPercentageOnTop"
@@ -235,16 +247,6 @@ const Service = props => {
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
-          />
-          <TextField
-            id="serviceCharged"
-            name="charged"
-            label="Service Charged"
-            type="number"
-            value={charged}
-            onChange={onChange}
-            onBlur={handleCalculateChargedAmountOnBlur}
-            className={classes.chargedInput}
           />
           {isChargedTaxAdded && (
             <Card>
