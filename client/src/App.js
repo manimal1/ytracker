@@ -33,13 +33,13 @@ class App extends Component {
               <PrivateRoute exact path="/yachts" component={Yachts} />
             </Switch>
             <Switch>
+              <PrivateRoute exact path="/users" component={Users} />
+            </Switch>
+            <Switch>
               <PrivateRoute exact path="/company" component={Company} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/crew" component={Crew} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/users" component={Users} />
             </Switch>
             <Switch>
               <PrivateRoute exact path="/profile" component={Profile} />

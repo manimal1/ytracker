@@ -45,9 +45,11 @@ const Service = props => {
   const {
     service,
     taxValues,
+    serviceTypes,
     totalPrice,
     checkboxHandler,
     onChange,
+    handleChangeChargedCurrency,
     handleCaclulateCostOnBlur,
     handleCalculateChargedAmountOnBlur,
     handleCalculateTaxOnBlur,
@@ -61,6 +63,7 @@ const Service = props => {
     isPaid,
     isCompleted,
     assignedDate,
+    serviceType,
     invoiceNumber,
     isCostTaxAdded,
     isCostTaxIncluded,
@@ -135,6 +138,23 @@ const Service = props => {
             }}
             className={classes.assignedDate}
           />
+          <FormControl fullWidth>
+            <InputLabel htmlFor="serviceType">Service Type</InputLabel>
+            <Select
+              value={serviceType}
+              onChange={onChange}
+              inputProps={{
+                name: 'serviceType',
+                id: 'serviceType',
+              }}
+            >
+              {serviceTypes.map(serviceTypeName => {
+                return (
+                  <MenuItem value={serviceTypeName}>{serviceTypeName}</MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
           <TextField
             id="invoiceNumber"
             name="invoiceNumber"
@@ -183,7 +203,7 @@ const Service = props => {
                 name="isCostTaxAdded"
               />
             }
-            label="Add Cost Tax"
+            label="Tax Included"
           />
           {isCostTaxAdded && (
             <Card>
@@ -215,6 +235,7 @@ const Service = props => {
             <Select
               value={chargedCurrency}
               onChange={onChange}
+              onBlur={handleChangeChargedCurrency}
               inputProps={{
                 name: 'chargedCurrency',
                 id: 'chargedCurrency',
@@ -225,6 +246,17 @@ const Service = props => {
             </Select>
           </FormControl>
           <TextField
+            id="serviceCharged"
+            name="charged"
+            label="Service Charged"
+            type="number"
+            value={charged}
+            onChange={onChange}
+            onBlur={handleCalculateChargedAmountOnBlur}
+            className={classes.chargedInput}
+          />
+          <TextField
+            fullWidth
             id="chargedTaxPercentageOnTop"
             name="chargedTaxPercentageOnTop"
             label="Add Service Charge Percentage"
@@ -235,16 +267,6 @@ const Service = props => {
             InputProps={{
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
-          />
-          <TextField
-            id="serviceCharged"
-            name="charged"
-            label="Service Charged"
-            type="number"
-            value={charged}
-            onChange={onChange}
-            onBlur={handleCalculateChargedAmountOnBlur}
-            className={classes.chargedInput}
           />
           {isChargedTaxAdded && (
             <Card>

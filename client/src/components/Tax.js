@@ -33,6 +33,15 @@ const styles = () => ({
   chargedInput: {
     width: '100%',
   },
+  totalAmountWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+  },
+  totalAmount: {
+    marginLeft: '16px',
+    lineHeight: '32px',
+  },
   fixedAmountWrapper: {
     marginTop: '16px',
   },
