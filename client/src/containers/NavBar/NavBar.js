@@ -10,6 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import BoatIcon from '@material-ui/icons/DirectionsBoat';
+import PersonIcon from '@material-ui/icons/Person';
 import StoreIcon from '@material-ui/icons/Store';
 import RowingIcon from '@material-ui/icons/Rowing';
 import IconButton from '@material-ui/core/IconButton';
@@ -40,10 +41,11 @@ class NavBar extends Component {
       selectedIndex: 0,
       accountMenuAnchor: null,
       navMenu: [
-        { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
         { label: 'Yachts', icon: <BoatIcon />, path: '/yachts' },
+        { label: 'Users', icon: <PersonIcon />, path: '/users' },
         { label: 'Companies', icon: <StoreIcon />, path: '/company' },
         { label: 'Crew', icon: <RowingIcon />, path: '/crew' },
+        { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
         // { label: 'Users', icon: <AccountCircle/>, path: '/users' },
       ],
     };
