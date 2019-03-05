@@ -150,7 +150,7 @@ class AddYachtService extends Component {
     }
 
     if (this.state.statefulYachtService.isServiceAdded) {
-      this.context.handlePanelSwitch('yacht-dashboard');
+      this.context.handlePanelSwitch('yacht-home');
       this.context.setSelectedIndex(0);
     }
   }

@@ -2,6 +2,9 @@ import {
   GET_ALL_YACHTS_REQUEST,
   GET_ALL_YACHTS_SUCCESS,
   GET_ALL_YACHTS_FAIL,
+  GET_ALL_ACTIVE_YACHTS_REQUEST,
+  GET_ALL_ACTIVE_YACHTS_SUCCESS,
+  GET_ALL_ACTIVE_YACHTS_FAIL,
   LOAD_YACHT_REQUEST,
   LOAD_YACHT_SUCCESS,
   LOAD_YACHT_FAIL,
@@ -13,6 +16,7 @@ import { selectedYacht } from '../../utils/objectModels';
 
 const initialState = {
   yachts: [],
+  activeYachts: [],
   selectedYacht,
   isLoading: false,
 };
@@ -33,6 +37,22 @@ const reducer = (state = initialState, action) => {
         yachts: payload,
       };
     case GET_ALL_YACHTS_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case GET_ALL_ACTIVE_YACHTS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_ALL_ACTIVE_YACHTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        activeYachts: payload,
+      };
+    case GET_ALL_ACTIVE_YACHTS_FAIL:
       return {
         ...state,
         isLoading: false,

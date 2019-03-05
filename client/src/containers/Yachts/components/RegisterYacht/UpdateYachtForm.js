@@ -41,7 +41,7 @@ class UpdateYachtForm extends Component {
     }
 
     if (this.state.yachtRegister.isUpdated) {
-      this.context.handlePanelSwitch('yacht-dashboard');
+      this.context.handlePanelSwitch('yacht-home');
       this.context.setSelectedIndex(0);
     }
   }
