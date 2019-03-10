@@ -27,6 +27,12 @@ const profileSchema = new Schema({
   linkedin: {
     type: String
   },
+  todos: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Todo'
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

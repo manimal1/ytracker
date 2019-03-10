@@ -13,6 +13,7 @@ const profile = require('./routes/api/profile');
 const yachtprofiles = require('./routes/api/yachtprofiles');
 const services = require('./routes/api/services');
 const posts = require('./routes/api/posts');
+const todos = require('./routes/api/todos');
 
 const app = express();
 const { log } = console;
@@ -46,6 +47,7 @@ app.use('/api/profile', profile);
 app.use('/api/yachtprofiles', yachtprofiles);
 app.use('/api/services', services);
 app.use('/api/posts', posts);
+app.use('/api/todos', todos);
 
 // serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

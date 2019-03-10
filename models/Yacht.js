@@ -8,111 +8,119 @@ const addressSchema = require('./Address').schema;
 const yachtSchema = new Schema({
   createdby: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User'
   },
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   active: {
     type: Boolean,
-    required: true,
+    required: true
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
   yachttype: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   phone: {
-    type: Number,
+    type: Number
   },
   avatar: {
-    type: String,
+    type: String
   },
   loa: {
-    type: Number,
+    type: Number
   },
   draft: {
-    type: Number,
+    type: Number
   },
   beam: {
-    type: Number,
+    type: Number
   },
   grosstonnage: {
-    type: Number,
+    type: Number
   },
   buildcompany: {
-    type: String,
+    type: String
   },
   buildyear: {
-    type: Number,
+    type: Number
   },
   refityear: {
-    type: Number,
+    type: Number
   },
   cruisinglicense: {
-    type: String,
+    type: String
   },
   taxid: {
-    type: String,
+    type: String
   },
   billingcompany: {
     companyname: {
-      type: String,
+      type: String
     },
     email: {
-      type: String,
+      type: String
     },
     phone: {
-      type: Number,
+      type: Number
     },
     mobile: {
-      type: Number,
+      type: Number
     },
-    address: addressSchema,
+    address: addressSchema
   },
   owningcompany: {
     companyname: {
-      type: String,
+      type: String
     },
     email: {
-      type: String,
+      type: String
     },
     phone: {
-      type: Number,
+      type: Number
     },
     mobile: {
-      type: Number,
+      type: Number
     },
-    address: addressSchema,
+    address: addressSchema
   },
   managementcompany: {
     companyname: {
-      type: String,
+      type: String
     },
     email: {
-      type: String,
+      type: String
     },
     phone: {
-      type: Number,
+      type: Number
     },
     mobile: {
-      type: Number,
+      type: Number
     },
-    address: addressSchema,
+    address: addressSchema
   },
-  services: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Service',
-  }],
+  services: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Service'
+    }
+  ],
+  todos: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Todo'
+    }
+  ]
 });
 // {
 //   toObject: {
@@ -128,6 +136,5 @@ const yachtSchema = new Schema({
 //   localField: 'services',
 //   foreignField: 'yacht',
 // });
-
 
 module.exports = mongoose.model('Yacht', yachtSchema);
