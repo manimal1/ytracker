@@ -36,19 +36,19 @@ router.get('/', (req, res) => {
 // @des     Get all todos for one yacht
 // @access  Private
 router.get(
-  '/yacht/:yachtprofile_id',
+  '/yacht/:yachtId',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
 
-    Todo.find({ yacht: req.params.yachtprofile_id })
-      .then((todos) => {
-        if (!todos) {
+    Yacht.findById(req.params.yachtId)
+      .then((yacht) => {
+        if (!yacht.todos) {
           errors.notodos = 'There are no todos for this yacht';
           return res.status(404).json(errors);
         }
 
-        return res.status(200).json(todos);
+        return res.status(200).json(yacht.todos);
       })
       .catch((err) => {
         err.msg = { todos: 'There are no todos for this yacht' }; // eslint-disable-line no-param-reassign
@@ -57,23 +57,23 @@ router.get(
   }
 );
 
-// @route   GET api/todos/user/:userProfile_id
+// @route   GET api/todos/user/:userProfileId
 // @des     Get all todos for one user
 // @access  Private
 router.get(
-  '/user/:userProfile_id',
+  '/user/:userProfileId',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
 
-    Todo.find({ asignee: req.params.userProfile_id })
-      .then((todos) => {
-        if (!todos) {
+    Profile.findById(req.params.userProfileId)
+      .then((profile) => {
+        if (!profile.todos) {
           errors.notodos = 'There are no todos for this user';
           return res.status(404).json(errors);
         }
 
-        return res.status(200).json(todos);
+        return res.status(200).json(profile.todos);
       })
       .catch((err) => {
         err.msg = { todos: 'There are no todos for this user' }; // eslint-disable-line no-param-reassign
@@ -131,15 +131,15 @@ router.post(
   })
 );
 
-// @route   DELETE api/todos/todo/:todo_id
+// @route   DELETE api/todos/todo/:todoId
 // @des     Delete todo item
 // @access  Private
 router.delete(
-  '/todo/:todo_id',
+  '/todo/:todoId',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Todo.findById(req.params.todo_id)
-      .deleteOne({ _id: req.params.todo_id })
+    Todo.findById(req.params.todoId)
+      .deleteOne({ _id: req.params.todoId })
       .exec()
       .then(() => res.json({ success: true }));
   }
