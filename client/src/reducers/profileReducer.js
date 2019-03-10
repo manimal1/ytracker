@@ -2,6 +2,7 @@ import { profileConstants } from '../constants';
 
 const initialState = {
   profile: null,
+  selectedProfile: null,
   isLoading: false,
   isCreated: false,
 };
@@ -27,10 +28,33 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
+    case profileConstants.GET_SELECTED_PROFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case profileConstants.GET_SELECTED_PROFILE_SUCCESS:
+      return {
+        ...state,
+        selectedProfile: payload,
+        isLoading: false,
+      };
+    case profileConstants.GET_SELECTED_PROFILE_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case profileConstants.CLEAR_CURRENT_PROFILE:
       return {
         ...state,
         profile: null,
+        isLoading: false,
+        isCreated: false,
+      };
+    case profileConstants.CLEAR_SELECTED_PROFILE:
+      return {
+        ...state,
+        selectedProfile: null,
         isLoading: false,
         isCreated: false,
       };

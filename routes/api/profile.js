@@ -32,6 +32,27 @@ router.get(
   }
 );
 
+// @route   GET api/profile/:profileId
+// @des     Get user profile by ID
+// @access  Private
+router.get(
+  '/:profileId',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const errors = {};
+    Profile.findOne(req.params.profileId)
+      .then((profile) => {
+        if (!profile) {
+          errors.noprofile = 'This profile does not exist';
+          return res.status(404).json(errors);
+        }
+
+        return res.status(200).json(profile);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 // @route   GET api/profile/all
 // @des     Get all profiles
 // @access  Public
@@ -39,7 +60,7 @@ router.get('/all', (req, res) => {
   const errors = {};
 
   Profile.find()
-    .populate('user', ['name', 'avatar'])
+    .populate('user', ['firstname', 'lastname', 'avatar'])
     .then((profiles) => {
       if (!profiles) {
         errors.noprofile = 'There are no profiles';

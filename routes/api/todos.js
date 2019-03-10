@@ -8,7 +8,6 @@ const asyncMiddleware = require('../../utils/asyncMiddleware');
 const Todo = require('../../models/Todo');
 const Profile = require('../../models/Profile');
 const Yacht = require('../../models/Yacht');
-const Service = require('../../models/Service');
 const validateTodo = require('../../validation/todo');
 
 // @route   GET api/todos
@@ -32,7 +31,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// @route   GET api/todos/yacht/:yachtprofile_id
+// @route   GET api/todos/yacht/:yachtprofileId
 // @des     Get all todos for one yacht
 // @access  Private
 router.get(
@@ -55,6 +54,26 @@ router.get(
         return res.status(404).json(err.msg);
       });
   }
+);
+
+// @route   GET api/todos/yacht/:yachtprofileId
+// @des     Get all active todos for one yacht
+// @access  Private
+router.get(
+  '/active/yacht/:yachtprofileId',
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
+    const errors = {};
+    const yacht = Yacht.findById(req.params.yachtprofileId);
+    if (!yacht.todos) {
+      errors.notodos = 'There are no todos for this yacht';
+      return res.status(404).json(errors);
+    }
+    const { todos } = yacht;
+    const yachtTodos = todos.map(todoId => Todo.findById(todoId));
+    const activeTodos = yachtTodos.filter(yachtTodo => !yachtTodo.isCompleted);
+    return res.status(200).json(activeTodos);
+  })
 );
 
 // @route   GET api/todos/user/:userProfileId
@@ -82,11 +101,31 @@ router.get(
   }
 );
 
-// @route   POST api/todo/user/:profileId/:yachtId/:serviceId
+// @route   GET api/todos/user/:userProfileId
+// @des     Get all active todos for one user
+// @access  Private
+router.get(
+  '/active/user/:userProfileId',
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
+    const errors = {};
+    const profile = Profile.findById(req.params.userProfileId);
+    if (!profile.todos) {
+      errors.notodos = 'There are no todos for this user';
+      return res.status(404).json(errors);
+    }
+    const { todos } = profile;
+    const userTodos = todos.map(todoId => Todo.findById(todoId));
+    const activeTodos = userTodos.filter(userTodo => !userTodo.isCompleted);
+    return res.status(200).json(activeTodos);
+  })
+);
+
+// @route   POST api/todos/user/:profileId/:yachtId
 // @des     Create a todo
 // @access  Private
 router.post(
-  '/user/:profileId/:yachtId?/:serviceId?',
+  '/user/:profileId/:yachtId?',
   passport.authenticate('jwt', { session: false }),
   asyncMiddleware(async (req, res) => {
     const { errors, isValid } = validateTodo(req.body);
@@ -97,7 +136,6 @@ router.post(
     }
     // Get fields
     let yacht;
-    let service;
     const todoFields = {};
     todoFields.createdby = req.user.id;
     const profile = await Profile.findById(req.params.profileId);
@@ -108,10 +146,6 @@ router.post(
     if (req.params.yachtId) {
       yacht = await Yacht.findById(req.params.yachtId);
       todoFields.yacht = yacht;
-    }
-    if (req.params.serviceId) {
-      service = await Service.findById(req.params.serviceId);
-      todoFields.service = service;
     }
     if (req.body.dateCreated) todoFields.dateCreated = req.body.dateCreated;
     if (req.body.dateDue) todoFields.dateDue = req.body.dateDue;

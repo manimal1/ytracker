@@ -1,6 +1,46 @@
 import axios from 'axios';
 import { profileConstants, errorConstants } from '../constants';
 
+// get all profiles
+export const getAllProfiles = () => dispatch => {
+  axios
+    .get('/api/profile/all')
+    .then(res => {
+      dispatch({ type: GET_ALL_PROFILES_REQUEST });
+      dispatch({
+        type: GET_ALL_PROFILES_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(() => {
+      dispatch({ type: GET_ALL_PROFILES_REQUEST });
+      dispatch({
+        type: GET_ALL_PROFILES_FAIL,
+        payload: res.data,
+      });
+    });
+};
+
+// GET profile by ID
+export const getProfileById = profileId => dispatch => {
+  axios
+    .get(`/api/profile/${profileId}`)
+    .then(res => {
+      dispatch({ type: GET_SELECTED_PROFILE_REQUEST });
+      dispatch({
+        type: GET_SELECTED_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(() => {
+      dispatch({ type: GET_SELECTED_PROFILE_REQUEST });
+      dispatch({
+        type: GET_SELECTED_PROFILE_FAIL,
+        payload: res.data,
+      });
+    });
+};
+
 // GET current profile
 export const getCurrentProfile = () => dispatch => {
   axios
@@ -22,7 +62,15 @@ export const getCurrentProfile = () => dispatch => {
 };
 
 // clear current profile
-export const clearCurrentProfile = () => {
+export const clearSelectedProfile = () => {
+  return {
+    type: profileConstants.CLEAR_SELECTED_PROFILE,
+    payload: {},
+  };
+};
+
+// clear current profile
+export const clearProfile = () => {
   return {
     type: profileConstants.CLEAR_CURRENT_PROFILE,
     payload: {},

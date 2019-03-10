@@ -8,6 +8,7 @@ import yachtsReducer from './yachtsReducer';
 import companyRegisterReducer from './companyRegisterReducer';
 import companiesReducer from './companiesReducer';
 import yachtServiceReducer from './yachtServiceReducer';
+import todosReducer from './todosReducer';
 
 export default combineReducers({
   errors: errorsReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   companyRegister: companyRegisterReducer,
   companyData: companiesReducer,
   yachtService: yachtServiceReducer,
+  todos: todosReducer,
 });
