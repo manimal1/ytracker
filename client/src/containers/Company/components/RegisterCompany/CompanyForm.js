@@ -9,11 +9,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import SectionTitle from '../../../../components/SectionTitle';
-import TextFieldList from '../../../../components/TextFieldList';
-import TextField from '../../../../components/TextField';
-import ExpansionPanelGroup from '../../../../components/ExpansionPanelGroup';
-import Spinner from '../../../../components/Spinner';
+import SectionTitle from 'components/SectionTitle';
+import TextFieldList from 'components/TextFieldList';
+import TextField from 'components/TextField';
+import ExpansionPanelGroup from 'components/ExpansionPanelGroup';
+import Spinner from 'components/Spinner';
 
 const styles = theme => ({
   nameField: {

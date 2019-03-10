@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { selectedYacht } from 'utils/objectModels';
 
-import { registerYacht, clearYachtRegistrationData } from './actions';
+import {
+  registerYacht,
+  clearYachtRegistrationData,
+} from 'actions/yachtRegisterActions';
 import YachtFormSwitcher from './YachtFormSwitcher';
 
 class RegisterYacht extends Component {

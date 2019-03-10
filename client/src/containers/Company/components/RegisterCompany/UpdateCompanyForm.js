@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { updateCompany, clearCompanyRegistrationData } from './actions';
+import {
+  updateCompany,
+  clearCompanyRegistrationData,
+} from 'actions/companyRegisterActions';
 
 import CompanyForm from './CompanyForm';
 

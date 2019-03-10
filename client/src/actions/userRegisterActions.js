@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { errorConstants } from '../../constants';
-
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+import { errorConstants, userConstants } from '../constants';
 
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post('/api/users/register', userData)
     .then(res => {
       dispatch({
-        type: REGISTER_SUCCESS,
+        type: userConstants.REGISTER_SUCCESS,
         payload: res.data,
       });
       history.push('/login');

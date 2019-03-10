@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode'; // eslint-disable-line camelcase
 import theme from './theme';
 import setAuthToken from './utils/setAuthToken';
 import { selectedYacht } from './utils/objectModels';
-import { setCurrentUser, logoutUser } from './containers/LoginUser/actions';
+import { setCurrentUser, logoutUser } from 'actions/userLoginActions';
 
 import App from './App';
 import reducers from './reducers';

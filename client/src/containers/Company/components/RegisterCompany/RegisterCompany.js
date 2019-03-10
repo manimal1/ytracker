@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { registerCompany, clearCompanyRegistrationData } from './actions';
+import {
+  registerCompany,
+  clearCompanyRegistrationData,
+} from 'actions/companyRegisterActions';
 import CompanyFormSwitcher from './CompanyFormSwitcher';
 
 class RegisterCompany extends Component {

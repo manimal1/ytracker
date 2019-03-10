@@ -12,7 +12,7 @@ import {
   getYachtById,
   clearYachts,
   clearSelectedYacht,
-} from 'containers/YachtSelector/actions';
+} from 'actions/yachtActions';
 
 class YachtsHome extends Component {
   constructor(props) {
@@ -62,10 +62,10 @@ class YachtsHome extends Component {
   }
 
   render() {
-    const { selectedYacht, yachtData } = this.state;
-    const { onChange } = this;
+    const { selectedYacht, yachtData } = this.state; // eslint-disable-line no-unused-vars
+    const { onChange } = this; // eslint-disable-line no-unused-vars
     const { activeYachts } = yachtData || [];
-    const { isLoading } = yachtData;
+    const { isLoading } = yachtData; // eslint-disable-line no-unused-vars
 
     return (
       <div>

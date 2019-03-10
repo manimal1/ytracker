@@ -1,37 +1,32 @@
-import {
-  ADD_YACHT_SERVICE,
-  ADD_YACHT_SERVICE_SUCCESS,
-  ADD_YACHT_SERVICE_FAIL,
-  CLEAR_YACHT_SERVICE,
-} from './actions';
+import { serviceConstants } from '../constants';
 
 const initialState = {
   yachtService: {},
 };
 
-const reducer = (state = initialState, action) => {
+const yachtServiceReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ADD_YACHT_SERVICE:
+    case serviceConstants.ADD_YACHT_SERVICE:
       return {
         ...state,
         isAddingService: true,
       };
-    case ADD_YACHT_SERVICE_SUCCESS:
+    case serviceConstants.ADD_YACHT_SERVICE_SUCCESS:
       return {
         ...state,
         newService: payload,
         isAddingService: false,
         isServiceAdded: true,
       };
-    case ADD_YACHT_SERVICE_FAIL:
+    case serviceConstants.ADD_YACHT_SERVICE_FAIL:
       return {
         ...state,
         isAddingService: false,
         isServiceAdded: false,
       };
-    case CLEAR_YACHT_SERVICE:
+    case serviceConstants.CLEAR_YACHT_SERVICE:
       return {
         ...state,
         isAddingService: false,
@@ -43,4 +38,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default yachtServiceReducer;

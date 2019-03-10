@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Login from './Login';
-import { loginUser } from './actions';
+import { loginUser } from 'actions/userLoginActions';
 
 class LoginUser extends Component {
   constructor(props) {
@@ -30,13 +30,13 @@ class LoginUser extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/yachts');
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.authenticated === true) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/yachts');
     }
 
     if (prevState.errors !== this.state.errors) {

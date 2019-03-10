@@ -1,11 +1,4 @@
-import {
-  REGISTERING_COMPANY,
-  REGISTER_COMPANY_SUCCESS,
-  REGISTER_COMPANY_FAIL,
-  CLEAR_COMPANY_REGISTRATION,
-  UPDATE_COMPANY_SUCCESS,
-  UPDATE_COMPANY_FAIL,
-} from './actions';
+import { companyConstants } from '../constants';
 
 const initialState = {
   newCompany: {},
@@ -14,43 +7,43 @@ const initialState = {
   isFetching: false,
 };
 
-const reducer = (state = initialState, action) => {
+const companyRegisterReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case REGISTERING_COMPANY:
+    case companyConstants.REGISTERING_COMPANY:
       return {
         ...state,
         isFetching: true,
       };
-    case REGISTER_COMPANY_SUCCESS:
+    case companyConstants.REGISTER_COMPANY_SUCCESS:
       return {
         ...state,
         newCompany: payload,
         isFetching: false,
         isRegistered: true,
       };
-    case REGISTER_COMPANY_FAIL:
+    case companyConstants.REGISTER_COMPANY_FAIL:
       return {
         ...state,
         isFetching: false,
         isRegistered: false,
       };
-    case CLEAR_COMPANY_REGISTRATION:
+    case companyConstants.CLEAR_COMPANY_REGISTRATION:
       return {
         ...state,
         isFetching: false,
         isRegistered: false,
         newCompany: {},
       };
-    case UPDATE_COMPANY_SUCCESS:
+    case companyConstants.UPDATE_COMPANY_SUCCESS:
       return {
         ...state,
         newCompany: payload,
         isFetching: false,
         isUpdated: true,
       };
-    case UPDATE_COMPANY_FAIL:
+    case companyConstants.UPDATE_COMPANY_FAIL:
       return {
         ...state,
         isFetching: false,
@@ -61,4 +54,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default companyRegisterReducer;

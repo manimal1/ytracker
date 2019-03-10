@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { registerUser } from './actions';
+import { registerUser } from 'actions/userRegisterActions';
 import Register from './Register';
 
 class RegisterUser extends Component {
@@ -29,7 +29,7 @@ class RegisterUser extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/yachts');
     }
   }
 

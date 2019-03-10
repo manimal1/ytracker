@@ -1,14 +1,11 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'; // eslint-disable-line camelcase
 import setAuthToken from 'utils/setAuthToken';
-import errorConstants from 'constants/errorConstants';
-
-export const USER_LOGOUT = 'USER_LOGOUT';
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+import { errorConstants, userConstants } from '../constants';
 
 export const setCurrentUser = decoded => {
   return {
-    type: SET_CURRENT_USER,
+    type: userConstants.SET_CURRENT_USER,
     payload: decoded,
   };
 };

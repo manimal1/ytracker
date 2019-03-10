@@ -6,7 +6,7 @@ import MainDashboard from './MainDashboard';
 import { YachtDashboard } from '../Yachts/components';
 import { CompanyDashboard } from '../Company/components';
 
-import { Page } from '../../components/Page';
+import { Page } from 'components/Page';
 
 class Company extends Component {
   constructor(props) {

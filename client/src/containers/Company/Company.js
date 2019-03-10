@@ -8,7 +8,7 @@ import {
   CompanyService,
 } from './components';
 
-import { Page } from '../../components/Page';
+import { Page } from 'components/Page';
 
 class Company extends Component {
   constructor(props) {
