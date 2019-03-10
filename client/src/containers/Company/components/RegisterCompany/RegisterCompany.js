@@ -8,26 +8,14 @@ import {
   clearCompanyRegistrationData,
 } from 'actions/companyRegisterActions';
 import CompanyFormSwitcher from './CompanyFormSwitcher';
+import { company as companyModel } from 'utils/objectModels';
 
 class RegisterCompany extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      company: {
-        name: '',
-        servicetype: '',
-        email: '',
-        phone: '',
-        mobile: '',
-        address: {
-          addressline1: '',
-          addressline2: '',
-          city: '',
-          postalcode: '',
-          country: '',
-        },
-      },
+      company: companyModel,
       isCompanySelected: false,
       companyRegister: this.props.companyRegister,
       companyData: this.props.companyData,

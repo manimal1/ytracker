@@ -1,19 +1,10 @@
 const userProfile = {
-  displaySocialInputs: false,
   handle: '',
-  company: '',
-  website: '',
+  firstname: '',
+  lastname: '',
+  role: '',
   location: '',
-  status: '',
-  position: '',
-  skills: '',
-  bio: '',
-  twitter: '',
-  facebook: '',
   linkedin: '',
-  youtube: '',
-  instagram: '',
-  errors: {},
 };
 
 export default userProfile;

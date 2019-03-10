@@ -12,7 +12,7 @@ import yachtServiceReducer from './yachtServiceReducer';
 export default combineReducers({
   errors: errorsReducer,
   auth: authReducer,
-  profile: profileReducer,
+  userProfile: profileReducer,
   yachtRegister: yachtRegisterReducer,
   yachtData: yachtsReducer,
   companyRegister: companyRegisterReducer,

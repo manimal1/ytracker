@@ -1,6 +1,3 @@
-import UsersProfile from './UsersProfile';
-// import * as actions from './actions';
-// import reducer from './reducer';
+import CreateProfile from './CreateProfile';
 
-// export { actions, reducer };
-export default UsersProfile;
+export default CreateProfile;
