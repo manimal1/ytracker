@@ -4,6 +4,9 @@ import { errorConstants } from '../../constants';
 export const GET_ALL_YACHTS_REQUEST = 'GET_ALL_YACHTS_REQUEST';
 export const GET_ALL_YACHTS_SUCCESS = 'GET_ALL_YACHTS_SUCCESS';
 export const GET_ALL_YACHTS_FAIL = 'GET_ALL_YACHTS_FAIL';
+export const GET_ALL_ACTIVE_YACHTS_REQUEST = 'GET_ALL_ACTIVE_YACHTS_REQUEST';
+export const GET_ALL_ACTIVE_YACHTS_SUCCESS = 'GET_ALL_ACTIVE_YACHTS_SUCCESS';
+export const GET_ALL_ACTIVE_YACHTS_FAIL = 'GET_ALL_ACTIVE_YACHTS_FAIL';
 export const LOAD_YACHT_REQUEST = 'LOAD_YACHT_REQUEST';
 export const LOAD_YACHT_SUCCESS = 'LOAD_YACHT_SUCCESS';
 export const LOAD_YACHT_FAIL = 'LOAD_YACHT_FAIL';
@@ -41,6 +44,25 @@ export const getYachtById = id => dispatch => {
     })
     .catch(err => {
       dispatch({ type: LOAD_YACHT_FAIL });
+      dispatch({
+        type: errorConstants.GET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+export const getAllActiveYachts = () => dispatch => {
+  axios
+    .get('/api/yachts/active')
+    .then(res => {
+      dispatch({ type: GET_ALL_ACTIVE_YACHTS_REQUEST });
+      dispatch({
+        type: GET_ALL_ACTIVE_YACHTS_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch(err => {
+      dispatch({ type: GET_ALL_ACTIVE_YACHTS_FAIL });
       dispatch({
         type: errorConstants.GET_ERRORS,
         payload: err.response.data,

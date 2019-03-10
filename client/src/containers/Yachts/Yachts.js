@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 import {
-  YachtDashboard,
+  YachtsHome,
   RegisterYacht,
   YachtService,
   YachtCalendar,
 } from './components';
 
-import { Page } from '../../components/Page';
+import { Page } from 'components/Page';
 
 class Yachts extends Component {
   constructor(props) {
@@ -17,10 +17,10 @@ class Yachts extends Component {
     this.state = {
       menu: [
         {
-          id: 'yacht-dashboard',
+          id: 'yacht-home',
           label: 'Yachts',
           icon: <InboxIcon />,
-          component: <YachtDashboard />,
+          component: <YachtsHome />,
         },
         {
           id: 'yacht-create',
@@ -49,7 +49,7 @@ class Yachts extends Component {
 
     return (
       <div>
-        <Page {...{ menu }} defaultPanel="yacht-dashboard" />
+        <Page {...{ menu }} defaultPanel="yacht-home" />
       </div>
     );
   }

@@ -148,9 +148,14 @@ const Service = props => {
                 id: 'serviceType',
               }}
             >
-              {serviceTypes.map(serviceTypeName => {
+              {serviceTypes.map((serviceTypeName, index) => {
                 return (
-                  <MenuItem value={serviceTypeName}>{serviceTypeName}</MenuItem>
+                  <MenuItem
+                    key={`service-types-${index}`}
+                    value={serviceTypeName}
+                  >
+                    {serviceTypeName}
+                  </MenuItem>
                 );
               })}
             </Select>

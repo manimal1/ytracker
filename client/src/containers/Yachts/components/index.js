@@ -1,6 +1,13 @@
-import YachtDashboard from './YachtDashboard';
+import YachtsHome from './YachtsHome';
 import RegisterYacht from './RegisterYacht';
 import YachtService from './YachtService';
 import YachtCalendar from './YachtCalendar';
+import YachtDashboard from './YachtDashboard';
 
-export { YachtDashboard, RegisterYacht, YachtService, YachtCalendar };
+export {
+  YachtsHome,
+  RegisterYacht,
+  YachtService,
+  YachtCalendar,
+  YachtDashboard,
+};
