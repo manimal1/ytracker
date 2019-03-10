@@ -6,8 +6,9 @@ module.exports = function validateProfileInput(data) {
   // make sure an empty fields are set as strings
   // so the validator library works
   data.handle = !isEmpty(data.handle) ? data.handle : '';
-  data.status = !isEmpty(data.status) ? data.status : '';
-  data.skills = !isEmpty(data.skills) ? data.skills : '';
+  data.firstname = !isEmpty(data.firstname) ? data.firstname : '';
+  data.lastname = !isEmpty(data.lastname) ? data.lastname : '';
+  data.role = !isEmpty(data.role) ? data.role : '';
 
   if (!validator.isLength(data.handle, { min: 2, max: 40 })) {
     errors.handle = 'Handle needs to be between 2 and 40 characters';
@@ -17,46 +18,26 @@ module.exports = function validateProfileInput(data) {
     errors.handle = 'Profile handle is required';
   }
 
-  if (validator.isEmpty(data.status)) {
-    errors.status = 'Profile status field is required';
+  if (validator.isEmpty(data.firstname)) {
+    errors.firstname = 'First name field is required';
   }
 
-  if (validator.isEmpty(data.skills)) {
-    errors.skills = 'Profile skills field is required';
+  if (validator.isEmpty(data.lastname)) {
+    errors.lastname = 'First name field is required';
   }
 
-  if (!isEmpty(data.website)) {
-    if (!validator.isURL(data.website)) {
-      errors.website = 'Not a valid url';
-    }
+  if (validator.isEmpty(data.role)) {
+    errors.role = 'Profile role field is required';
   }
 
-  if (!isEmpty(data.youtube)) {
-    if (!validator.isURL(data.youtube)) {
-      errors.youtube = 'Not a valid url';
-    }
-  }
-
-  if (!isEmpty(data.twitter)) {
-    if (!validator.isURL(data.twitter)) {
-      errors.twitter = 'Not a valid url';
-    }
-  }
-
-  if (!isEmpty(data.facebook)) {
-    if (!validator.isURL(data.facebook)) {
-      errors.facebook = 'Not a valid url';
-    }
-  }
-
-  if (!isEmpty(data.instagram)) {
-    if (!validator.isURL(data.instagram)) {
-      errors.instagram = 'Not a valid url';
+  if (!isEmpty(data.linkedin)) {
+    if (!validator.isURL(data.linkedin)) {
+      errors.linkedin = 'Not a valid url';
     }
   }
 
   return {
     errors,
-    isValid: isEmpty(errors),
+    isValid: isEmpty(errors)
   };
 };

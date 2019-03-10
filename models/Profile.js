@@ -5,119 +5,94 @@ const { Schema } = mongoose;
 const profileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User'
   },
   handle: {
     type: String,
     required: true,
-    max: 40,
+    max: 40
   },
-  company: {
-    type: String,
+  firstname: {
+    type: String
   },
-  position: {
-    type: String,
+  lastname: {
+    type: String
   },
-  website: {
-    type: String,
+  role: {
+    type: String
   },
   location: {
-    type: String,
+    type: String
   },
-  status: {
-    type: String,
-    required: true,
-  },
-  skills: {
-    type: [String],
-    required: true,
-  },
-  bio: {
-    type: String,
-  },
-  githubusername: {
-    type: String,
-  },
-  experience: [
-    {
-      title: {
-        type: String,
-        required: true,
-      },
-      company: {
-        type: String,
-        required: true,
-      },
-      location: {
-        type: String,
-      },
-      from: {
-        type: Date,
-        required: true,
-      },
-      to: {
-        type: Date,
-      },
-      current: {
-        type: Boolean,
-        required: false,
-      },
-      experience: {
-        type: String,
-      },
-    },
-  ],
-  education: [
-    {
-      school: {
-        type: String,
-        required: true,
-      },
-      degree: {
-        type: String,
-        required: true,
-      },
-      fieldofstudy: {
-        type: String,
-        required: true,
-      },
-      description: {
-        type: String,
-      },
-      from: {
-        type: Date,
-        required: true,
-      },
-      to: {
-        type: Date,
-      },
-      current: {
-        type: Boolean,
-        required: false,
-      },
-    },
-  ],
-  social: {
-    youtube: {
-      type: String,
-    },
-    twitter: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
-    linkedin: {
-      type: String,
-    },
-    instagram: {
-      type: String,
-    },
+  linkedin: {
+    type: String
   },
   date: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
+  // bio: {
+  //   type: String
+  // },
+  // experience: [
+  //   {
+  //     title: {
+  //       type: String,
+  //       required: true
+  //     },
+  //     company: {
+  //       type: String,
+  //       required: true
+  //     },
+  //     location: {
+  //       type: String
+  //     },
+  //     from: {
+  //       type: Date,
+  //       required: true
+  //     },
+  //     to: {
+  //       type: Date
+  //     },
+  //     current: {
+  //       type: Boolean,
+  //       required: false
+  //     },
+  //     experience: {
+  //       type: String
+  //     }
+  //   }
+  // ],
+  // education: [
+  //   {
+  //     school: {
+  //       type: String,
+  //       required: true
+  //     },
+  //     degree: {
+  //       type: String,
+  //       required: true
+  //     },
+  //     fieldofstudy: {
+  //       type: String,
+  //       required: true
+  //     },
+  //     description: {
+  //       type: String
+  //     },
+  //     from: {
+  //       type: Date,
+  //       required: true
+  //     },
+  //     to: {
+  //       type: Date
+  //     },
+  //     current: {
+  //       type: Boolean,
+  //       required: false
+  //     }
+  //   }
+  // ],
 });
 
 module.exports = mongoose.model('Profile', profileSchema);
