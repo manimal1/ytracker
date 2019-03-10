@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const chalk = require('chalk');
 
 const users = require('./routes/api/users');
 const captains = require('./routes/api/captains');
@@ -14,19 +15,21 @@ const services = require('./routes/api/services');
 const posts = require('./routes/api/posts');
 
 const app = express();
+const { log } = console;
 
 // Body parser middleware
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // DB config
 const db = require('./config/keys').mongoURI;
 
 // Connect to mongodb
+mongoose.set('useCreateIndex', true);
 mongoose
   .connect(db, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .then(() => log(chalk.green('MongoDB connected'))) // eslint-disable-line no-console
+  .catch(err => log(chalk.red(err))); // eslint-disable-line no-console
 
 // Passport middleware
 app.use(passport.initialize());
@@ -56,4 +59,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => log(chalk.green(`Server running on port ${port}`))); // eslint-disable-line no-console

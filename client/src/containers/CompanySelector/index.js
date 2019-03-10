@@ -1,6 +1,3 @@
-import { default as CompanySelector } from './CompanySelector';
-import * as actions from './actions';
-import reducer from './reducer';
+import CompanySelector from './CompanySelector';
 
-export { actions, reducer };
 export default CompanySelector;

@@ -8,7 +8,7 @@ import {
   CompanyService,
 } from './components';
 
-import { Page } from '../../components/Page';
+import { Page } from 'components/Page';
 
 class Company extends Component {
   constructor(props) {
@@ -19,22 +19,22 @@ class Company extends Component {
           id: 'company-dashboard',
           label: 'Dashboard',
           icon: <InboxIcon />,
-          component: <CompanyDashboard />
+          component: <CompanyDashboard />,
         },
         {
           id: 'company-create',
           label: 'Add Company',
           icon: <InboxIcon />,
-          component: <RegisterCompany />
+          component: <RegisterCompany />,
         },
         {
           id: 'company-service',
           label: 'Add Service',
           icon: <InboxIcon />,
-          component: <CompanyService />
+          component: <CompanyService />,
         },
       ],
-    }
+    };
   }
 
   render() {
@@ -42,7 +42,7 @@ class Company extends Component {
 
     return (
       <div>
-        <Page {...{menu}} defaultPanel="company-dashboard" />
+        <Page {...{ menu }} defaultPanel="company-dashboard" />
       </div>
     );
   }

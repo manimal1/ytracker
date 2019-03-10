@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
-const styles = theme => ({
+const styles = () => ({
   swipeableDrawer: {
     minWidth: '240px',
   },
 });
 
-const MobileDrawer = (props) => {
+const MobileDrawer = props => {
   const { classes, isDrawerOpen, toggleDrawer, children } = props;
 
   return (
@@ -28,13 +28,13 @@ const MobileDrawer = (props) => {
         {children}
       </div>
     </SwipeableDrawer>
-  )
-}
+  );
+};
 
 MobileDrawer.propTypes = {
   isDrawerOpen: PropTypes.bool,
-  selectedIndex: PropTypes.number,
-  handleNavMenuItemSelect: PropTypes.func,
+  selectedIndex: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
+  handleNavMenuItemSelect: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
   toggleDrawer: PropTypes.func,
 };
 

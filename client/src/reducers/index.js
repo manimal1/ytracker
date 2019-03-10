@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux';
-import { reducer as errorReducer } from './errorReducer';
-import { reducer as authReducer } from '../containers/LoginUser';
-import { reducer as profileReducer } from '../containers/Profile';
-import { reducer as yachtRegisterReducer } from '../containers/Yachts/components/RegisterYacht';
-import { reducer as yachtsReducer } from '../containers/YachtSelector';
-import { reducer as companyRegisterReducer } from '../containers/Company/components/RegisterCompany';
-import { reducer as companiesReducer } from '../containers/CompanySelector';
-import { reducer as yachtServiceReducer } from '../containers/Yachts/components/YachtService';
+
+import errorsReducer from './errorsReducer';
+import authReducer from './authReducer';
+import profileReducer from './profileReducer';
+import yachtRegisterReducer from './yachtRegisterReducer';
+import yachtsReducer from './yachtsReducer';
+import companyRegisterReducer from './companyRegisterReducer';
+import companiesReducer from './companiesReducer';
+import yachtServiceReducer from './yachtServiceReducer';
 
 export default combineReducers({
-  errors: errorReducer,
+  errors: errorsReducer,
   auth: authReducer,
   profile: profileReducer,
   yachtRegister: yachtRegisterReducer,

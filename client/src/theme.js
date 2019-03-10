@@ -4,19 +4,19 @@ import cyan from '@material-ui/core/colors/cyan';
 
 const theme = createMuiTheme({
   palette: {
-    type: "light",
+    type: 'light',
     primary: {
       main: blueGrey[900],
     },
     secondary: {
-      main: cyan['A400'],
+      main: cyan.A400,
     },
   },
   typography: {
     useNextVariants: true,
     h6: {
-      fontSize: "1.375rem",
-      fontWeight: "400",
+      fontSize: '1.375rem',
+      fontWeight: '400',
     },
   },
   overrides: {

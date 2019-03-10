@@ -7,20 +7,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import SectionTitle from './SectionTitle';
 
-const ExpansionPanelGroup = ({ label, classes, children, }) => {
-
+const ExpansionPanelGroup = ({ label, children }) => {
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <SectionTitle text={label} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <div style={{width: "100%"}}>
-          { children }
-        </div>
+        <div style={{ width: '100%' }}>{children}</div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
-  )
-}
+  );
+};
 
 export default ExpansionPanelGroup;

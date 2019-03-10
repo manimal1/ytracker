@@ -1,22 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { default as YachtSelector } from '../../../YachtSelector';
-import { default as UpdateYachtForm } from './UpdateYachtForm';
-import { default as YachtForm } from './YachtForm';
 
 import { withStyles } from '@material-ui/core/styles';
+import YachtSelector from 'containers/YachtSelector';
+import Heading from 'components/Heading';
+import UpdateYachtForm from './UpdateYachtForm';
+import YachtForm from './YachtForm';
 
-import Heading from '../../../../components/Heading';
-
-const styles = theme => ({
+const styles = () => ({
   heading: {
     marginTop: '16px',
     marginBottom: '16px',
   },
 });
 
-const YachtFormSwitcher = (props) => {
+const YachtFormSwitcher = props => {
   const {
     classes,
     selectedYacht,
@@ -44,31 +41,27 @@ const YachtFormSwitcher = (props) => {
   return (
     <div className="yacht-forms">
       <Heading text="Update Yacht" class={classes.heading} />
-      <YachtSelector {...{ 
-        setIsYachtSelected,
-        card: true,
-        label: 'Existing Yachts',
-      }} />
-      {!isYachtSelected &&
+      <YachtSelector
+        {...{
+          setIsYachtSelected,
+          card: true,
+          label: 'Existing Yachts',
+        }}
+      />
+      {!isYachtSelected && (
         <React.Fragment>
           <Heading text="or Add New Yacht" class={classes.heading} />
           <YachtForm yachtProps={yachtProps} />
         </React.Fragment>
-      }
-      {isYachtSelected &&
+      )}
+      {isYachtSelected && (
         <React.Fragment>
           <Heading text="Updating Yacht" class={classes.heading} />
-          <UpdateYachtForm {...{isYachtSelected}} />
+          <UpdateYachtForm {...{ isYachtSelected }} />
         </React.Fragment>
-      }
+      )}
     </div>
   );
-}
-
-YachtFormSwitcher.propTypes = {
-  selectedYachtProps: PropTypes.object,
-  isYachtSelected: PropTypes.bool,
-  setIsYachtSelected: PropTypes.func,
-}
+};
 
 export default withStyles(styles)(YachtFormSwitcher);

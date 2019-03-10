@@ -2,7 +2,7 @@ const validator = require('validator');
 const isEmpty = require('./is-empty');
 
 module.exports = function validateExperienceInput(data) {
-  let errors = {};
+  const errors = {};
   // make sure an empty fields are set as strings
   // so the validator library works
   data.title = !isEmpty(data.title) ? data.title : '';

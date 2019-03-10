@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 // const gravatar = require('gravatar');
 const passport = require('passport');
@@ -21,20 +22,20 @@ const Service = require('../../models/Service');
 // @access  Private
 router.get(
   '/',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
 
     Yacht.find()
-      .then(yachts => {
+      .then((yachts) => {
         if (!yachts) {
           errors.noyachts = 'There are no yachts';
           return res.status(404).json(errors);
         }
 
-        res.status(200).json(yachts);
+        return res.status(200).json(yachts);
       })
-      .catch(err => {
+      .catch((err) => {
         err.msg = { yachts: 'There are no yachts' };
         return res.status(404).json(err.msg);
       });
@@ -47,7 +48,7 @@ router.get(
 router.get(
   '/active',
   passport.authenticate('jwt', { session: false }),
-  asyncMiddleware(async(req, res, next) => {
+  asyncMiddleware(async (req, res) => {
     const errors = {};
     const allYachts = await Yacht.find();
     const allActiveYachts = allYachts.filter(yacht => yacht.active);
@@ -66,7 +67,7 @@ router.get(
 router.get(
   '/inactive',
   passport.authenticate('jwt', { session: false }),
-  asyncMiddleware(async(req, res, next) => {
+  asyncMiddleware(async (req, res) => {
     const errors = {};
     const allYachts = await Yacht.find();
     const allInactiveYachts = allYachts.filter(yacht => !yacht.active);
@@ -76,7 +77,7 @@ router.get(
     }
 
     return res.status(200).json(allInactiveYachts);
-  })
+  }),
 );
 
 // @route   GET api/yachts/getyacht&:id
@@ -89,7 +90,7 @@ router.get(
     const errors = {};
 
     Yacht.findById(req.params.id)
-      .then(yacht => {
+      .then((yacht) => {
         if (!yacht) {
           errors.noyacht = 'This yacht does not exist';
           return res.status(404).json(errors);
@@ -97,11 +98,11 @@ router.get(
 
         return res.status(200).json(yacht);
       })
-      .catch(err => {
+      .catch((err) => {
         err.msg = { yacht: 'There is no matching yacht' };
         return res.status(404).json(err.msg);
       });
-  }
+  },
 );
 
 // @route   POST api/yachts/register
@@ -109,7 +110,7 @@ router.get(
 // @access  Private
 router.post(
   '/register',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateYachtInput(req.body);
     let owningcompany = {};
@@ -154,25 +155,38 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Yacht.findOne({ email: email })
-      .then(yacht => {
+    return Yacht.findOne({ email })
+      .then((yacht) => {
         if (yacht) {
           errors.email = 'Email already exists';
           return res.status(400).json(errors);
-        } else {
-          const newYacht = new Yacht({
-            createdby, name, email, yachttype, active, phone, loa, draft, beam,
-            grosstonnage, buildcompany, buildyear, refityear,
-            owningcompany, billingcompany, managementcompany,
-            cruisinglicense, taxid,
-          });
-
-          newYacht.save()
-            .then(yacht => res.status(201).json(yacht))
-            .catch(err => res.status(400).json(err));
         }
+        const newYacht = new Yacht({
+          createdby,
+          name,
+          email,
+          yachttype,
+          active,
+          phone,
+          loa,
+          draft,
+          beam,
+          grosstonnage,
+          buildcompany,
+          buildyear,
+          refityear,
+          owningcompany,
+          billingcompany,
+          managementcompany,
+          cruisinglicense,
+          taxid,
+        });
+
+        return newYacht.save()
+          .then(newSavedYacht => res.status(201).json(newSavedYacht))
+          .catch(err => res.status(400).json(err));
       });
-  }
+  },
 );
 
 // @route   POST api/yachts/:yacht_id
@@ -180,7 +194,7 @@ router.post(
 // @access  Private
 router.post(
   '/:yacht_id',
-  passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateYachtInput(req.body);
     let owningcompany = {};
@@ -225,23 +239,36 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Yacht.findByIdAndUpdate(
+    return Yacht.findByIdAndUpdate(
       req.params.yacht_id,
       {
-        createdby, name, email, yachttype, active, phone, loa, draft, beam,
-        grosstonnage, buildcompany, buildyear, refityear,
-        cruisinglicense, taxid,
-        owningcompany, billingcompany, managementcompany,
+        createdby,
+        name,
+        email,
+        yachttype,
+        active,
+        phone,
+        loa,
+        draft,
+        beam,
+        grosstonnage,
+        buildcompany,
+        buildyear,
+        refityear,
+        cruisinglicense,
+        taxid,
+        owningcompany,
+        billingcompany,
+        managementcompany,
       },
-      { new: true }
+      { new: true },
     )
       .then(yacht => res.status(200).json(yacht))
-      .catch(err => {
-        errors.name = 'Yacht does not exist';
-        console.log(err);
-        return res.status(400).json(errors);
+      .catch((err) => {
+        err.name = 'Yacht does not exist';
+        return res.status(400).json(err);
       });
-  }
+  },
 );
 
 // @route   POST api/yachts/services/:yachtId&:companyId
@@ -249,8 +276,8 @@ router.post(
 // @access  Private
 router.post(
   '/services/:yachtId&:companyId',
-  passport.authenticate('jwt', {session: false}),
-  asyncMiddleware(async(req, res, next) => {
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
     const { errors, isValid } = validateServiceInput(req.body);
 
     if (!isValid) {
@@ -273,8 +300,8 @@ router.post(
     // Add service to the company's services array
     company.services.push(newService);
     await company.save();
-    res.status(201).json(newService);
-  })
+    return res.status(201).json(newService);
+  }),
 );
 
 // @route   GET api/yachts/services/getall/:yachtId
@@ -282,19 +309,19 @@ router.post(
 // @access  Private
 router.get(
   '/services/getall/:yachtId',
-  passport.authenticate('jwt', {session: false}),
-  asyncMiddleware(async(req, res, next) => {
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
     const { yachtId } = req.params;
     const yacht = await Yacht.findById(yachtId);
     const yachtServices = yacht.services;
-    const allYachtServices = yachtServices.map(async serviceId => {
+    const allYachtServices = yachtServices.map(async (serviceId) => {
       const service = await Service.findById(serviceId);
       return service;
     });
     Promise.all(allYachtServices) // eslint-disable-line no-undef
       .then(services => res.status(200).json(services))
       .catch(err => res.status(400).json(err));
-  })
+  }),
 );
 
 // @route   GET api/yachts/services/getallpaid/:yachtId
@@ -302,23 +329,23 @@ router.get(
 // @access  Private
 router.get(
   '/services/getallpaid/:yachtId',
-  passport.authenticate('jwt', {session: false}),
-  asyncMiddleware(async(req, res, next) => {
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
     const { yachtId } = req.params;
     const yacht = await Yacht.findById(yachtId);
     const yachtServices = yacht.services;
-    const allYachtServices = yachtServices.map(async serviceId => {
+    const allYachtServices = yachtServices.map(async (serviceId) => {
       const service = await Service.findById(serviceId);
       return service;
     });
 
     Promise.all(allYachtServices) // eslint-disable-line no-undef
-      .then(services => {
+      .then((services) => {
         const paidServices = services.filter(service => service.paid);
         res.status(200).json(paidServices);
       })
       .catch(err => res.status(400).json(err));
-  })
+  }),
 );
 
 // @route   GET api/yachts/services/getallunpaid/:yachtId
@@ -326,23 +353,23 @@ router.get(
 // @access  Private
 router.get(
   '/services/getallunpaid/:yachtId',
-  passport.authenticate('jwt', {session: false}),
-  asyncMiddleware(async(req, res, next) => {
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
     const { yachtId } = req.params;
     const yacht = await Yacht.findById(yachtId);
     const yachtServices = yacht.services;
-    const allYachtServices = yachtServices.map(async serviceId => {
+    const allYachtServices = yachtServices.map(async (serviceId) => {
       const service = await Service.findById(serviceId);
       return service;
     });
 
     Promise.all(allYachtServices) // eslint-disable-line no-undef
-      .then(services => {
+      .then((services) => {
         const unpaidServices = services.filter(service => !service.paid);
         res.status(200).json(unpaidServices);
       })
       .catch(err => res.status(400).json(err));
-  })
+  }),
 );
 
 // @route   DELETE api/yachts/:yacht_id
@@ -356,7 +383,7 @@ router.delete(
       .deleteOne({ _id: req.params.yachtId })
       .exec()
       .then(() => res.status(200).json({ success: true }));
-  }
+  },
 );
 
 module.exports = router;

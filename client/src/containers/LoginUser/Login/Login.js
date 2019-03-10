@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import Card from '@material-ui/core/Card';
@@ -12,9 +11,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import Heading from '../../../components/Heading';
+import Heading from 'components/Heading';
 
-const styles = theme => ({
+const styles = () => ({
   pagewrapper: {
     marginLeft: '16px',
     marginRight: '16px',
@@ -33,7 +32,7 @@ const styles = theme => ({
   },
 });
 
-const Login = (props) => {
+const Login = props => {
   const {
     classes,
     email,
@@ -46,7 +45,13 @@ const Login = (props) => {
   } = props;
 
   return (
-    <form id="login-form" className={classes.pagewrapper} noValidate autoComplete="off" onSubmit={onSubmit}>
+    <form
+      id="login-form"
+      className={classes.pagewrapper}
+      noValidate
+      autoComplete="off"
+      onSubmit={onSubmit}
+    >
       <div className={classes.container}>
         <Card>
           <CardContent>
@@ -61,7 +66,7 @@ const Login = (props) => {
               margin="normal"
               value={email}
               onChange={onChange}
-              error={errors.email ? true : false}
+              error={!!errors.email}
               helperText={errors.email}
             />
             <TextField
@@ -74,20 +79,20 @@ const Login = (props) => {
               margin="normal"
               value={password}
               onChange={onChange}
-              error={errors.password ? true : false}
+              error={!!errors.password}
               helperText={errors.password}
               InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Toggle password visibility"
-                    onClick={handleClickShowPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="Toggle password visibility"
+                      onClick={handleClickShowPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
           </CardContent>
           <CardActions>
@@ -105,16 +110,6 @@ const Login = (props) => {
       </div>
     </form>
   );
-}
-
-Login.propTypes = {
-  classes: PropTypes.object,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  handleClickShowPassword: PropTypes.func,
-  errors: PropTypes.object,
-}
+};
 
 export default withStyles(styles)(Login);

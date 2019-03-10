@@ -5,13 +5,14 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import { default as CompanySelector } from '../../../CompanySelector';
-import { default as YachtSelector } from '../../../YachtSelector';
-import Heading from '../../../../components/Heading';
-import Spinner from '../../../../components/Spinner';
-import Service from '../../../../components/Service';
+import CompanySelector from 'containers/CompanySelector';
+import YachtSelector from 'containers/YachtSelector';
+import Heading from 'components/Heading';
+import SectionTitle from 'components/SectionTitle';
+import Spinner from 'components/Spinner';
+import Service from 'components/Service';
 
-const styles = theme => ({
+const styles = () => ({
   card: {
     position: 'relative',
   },
@@ -21,13 +22,18 @@ const styles = theme => ({
   },
 });
 
-const ServiceForm = (props) => {
+const ServiceForm = props => {
   const {
     yachtService,
+    taxValues,
+    serviceTypes,
+    totalPrice,
     handleCheckBox,
     onChange,
     onSubmit,
-    onBlur,
+    handleChangeChargedCurrency,
+    handleCaclulateCostOnBlur,
+    handleCalculateChargedAmountOnBlur,
     handleCalculateTaxOnBlur,
     handleAddPercentageToChargedAmountOnBlur,
     errors,
@@ -44,20 +50,28 @@ const ServiceForm = (props) => {
       <Heading text="Add Service" />
       <Card className={classes.card}>
         <CardContent>
+          <SectionTitle text="Select Yacht (& Company)" />
           <YachtSelector label="Choose yacht" />
           <CompanySelector label="Choose company" />
         </CardContent>
       </Card>
       <form onSubmit={onSubmit}>
         <Service
-          service={yachtService}
-          checkboxHandler={handleCheckBox}
-          onChange={onChange}
-          onSubmit={onSubmit}
-          onBlur={onBlur}
-          handleCalculateTaxOnBlur={handleCalculateTaxOnBlur}
-          handleAddPercentageToChargedAmountOnBlur={handleAddPercentageToChargedAmountOnBlur}
-          errors={errors}
+          {...{
+            service: yachtService,
+            checkboxHandler: handleCheckBox,
+            taxValues,
+            serviceTypes,
+            totalPrice,
+            onChange,
+            onSubmit,
+            handleChangeChargedCurrency,
+            handleCaclulateCostOnBlur,
+            handleCalculateChargedAmountOnBlur,
+            handleCalculateTaxOnBlur,
+            handleAddPercentageToChargedAmountOnBlur,
+            errors,
+          }}
         />
         <Button
           className={classes.submitButton}
@@ -70,6 +84,6 @@ const ServiceForm = (props) => {
       </form>
     </div>
   );
-}
+};
 
 export default withStyles(styles)(ServiceForm);

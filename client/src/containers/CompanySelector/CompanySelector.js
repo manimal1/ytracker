@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import ItemSelector from '../../components/ItemSelector';
+import ItemSelector from 'components/ItemSelector';
 
 import {
   getAllCompanies,
   getCompanyById,
   clearCompanies,
   clearSelectedCompany,
-} from './actions';
+} from 'actions/companyActions';
 
 class CompanySelector extends Component {
   constructor(props) {
@@ -22,12 +22,21 @@ class CompanySelector extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.companyData !== prevState.companyData) {
-      return {companyData: nextProps.companyData};
+      return { companyData: nextProps.companyData };
     }
-    
-    else return null;
+
+    return null;
+  }
+
+  componentDidMount() {
+    if (
+      !this.props.companyData.companies ||
+      this.props.companyData.companies.length === 0
+    ) {
+      this.props.getAllCompanies();
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,25 +48,18 @@ class CompanySelector extends Component {
     }
   }
 
-  componentDidMount() {
-    if (!this.props.companyData.companies
-      || this.props.companyData.companies.length === 0) {
-      this.props.getAllCompanies();
-    }
-  }
-
   componentWillUnmount() {
     this.props.clearCompanies();
     this.props.clearSelectedCompany();
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
   render() {
     const { selectedCompany, companyData } = this.state;
-    const { 
+    const {
       card,
       label,
       sectionTitle,
@@ -80,7 +82,7 @@ class CompanySelector extends Component {
         buttonLoading={isLoading}
         card={card}
       />
-    )
+    );
   }
 }
 
@@ -89,9 +91,9 @@ CompanySelector.propTypes = {
   getCompanyById: PropTypes.func.isRequired,
   clearSelectedCompany: PropTypes.func.isRequired,
   clearCompanies: PropTypes.func.isRequired,
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   errors: state.errors,
   companyData: state.companyData,
 });
@@ -105,5 +107,5 @@ export default compose(
       clearCompanies,
       clearSelectedCompany,
     },
-  )
+  ),
 )(CompanySelector);

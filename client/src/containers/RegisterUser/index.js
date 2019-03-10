@@ -1,5 +1,3 @@
-import { default as RegisterUser } from './RegisterUser';
-import * as actions from "./actions";
+import RegisterUser from './RegisterUser';
 
-export { actions };
 export default RegisterUser;

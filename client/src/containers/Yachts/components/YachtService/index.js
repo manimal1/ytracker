@@ -1,6 +1,3 @@
-import { default as AddYachtService } from './AddYachtService';
-import * as actions from './actions';
-import reducer from './reducer';
+import AddYachtService from './AddYachtService';
 
-export { actions, reducer};
 export default AddYachtService;

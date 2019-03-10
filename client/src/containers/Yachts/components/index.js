@@ -1,6 +1,13 @@
-import { default as YachtDashboard } from './YachtDashboard';
-import { default as RegisterYacht } from './RegisterYacht';
-import { default as YachtService } from './YachtService';
-import { default as YachtCalendar } from './YachtCalendar';
+import YachtsHome from './YachtsHome';
+import RegisterYacht from './RegisterYacht';
+import YachtService from './YachtService';
+import YachtCalendar from './YachtCalendar';
+import YachtDashboard from './YachtDashboard';
 
-export { YachtDashboard, RegisterYacht, YachtService, YachtCalendar };
+export {
+  YachtsHome,
+  RegisterYacht,
+  YachtService,
+  YachtCalendar,
+  YachtDashboard,
+};

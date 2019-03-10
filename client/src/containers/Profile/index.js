@@ -1,6 +1,3 @@
-import { default as Profile } from './Profile';
-import * as actions from './actions';
-import reducer from './reducer';
+import Profile from './Profile';
 
-export { actions, reducer };
 export default Profile;

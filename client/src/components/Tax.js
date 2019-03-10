@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import Checkbox from '@material-ui/core/Checkbox';
@@ -12,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const styles = () => ({
   serviceNameInput: {
     width: '100%',
   },
@@ -32,22 +31,32 @@ const styles = theme => ({
     paddingLeft: '8px',
   },
   chargedInput: {
-    width: '100%'
+    width: '100%',
   },
   totalAmountWrapper: {
-    marginTop: '16px',
-  },
-  totalAmountLabel: {
-    display: 'inline',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
   },
   totalAmount: {
+    marginLeft: '16px',
+    lineHeight: '32px',
+  },
+  fixedAmountWrapper: {
+    marginTop: '16px',
+  },
+  fixedAmountLabel: {
+    display: 'inline',
+  },
+  fixedAmount: {
     display: 'inline',
     marginLeft: '16px',
   },
 });
 
-const Tax = (props) => {
+const Tax = props => {
   const {
+    fixed,
     onChange,
     onBlur,
     handleCalculateTaxOnBlur,
@@ -64,13 +73,17 @@ const Tax = (props) => {
     classes,
   } = props;
 
+  if (fixed) {
+    return fixedTaxComponent(props); // eslint-disable-line no-use-before-define
+  }
+
   return (
     <div>
       <FormControlLabel
         control={
           <Checkbox
             checked={taxIncluded}
-            onChange={(e) => checkboxHandler(e)}
+            onChange={e => checkboxHandler(e)}
             value={taxIncludedName}
             name={taxIncludedName}
           />
@@ -89,11 +102,11 @@ const Tax = (props) => {
               id: `${taxName}`,
             }}
           >
-            {
-              taxValues.map((tax, index) => (
-                <MenuItem key={`${taxName}-${index}`} value={tax}>{tax}</MenuItem>
-              ))
-            }
+            {taxValues.map((tax, index) => (
+              <MenuItem key={`${taxName}-${index}`} value={tax}>
+                {tax}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <TextField
@@ -115,23 +128,56 @@ const Tax = (props) => {
         </Typography>
       </div>
     </div>
-  )
-}
+  );
+};
 
-Tax.propTypes = {
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  checkboxHandler: PropTypes.func,
-  taxIncluded: PropTypes.bool,
-  taxIncludedName: PropTypes.string,
-  taxValues: PropTypes.array,
-  taxSelected: PropTypes.any,
-  taxName: PropTypes.string,
-  taxAmount: PropTypes.string,
-  taxAmountName: PropTypes.string,
-  totalAmount: PropTypes.string,
-  totalAmountName: PropTypes.string,
-  classes: PropTypes.object,
+function fixedTaxComponent(props) {
+  const {
+    taxSelectedLabel,
+    taxSelected,
+    taxAmountLabel,
+    taxAmount,
+    totalAmountLabel,
+    totalAmount,
+    classes,
+  } = props;
+
+  return (
+    <div>
+      <div className={classes.fixedAmountWrapper}>
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          className={classes.fixedAmountLabel}
+        >
+          {taxSelectedLabel}:
+        </Typography>
+        <Typography variant="subtitle2" className={classes.fixedAmount}>
+          {taxSelected}%
+        </Typography>
+      </div>
+      <div>
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          className={classes.fixedAmountLabel}
+        >
+          {taxAmountLabel}:
+        </Typography>
+        <Typography variant="subtitle2" className={classes.fixedAmount}>
+          {taxAmount}
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="subtitle1" className={classes.fixedAmountLabel}>
+          {totalAmountLabel}:
+        </Typography>
+        <Typography variant="subtitle2" className={classes.fixedAmount}>
+          {totalAmount}
+        </Typography>
+      </div>
+    </div>
+  );
 }
 
 export default withStyles(styles)(Tax);

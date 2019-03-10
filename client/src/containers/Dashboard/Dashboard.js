@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
-import { default as MainDashboard } from './MainDashboard';
+import MainDashboard from './MainDashboard';
 import { YachtDashboard } from '../Yachts/components';
 import { CompanyDashboard } from '../Company/components';
 
-import { Page } from '../../components/Page';
+import { Page } from 'components/Page';
 
 class Company extends Component {
   constructor(props) {
@@ -17,22 +17,22 @@ class Company extends Component {
           id: 'main-dashboard',
           label: 'Main',
           icon: <InboxIcon />,
-          component: <MainDashboard />
+          component: <MainDashboard />,
         },
         {
           id: 'yacht-dashboard',
           label: 'Yachts',
           icon: <InboxIcon />,
-          component: <YachtDashboard />
+          component: <YachtDashboard />,
         },
         {
           id: 'company-dashboard',
           label: 'Companies',
           icon: <InboxIcon />,
-          component: <CompanyDashboard />
+          component: <CompanyDashboard />,
         },
       ],
-    }
+    };
   }
 
   render() {
@@ -40,7 +40,7 @@ class Company extends Component {
 
     return (
       <div>
-        <Page {...{menu}} defaultPanel="main-dashboard" />
+        <Page {...{ menu }} defaultPanel="main-dashboard" />
       </div>
     );
   }

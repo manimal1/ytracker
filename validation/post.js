@@ -2,7 +2,7 @@ const validator = require('validator');
 const isEmpty = require('./is-empty');
 
 module.exports = function validatePostInput(data) {
-  let errors = {};
+  const errors = {};
   // make sure an empty fields are set as strings
   // so the validator library works
   data.text = !isEmpty(data.text) ? data.text : '';

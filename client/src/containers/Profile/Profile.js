@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getCurrentProfile } from './actions';
-import Spinner from '../../components/Spinner';
+import { getCurrentProfile } from 'actions/profileActions';
+import Spinner from 'components/Spinner';
 
 class Profile extends Component {
   componentDidMount() {
@@ -16,35 +16,26 @@ class Profile extends Component {
     let profileContent;
 
     if (profile === null || loading === true) {
-      profileContent = <Spinner page={true} />;
+      profileContent = <Spinner page />;
+    } else if (Object.keys(profile).length > 0) {
+      profileContent = <h1>Profile</h1>;
     } else {
-      if (Object.keys(profile).length > 0) {
-        profileContent = <h1>Profile</h1>;
-      } else {
-        // user is logged in but does not have a profile
-        profileContent = (
-          <div>
-            <p>Welcome { user.firstname }!</p>
-            <p>You have not set up a profile.  Please add some info</p>
-
-          </div>
-        )
-      }
+      // user is logged in but does not have a profile
+      profileContent = (
+        <div>
+          <p>Welcome {user.firstname}!</p>
+          <p>You have not set up a profile. Please add some info</p>
+        </div>
+      );
     }
 
-    return (
-      <div>
-        {profileContent}
-      </div>
-    );
+    return <div>{profileContent}</div>;
   }
 }
 
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object,
-  auth: PropTypes.object,
-}
+};
 
 const mapStateToProps = state => ({
   profile: state.profile,

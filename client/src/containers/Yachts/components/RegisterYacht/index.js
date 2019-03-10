@@ -1,6 +1,3 @@
-import { default as RegisterYacht } from './RegisterYacht';
-import * as actions from './actions';
-import reducer from './reducer';
+import RegisterYacht from './RegisterYacht';
 
-export { actions, reducer};
 export default RegisterYacht;

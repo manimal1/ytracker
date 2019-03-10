@@ -1,9 +1,11 @@
 {
-  "extends": "strongloop",
+  "extends": "airbnb-base",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 8
   },
   "rules": {
-    "strict": 0
+    "strict": 0,
+    "comma-dangle": 0,
+    "no-param-reassign": 0
   }
 }

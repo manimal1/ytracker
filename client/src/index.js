@@ -5,11 +5,11 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import jwt_decode from 'jwt-decode'; // eslint-disable-line camelcase
 import theme from './theme';
-import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { selectedYacht } from './utils/objectModels';
-import { setCurrentUser, logoutUser } from './containers/LoginUser/actions';
+import { setCurrentUser, logoutUser } from 'actions/userLoginActions';
 
 import App from './App';
 import reducers from './reducers';
@@ -18,7 +18,7 @@ import * as serviceWorker from './serviceWorker';
 const initialState = {
   yachtData: {
     yachts: [],
-    selectedYacht: selectedYacht,
+    selectedYacht,
   },
 };
 
@@ -49,7 +49,7 @@ if (localStorage.jwtToken) {
     // logout user
     store.dispatch(logoutUser());
     // TODO: clear current profile
-    
+
     // redirect to login
     window.location.href = '/';
   }
@@ -61,7 +61,7 @@ ReactDOM.render(
       <App />
     </MuiThemeProvider>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,5 +1,5 @@
-import { default as CompanyDashboard } from './CompanyDashboard';
-import { default as RegisterCompany } from './RegisterCompany';
-import { default as CompanyService } from './CompanyService';
+import CompanyDashboard from './CompanyDashboard';
+import RegisterCompany from './RegisterCompany';
+import CompanyService from './CompanyService';
 
 export { CompanyDashboard, RegisterCompany, CompanyService };

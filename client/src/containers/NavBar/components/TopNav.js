@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-const styles = theme => ({
+const styles = () => ({
   topNav: {
     backgroundColor: '#FFFFFF',
   },
@@ -14,10 +14,10 @@ const styles = theme => ({
     marginLeft: '16px',
     marginRight: '16px',
     textAlign: 'center',
-  }
+  },
 });
 
-const TopNav = (props) => {
+const TopNav = props => {
   const { classes, navMenu, selectedIndex, handleNavMenuItemSelect } = props;
 
   return (
@@ -27,8 +27,7 @@ const TopNav = (props) => {
         indicatorColor="secondary"
         textColor="secondary"
       >
-      {
-        navMenu.map((item, index) => {
+        {navMenu.map((item, index) => {
           return (
             <Tab
               key={index}
@@ -39,13 +38,12 @@ const TopNav = (props) => {
               to={item.path}
               onClick={e => handleNavMenuItemSelect(e, index)}
             />
-          )
-        })
-      }
+          );
+        })}
       </Tabs>
     </div>
   );
-}
+};
 
 TopNav.propTypes = {
   selectedIndex: PropTypes.number,

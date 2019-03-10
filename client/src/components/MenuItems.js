@@ -20,15 +20,10 @@ const MenuItems = ({
       to={link}
       onClick={e => handleMenuItemSelect(e, index)}
     >
-      <ListItemIcon>
-        {item.icon}
-      </ListItemIcon>
-      <ListItemText
-        inset
-        primary={item.label}
-      />
+      <ListItemIcon>{item.icon}</ListItemIcon>
+      <ListItemText inset primary={item.label} />
     </ListItem>
-  )
-}
+  );
+};
 
 export default MenuItems;
