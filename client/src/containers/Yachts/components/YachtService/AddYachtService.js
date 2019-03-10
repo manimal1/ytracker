@@ -10,7 +10,7 @@ import {
   formatCurrencyNumber,
   formatCurrency,
 } from 'utils/calculate';
-import { addYachtService, clearYachtServiceData } from './actions';
+import { addYachtService, clearYachtServiceData } from 'actions/serviceActions';
 
 import ServiceForm from './ServiceForm';
 

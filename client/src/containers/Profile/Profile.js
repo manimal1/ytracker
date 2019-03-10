@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getCurrentProfile } from './actions';
-import Spinner from '../../components/Spinner';
+import { getCurrentProfile } from 'actions/profileActions';
+import Spinner from 'components/Spinner';
 
 class Profile extends Component {
   componentDidMount() {

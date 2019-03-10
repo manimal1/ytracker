@@ -10,7 +10,7 @@ import {
   getYachtById,
   clearYachts,
   clearSelectedYacht,
-} from './actions';
+} from 'actions/yachtActions';
 
 class YachtSelector extends Component {
   constructor(props) {

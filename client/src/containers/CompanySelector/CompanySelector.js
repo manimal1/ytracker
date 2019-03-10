@@ -10,7 +10,7 @@ import {
   getCompanyById,
   clearCompanies,
   clearSelectedCompany,
-} from './actions';
+} from 'actions/companyActions';
 
 class CompanySelector extends Component {
   constructor(props) {

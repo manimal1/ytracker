@@ -15,8 +15,8 @@ import StoreIcon from '@material-ui/icons/Store';
 import RowingIcon from '@material-ui/icons/Rowing';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { clearCurrentProfile } from '../Profile/actions';
-import { logoutUser } from '../LoginUser/actions';
+import { clearCurrentProfile } from 'actions/profileActions';
+import { logoutUser } from 'actions/userLoginActions';
 
 import { TopNav, BottomNav, AccountMenu } from './components';
 
@@ -127,7 +127,7 @@ class NavBar extends Component {
             {children}
             <Link
               className={classes.logo}
-              to={isAuthenticated ? '/dashboard' : '/'}
+              to={isAuthenticated ? '/yachts' : '/'}
               onClick={e => this.handleNavMenuItemSelect(e, 0)}
             >
               YTracker

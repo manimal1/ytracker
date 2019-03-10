@@ -24,9 +24,6 @@ class App extends Component {
           <CssBaseline />
           <div className="App">
             <Route exact path="/" component={Landing} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
             <Route exact path="/register" component={RegisterUser} />
             <Route exact path="/login" component={LoginUser} />
             <Switch>
@@ -43,6 +40,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/profile" component={Profile} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </React.Fragment>

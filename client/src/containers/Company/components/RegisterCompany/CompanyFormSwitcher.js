@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import CompanySelector from '../../../CompanySelector';
+import CompanySelector from 'containers/CompanySelector';
 import UpdateCompanyForm from './UpdateCompanyForm';
 import CompanyForm from './CompanyForm';
 
-import Heading from '../../../../components/Heading';
+import Heading from 'components/Heading';
 
 const styles = () => ({
   heading: {

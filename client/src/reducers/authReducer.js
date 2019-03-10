@@ -1,16 +1,16 @@
-import { SET_CURRENT_USER } from './actions';
-import isEmpty from '../../validation/is-empty';
+import isEmpty from '../validation/is-empty';
+import { userConstants } from '../constants';
 
 const initialState = {
   isAuthenticated: false,
   user: {},
 };
 
-const reducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_CURRENT_USER:
+    case userConstants.SET_CURRENT_USER:
       return {
         ...state,
         isAuthenticated: !isEmpty(payload),
@@ -21,4 +21,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default authReducer;

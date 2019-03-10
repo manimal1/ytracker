@@ -1,5 +1,6 @@
+import userProfile from './userProfile';
 import selectedYacht from './selectedYacht';
 import yachtService from './yachtService';
-import userProfile from './userProfile';
+import company from './company';
 
-export { selectedYacht, yachtService, userProfile };
+export { userProfile, selectedYacht, yachtService, company };

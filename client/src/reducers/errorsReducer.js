@@ -2,7 +2,7 @@ import { errorConstants } from '../constants';
 
 const initialState = {};
 
-export const reducer = (state = initialState, action) => {
+export const errorsReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -15,4 +15,4 @@ export const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default errorsReducer;

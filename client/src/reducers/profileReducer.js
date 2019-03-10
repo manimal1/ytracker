@@ -1,26 +1,26 @@
-import { PROFILE_LOADING, GET_PROFILE, CLEAR_CURRENT_PROFILE } from './actions';
+import { profileConstants } from '../constants';
 
 const initialState = {
   profile: null,
   loading: false,
 };
 
-const reducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case PROFILE_LOADING:
+    case profileConstants.PROFILE_LOADING:
       return {
         ...state,
         loading: true,
       };
-    case GET_PROFILE:
+    case profileConstants.GET_PROFILE:
       return {
         ...state,
         profile: payload,
         loading: false,
       };
-    case CLEAR_CURRENT_PROFILE:
+    case profileConstants.CLEAR_CURRENT_PROFILE:
       return {
         ...state,
         profile: null,
@@ -30,4 +30,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default profileReducer;
