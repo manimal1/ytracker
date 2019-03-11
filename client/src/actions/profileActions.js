@@ -6,17 +6,17 @@ export const getAllProfiles = () => dispatch => {
   axios
     .get('/api/profile/all')
     .then(res => {
-      dispatch({ type: GET_ALL_PROFILES_REQUEST });
+      dispatch({ type: profileConstants.GET_ALL_PROFILES_REQUEST });
       dispatch({
-        type: GET_ALL_PROFILES_SUCCESS,
+        type: profileConstants.GET_ALL_PROFILES_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(() => {
-      dispatch({ type: GET_ALL_PROFILES_REQUEST });
+    .catch(err => {
+      dispatch({ type: profileConstants.GET_ALL_PROFILES_REQUEST });
       dispatch({
-        type: GET_ALL_PROFILES_FAIL,
-        payload: res.data,
+        type: profileConstants.GET_ALL_PROFILES_FAIL,
+        payload: err.data,
       });
     });
 };
@@ -26,17 +26,17 @@ export const getProfileById = profileId => dispatch => {
   axios
     .get(`/api/profile/${profileId}`)
     .then(res => {
-      dispatch({ type: GET_SELECTED_PROFILE_REQUEST });
+      dispatch({ type: profileConstants.GET_SELECTED_PROFILE_REQUEST });
       dispatch({
-        type: GET_SELECTED_PROFILE_SUCCESS,
+        type: profileConstants.GET_SELECTED_PROFILE_SUCCESS,
         payload: res.data,
       });
     })
-    .catch(() => {
-      dispatch({ type: GET_SELECTED_PROFILE_REQUEST });
+    .catch(err => {
+      dispatch({ type: profileConstants.GET_SELECTED_PROFILE_REQUEST });
       dispatch({
-        type: GET_SELECTED_PROFILE_FAIL,
-        payload: res.data,
+        type: profileConstants.GET_SELECTED_PROFILE_FAIL,
+        payload: err.data,
       });
     });
 };
@@ -70,7 +70,7 @@ export const clearSelectedProfile = () => {
 };
 
 // clear current profile
-export const clearProfile = () => {
+export const clearCurrentProfile = () => {
   return {
     type: profileConstants.CLEAR_CURRENT_PROFILE,
     payload: {},
@@ -100,8 +100,8 @@ export const createUserProfile = userProfile => dispatch => {
 };
 
 // update profile
-// export const updateUserProfile = () => {
-//   return {
-//     type: profileConstants.UPDATE_USER_PROFILE,
-//   };
-// };
+export const updateUserProfile = () => {
+  return {
+    type: profileConstants.UPDATE_USER_PROFILE,
+  };
+};

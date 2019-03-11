@@ -18,6 +18,9 @@ const profileSchema = new Schema({
   lastname: {
     type: String
   },
+  name: {
+    type: String
+  },
   role: {
     type: String
   },

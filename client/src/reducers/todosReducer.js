@@ -36,98 +36,98 @@ const todosReducer = (state = initialState, action) => {
         isAddingTodo: false,
         isNewTodoAdded: false,
       };
-    case yachtConstants.GET_ALL_TODOS_REQUEST:
+    case todoConstants.GET_ALL_TODOS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case yachtConstants.GET_ALL_TODOS_SUCCESS:
+    case todoConstants.GET_ALL_TODOS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         allTodos: payload,
       };
-    case yachtConstants.GET_ALL_TODOS_FAIL:
+    case todoConstants.GET_ALL_TODOS_FAIL:
       return {
         ...state,
         isLoading: false,
       };
-    case yachtConstants.GET_ALL_USER_TODOS_REQUEST:
+    case todoConstants.GET_ALL_USER_TODOS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case yachtConstants.GET_ALL_USER_TODOS_SUCCESS:
+    case todoConstants.GET_ALL_USER_TODOS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         allUserTodos: payload,
       };
-    case yachtConstants.GET_ALL_USER_TODOS_FAIL:
+    case todoConstants.GET_ALL_USER_TODOS_FAIL:
       return {
         ...state,
         isLoading: false,
       };
-    case yachtConstants.GET_ALL_ACTIVE_USER_TODOS_REQUEST:
+    case todoConstants.GET_ALL_ACTIVE_USER_TODOS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case yachtConstants.GET_ALL_ACTIVE_USER_TODOS_SUCCESS:
+    case todoConstants.GET_ALL_ACTIVE_USER_TODOS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         allActiveUserTodos: payload,
       };
-    case yachtConstants.GET_ALL_ACTIVE_USER_TODOS_FAIL:
+    case todoConstants.GET_ALL_ACTIVE_USER_TODOS_FAIL:
       return {
         ...state,
         isLoading: false,
       };
-    case yachtConstants.GET_ALL_YACHT_TODOS_REQUEST:
+    case todoConstants.GET_ALL_YACHT_TODOS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case yachtConstants.GET_ALL_YACHT_TODOS_SUCCESS:
+    case todoConstants.GET_ALL_YACHT_TODOS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         allYachtTodos: payload,
       };
-    case yachtConstants.GET_ALL_YACHT_TODOS_FAIL:
+    case todoConstants.GET_ALL_YACHT_TODOS_FAIL:
       return {
         ...state,
         isLoading: false,
       };
-    case yachtConstants.GET_ALL_ACTIVE_YACHT_TODOS_REQUEST:
+    case todoConstants.GET_ALL_ACTIVE_YACHT_TODOS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case yachtConstants.GET_ALL_ACTIVE_YACHT_TODOS_SUCCESS:
+    case todoConstants.GET_ALL_ACTIVE_YACHT_TODOS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         allActiveYachtTodos: payload,
       };
-    case yachtConstants.GET_ALL_ACTIVE_YACHT_TODOS_FAIL:
+    case todoConstants.GET_ALL_ACTIVE_YACHT_TODOS_FAIL:
       return {
         ...state,
         isLoading: false,
       };
-    case yachtConstants.DELETE_TODO_REQUEST:
+    case todoConstants.DELETE_TODO_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case yachtConstants.DELETE_TODO_SUCCESS:
+    case todoConstants.DELETE_TODO_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isTodoDeleted: true,
       };
-    case yachtConstants.DELETE_TODO_FAIL:
+    case todoConstants.DELETE_TODO_FAIL:
       return {
         ...state,
         isLoading: false,

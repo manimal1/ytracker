@@ -39,16 +39,16 @@ class ProfileSelector extends Component {
     const { selectedProfile, userProfile } = this.state;
 
     if (prevState.selectedProfile !== selectedProfile) {
-      this.props.getYachtById(selectedProfile);
+      this.props.getProfileById(selectedProfile);
     }
     if (prevState.userProfile !== userProfile) {
-      this.resetuserProfileState(userProfile);
+      this.resetUserProfileState(userProfile);
     }
   }
 
-  componentWillUnmount() {
-    this.props.clearSelectedYacht();
-  }
+  // componentWillUnmount() {
+  //   this.props.clearSelectedProfile();
+  // }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -64,10 +64,10 @@ class ProfileSelector extends Component {
       card,
       sectionTitle,
       label,
-      setIsProfileSelected, // function that sets parent-component boolean for whether a yacht is selected
+      setIsProfileSelected, // function that sets parent-component boolean for whether a profile is selected
     } = this.props;
     const { onChange } = this;
-    const { profiles } = userProfile.allProfiles || [];
+    const profiles = userProfile.allProfiles;
     const { isLoading } = userProfile;
 
     return (
@@ -78,11 +78,11 @@ class ProfileSelector extends Component {
         selectedValue={selectedProfile}
         list={profiles}
         onChangeEvent={onChange}
-        buttonText="Select Yacht"
+        buttonText="Select Profile"
         buttonClickEvent={setIsProfileSelected}
         buttonLoading={isLoading}
         sectionTitle={sectionTitle}
-        card={card}
+        card={card ? card : false}
       />
     );
   }

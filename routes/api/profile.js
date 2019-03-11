@@ -10,6 +10,31 @@ const validateEducationInput = require('../../validation/education');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
+// @route   GET api/profile/all
+// @des     Get all profiles
+// @access  Public
+router.get(
+  '/all',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    Profile.find()
+      .then((profiles) => {
+        if (!profiles) {
+          errors.noprofile = 'There are no profiles';
+          return res.status(404).json(errors);
+        }
+
+        return res.status(200).json(profiles);
+      })
+      .catch((err) => {
+        err.msg = { profile: 'There is no profiles' };
+        return res.status(404).json(err.msg);
+      });
+  }
+);
+
 // @route   GET api/profile
 // @des     Get current user profile
 // @access  Private
@@ -52,28 +77,6 @@ router.get(
       .catch(err => res.status(404).json(err));
   }
 );
-
-// @route   GET api/profile/all
-// @des     Get all profiles
-// @access  Public
-router.get('/all', (req, res) => {
-  const errors = {};
-
-  Profile.find()
-    .populate('user', ['firstname', 'lastname', 'avatar'])
-    .then((profiles) => {
-      if (!profiles) {
-        errors.noprofile = 'There are no profiles';
-        return res.status(404).json(errors);
-      }
-
-      return res.status(200).json(profiles);
-    })
-    .catch((err) => {
-      err.msg = { profile: 'There is no profiles' };
-      return res.status(404).json(err.msg);
-    });
-});
 
 // @route   GET api/profile/handle/:handle
 // @des     Get profile by handle
@@ -134,15 +137,19 @@ router.post(
     }
 
     // Get fields
+    /* eslint-disable object-curly-newline */
+    const { handle, firstname, lastname, role, location } = req.body;
+    /* eslint-enable */
     const profileFields = {};
     profileFields.social = {};
     profileFields.user = req.user.id;
 
-    if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.firstname) profileFields.firstname = req.body.firstname;
-    if (req.body.lastname) profileFields.lastname = req.body.lastname;
-    if (req.body.role) profileFields.role = req.body.role;
-    if (req.body.location) profileFields.location = req.body.location;
+    if (handle) profileFields.handle = handle;
+    if (firstname) profileFields.firstname = firstname;
+    if (lastname) profileFields.lastname = lastname;
+    profileFields.name = `${firstname} ${lastname}`;
+    if (role) profileFields.role = role;
+    if (location) profileFields.location = location;
     if (req.body.assignedYachts) {
       profileFields.assignedYachts = req.body.assignedYachts;
     }
