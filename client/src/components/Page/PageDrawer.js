@@ -1,17 +1,17 @@
 import React from 'react';
 
-import PermanentDrawer from '../PermanentDrawer';
-import NavMenu from '../NavMenu';
+import PermanentDrawer from './PagePermanentDrawer';
+import PageNavMenu from './PageNavMenu';
 import MenuPanel from './MenuPanel';
-import MenuItems from '../MenuItems';
+import PageMenuItems from './PageMenuItems';
 
 const PageDrawer = ({ menu, selectedIndex, handleMenuItemSelect }) => (
   <PermanentDrawer>
-    <NavMenu {...{ menu }}>
+    <PageNavMenu {...{ menu }}>
       <MenuPanel>
-        <MenuItems {...{ selectedIndex, handleMenuItemSelect }} />
+        <PageMenuItems {...{ selectedIndex, handleMenuItemSelect }} />
       </MenuPanel>
-    </NavMenu>
+    </PageNavMenu>
   </PermanentDrawer>
 );
 
