@@ -3,7 +3,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-const MenuItems = ({
+const PageMenuItems = ({
   selectedIndex,
   handleMenuItemSelect,
   component,
@@ -26,4 +26,4 @@ const MenuItems = ({
   );
 };
 
-export default MenuItems;
+export default PageMenuItems;

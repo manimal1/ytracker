@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import CompanySelector from 'containers/CompanySelector';
+import { GetCompanies } from 'containers/Getters';
 import UpdateCompanyForm from './UpdateCompanyForm';
 import CompanyForm from './CompanyForm';
 
@@ -37,7 +37,7 @@ const YachtFormSwitcher = props => {
   return (
     <div className="company-forms">
       <Heading text="Update Company" class={classes.heading} />
-      <CompanySelector
+      <GetCompanies
         {...{
           setIsCompanySelected,
           card: true,

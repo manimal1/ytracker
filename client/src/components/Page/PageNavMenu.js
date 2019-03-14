@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 
-const NavMenu = props => {
+const PageNavMenu = props => {
   const { menu } = props;
   return (
     <List component="nav">
@@ -19,4 +19,4 @@ const NavMenu = props => {
   );
 };
 
-export default NavMenu;
+export default PageNavMenu;

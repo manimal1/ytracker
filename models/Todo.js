@@ -15,6 +15,10 @@ const todoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Profile'
   },
+  service: {
+    type: Schema.Types.ObjectId,
+    ref: 'Service'
+  },
   assignedTo: {
     type: String
   },

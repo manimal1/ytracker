@@ -12,7 +12,7 @@ import {
   clearSelectedCompany,
 } from 'actions/companyActions';
 
-class CompanySelector extends Component {
+class GetCompanies extends Component {
   constructor(props) {
     super(props);
 
@@ -85,7 +85,7 @@ class CompanySelector extends Component {
   }
 }
 
-CompanySelector.propTypes = {
+GetCompanies.propTypes = {
   getAllCompanies: PropTypes.func.isRequired,
   getCompanyById: PropTypes.func.isRequired,
   clearSelectedCompany: PropTypes.func.isRequired,
@@ -107,4 +107,4 @@ export default compose(
       clearSelectedCompany,
     },
   ),
-)(CompanySelector);
+)(GetCompanies);

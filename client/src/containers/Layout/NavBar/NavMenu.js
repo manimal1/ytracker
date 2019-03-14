@@ -13,17 +13,17 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Home from '@material-ui/icons/Home';
-import DashboardIcon from '@material-ui/icons/Dashboard';
 import BoatIcon from '@material-ui/icons/DirectionsBoat';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import StoreIcon from '@material-ui/icons/Store';
-import RowingIcon from '@material-ui/icons/Rowing';
 import LibraryAdd from '@material-ui/icons/LibraryAdd';
 import Work from '@material-ui/icons/Work';
 import ListAlt from '@material-ui/icons/ListAlt';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+// import RowingIcon from '@material-ui/icons/Rowing';
+// import DashboardIcon from '@material-ui/icons/Dashboard';
+// import InboxIcon from '@material-ui/icons/Inbox';
+// import DraftsIcon from '@material-ui/icons/Drafts';
 
 const styles = theme => ({
   root: {

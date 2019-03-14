@@ -11,7 +11,7 @@ import {
   clearSelectedProfile,
 } from 'actions/profileActions';
 
-class ProfileSelector extends Component {
+class GetProfiles extends Component {
   constructor(props) {
     super(props);
 
@@ -88,7 +88,7 @@ class ProfileSelector extends Component {
   }
 }
 
-ProfileSelector.propTypes = {
+GetProfiles.propTypes = {
   getAllProfiles: PropTypes.func.isRequired,
   getProfileById: PropTypes.func.isRequired,
   clearSelectedProfile: PropTypes.func.isRequired,
@@ -108,4 +108,4 @@ export default compose(
       clearSelectedProfile,
     },
   ),
-)(ProfileSelector);
+)(GetProfiles);

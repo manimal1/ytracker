@@ -16,7 +16,7 @@ const styles = () => ({
   },
 });
 
-const PermanentDrawer = ({ classes, children }) => (
+const PagePermanentDrawer = ({ classes, children }) => (
   <Drawer
     className={classes.drawer}
     variant="permanent"
@@ -28,4 +28,4 @@ const PermanentDrawer = ({ classes, children }) => (
   </Drawer>
 );
 
-export default withStyles(styles)(PermanentDrawer);
+export default withStyles(styles)(PagePermanentDrawer);

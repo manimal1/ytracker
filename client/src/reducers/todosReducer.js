@@ -1,13 +1,14 @@
 import { todoConstants } from '../constants';
 
 const initialState = {
-  allTodos: {},
+  allTodos: [],
+  allActiveTodos: [],
+  allUserTodos: [],
+  allActiveUserTodos: [],
+  allYachtTodos: [],
+  allActiveYachtTodos: [],
   selectedTodo: {},
   newTodo: {},
-  allUserTodos: {},
-  allActiveUserTodos: {},
-  allYachtTodos: {},
-  allActiveYachtTodos: {},
   isAddingTodo: false,
   isNewTodoAdded: false,
   isLoading: false,
@@ -36,6 +37,22 @@ const todosReducer = (state = initialState, action) => {
         isAddingTodo: false,
         isNewTodoAdded: false,
       };
+    case todoConstants.GET_TODO_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case todoConstants.GET_TODO_SUCCESS:
+      return {
+        ...state,
+        selectedTodo: payload,
+        isLoading: false,
+      };
+    case todoConstants.GET_TODO_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case todoConstants.GET_ALL_TODOS_REQUEST:
       return {
         ...state,
@@ -48,6 +65,22 @@ const todosReducer = (state = initialState, action) => {
         allTodos: payload,
       };
     case todoConstants.GET_ALL_TODOS_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case todoConstants.GET_ALL_ACTIVE_TODOS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case todoConstants.GET_ALL_ACTIVE_TODOS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allActiveTodos: payload,
+      };
+    case todoConstants.GET_ALL_ACTIVE_TODOS_FAIL:
       return {
         ...state,
         isLoading: false,
@@ -132,6 +165,11 @@ const todosReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isTodoDeleted: false,
+      };
+    case todoConstants.CLEAR_SELECTED_TODO:
+      return {
+        ...state,
+        selectedTodo: {},
       };
     default:
       return state;

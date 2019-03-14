@@ -40,8 +40,8 @@ const ProfileForm = props => {
     onChange,
     onSubmit,
     errors,
-    classes,
     isDataFetching,
+    // classes,
   } = props;
 
   const { handle, firstname, lastname, role, location, linkedin } = profile;

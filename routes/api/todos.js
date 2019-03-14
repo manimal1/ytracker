@@ -31,6 +31,51 @@ router.get('/', (req, res) => {
     });
 });
 
+// @route   GET api/todos/:todoId
+// @des     Get todo by ID
+// @access  Privarte
+router.get('/:todoId', (req, res) => {
+  const errors = {};
+
+  Todo.findById(req.params.todoId)
+    .then((todo) => {
+      if (!todo) {
+        errors.notodofound = 'This todo does not exist';
+        return res.status(404).json(errors);
+      }
+
+      return res.status(200).json(todo);
+    })
+    .catch((err) => {
+      err.msg = { todos: 'Selected Todo does not exist' }; // eslint-disable-line no-param-reassign
+      return res.status(404).json(err.msg);
+    });
+});
+
+// @route   GET api/todos/active
+// @des     Get all active todos
+// @access  Private
+router.get(
+  '/active',
+  passport.authenticate('jwt', { session: false }),
+  asyncMiddleware(async (req, res) => {
+    const errors = {};
+    const todos = await Todo.find();
+    if (!todos) {
+      errors.notodos = 'There are no todos';
+      return res.status(404).json(errors);
+    }
+
+    const activeTodos = todos.filter(todo => !todo.isCompleted);
+    if (!activeTodos) {
+      errors.noactivetodos = 'There are no active todos';
+      return res.status(404).json(errors);
+    }
+
+    return res.status(200).json(activeTodos);
+  })
+);
+
 // @route   GET api/todos/yacht/:yachtprofileId
 // @des     Get all todos for one yacht
 // @access  Private
@@ -56,11 +101,11 @@ router.get(
   }
 );
 
-// @route   GET api/todos/yacht/:yachtprofileId
+// @route   GET api/todos/yacht/active/:yachtprofileId
 // @des     Get all active todos for one yacht
 // @access  Private
 router.get(
-  '/active/yacht/:yachtprofileId',
+  '/yacht/active/:yachtprofileId',
   passport.authenticate('jwt', { session: false }),
   asyncMiddleware(async (req, res) => {
     const errors = {};
@@ -101,11 +146,11 @@ router.get(
   }
 );
 
-// @route   GET api/todos/user/:userProfileId
+// @route   GET api/todos/user/active/:userProfileId
 // @des     Get all active todos for one user
 // @access  Private
 router.get(
-  '/active/user/:userProfileId',
+  '/user/active/:userProfileId',
   passport.authenticate('jwt', { session: false }),
   asyncMiddleware(async (req, res) => {
     const errors = {};
