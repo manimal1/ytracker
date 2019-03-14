@@ -1,3 +1,4 @@
-import Users from './Users';
+import UsersTodos from './UsersTodos';
+import UsersProfile from './UsersProfile';
 
-export default Users;
+export { UsersTodos, UsersProfile };

@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { selectedYacht } from 'utils/objectModels';
 
 import {
-  registerYacht,
+  updateYacht,
   clearYachtRegistrationData,
 } from 'actions/yachtRegisterActions';
-import YachtFormSwitcher from './YachtFormSwitcher';
 
-class RegisterYacht extends Component {
+import YachtForm from './YachtForm';
+
+class UpdateYachtForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isYachtSelected: false,
-      selectedYacht,
+      isYachtSelected: this.props.isYachtSelected,
+      selectedYacht: this.props.yachtData.selectedYacht,
       yachtRegister: this.props.yachtRegister,
+      redirectToSectionHome: false,
       errors: {},
     };
   }
@@ -43,9 +45,8 @@ class RegisterYacht extends Component {
       this.setState({ yachtRegister: this.state.yachtRegister });
     }
 
-    if (this.state.yachtRegister.isRegistered) {
-      this.context.handlePanelSwitch('yacht-home');
-      this.context.setSelectedIndex(0);
+    if (this.state.yachtRegister.isUpdated) {
+      this.setState({ redirectToSectionHome: true });
     }
   }
 
@@ -88,65 +89,54 @@ class RegisterYacht extends Component {
     this.setState({ selectedYacht });
   };
 
-  setIsYachtSelected = () => {
-    if (this.state.isYachtSelected === true) {
-      this.setState({ isYachtSelected: false });
-    }
-
-    window.setTimeout(() => this.setState({ isYachtSelected: true }), 20);
-  };
-
   onSubmit = e => {
     e.preventDefault();
-    const newYacht = this.state.selectedYacht;
+    const yacht = this.state.selectedYacht;
+    const id = this.state.selectedYacht._id;
 
-    this.props.registerYacht(newYacht);
+    this.props.updateYacht(id, yacht);
   };
 
   render() {
+    const { redirectToSectionHome } = this.state;
+    if (redirectToSectionHome) return <Redirect to={'/yachts'} />;
     const onChange = this.onChange;
     const onCompanyChange = this.onCompanyChange;
     const handleCheckBox = this.handleCheckBox;
     const onSubmit = this.onSubmit;
-    const setIsYachtSelected = this.setIsYachtSelected;
     const isDataFetching =
-      this.props.yachtRegister && this.props.yachtRegister.isFetching === true;
+      this.yachtRegister && this.yachtRegister.isFetching
+        ? this.yachtRegister.isFetching
+        : false;
 
-    return (
-      <YachtFormSwitcher
-        {...{
-          ...this.state,
-          onChange,
-          onCompanyChange,
-          handleCheckBox,
-          onSubmit,
-          setIsYachtSelected,
-          isDataFetching,
-        }}
-      />
-    );
+    const yachtProps = {
+      ...this.state,
+      onChange,
+      onCompanyChange,
+      handleCheckBox,
+      onSubmit,
+      isDataFetching,
+    };
+
+    return <YachtForm yachtProps={yachtProps} />;
   }
 }
 
-RegisterYacht.propTypes = {
-  registerYacht: PropTypes.func.isRequired,
+UpdateYachtForm.propTypes = {
+  updateYacht: PropTypes.func.isRequired,
   clearYachtRegistrationData: PropTypes.func.isRequired,
-};
-
-RegisterYacht.contextTypes = {
-  handlePanelSwitch: PropTypes.func,
-  setSelectedIndex: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   yachtRegister: state.yachtRegister,
+  yachtData: state.yachtData,
   errors: state.errors,
 });
 
 export default connect(
   mapStateToProps,
   {
-    registerYacht,
+    updateYacht,
     clearYachtRegistrationData,
   },
-)(RegisterYacht);
+)(UpdateYachtForm);

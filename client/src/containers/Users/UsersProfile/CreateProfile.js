@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { getCurrentProfile, createUserProfile } from 'actions/profileActions';
 import Spinner from 'components/Spinner';
@@ -25,6 +25,7 @@ class CreateProfile extends Component {
         'IT',
       ],
       errors: {},
+      redirectToSectionHome: false,
     };
   }
 
@@ -60,8 +61,7 @@ class CreateProfile extends Component {
     }
 
     if (this.state.userProfile.isCreated) {
-      this.context.handlePanelSwitch('users-todos');
-      this.context.setSelectedIndex(0);
+      this.setState({ redirectToSectionHome: true });
     }
   }
 
@@ -85,7 +85,8 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { userProfile, profile } = this.state;
+    const { userProfile, profile, redirectToSectionHome } = this.state;
+    if (redirectToSectionHome) return <Redirect to={'/users'} />;
     const onChange = this.onChange;
     const onSubmit = this.onSubmit;
     const isDataFetching = userProfile && userProfile.isLoading === true;
@@ -110,11 +111,6 @@ class CreateProfile extends Component {
 CreateProfile.propTypes = {
   userProfile: PropTypes.object.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-};
-
-CreateProfile.contextTypes = {
-  handlePanelSwitch: PropTypes.func,
-  setSelectedIndex: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

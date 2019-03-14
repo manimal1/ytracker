@@ -13,6 +13,7 @@ import {
   clearYachts,
   clearSelectedYacht,
 } from 'actions/yachtActions';
+import { getCurrentProfile } from 'actions/profileActions';
 
 class YachtsHome extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class YachtsHome extends Component {
     if (!yachtData.activeYachts || yachtData.activeYachts.length === 0) {
       getAllActiveYachts();
     }
+    this.props.getCurrentProfile();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -49,9 +51,9 @@ class YachtsHome extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.clearSelectedYacht();
-  }
+  // componentWillUnmount() {
+  //   this.props.clearSelectedYacht();
+  // }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -93,6 +95,7 @@ YachtsHome.propTypes = {
 const mapStateToProps = state => ({
   errors: state.errors,
   yachtData: state.yachtData,
+  userProfile: state.userProfile,
 });
 
 export default compose(
@@ -103,6 +106,7 @@ export default compose(
       getYachtById,
       clearYachts,
       clearSelectedYacht,
+      getCurrentProfile,
     },
   ),
 )(YachtsHome);

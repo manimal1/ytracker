@@ -72,7 +72,7 @@ class NavBar extends Component {
   }
 
   checkViewportWidth = () => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 960) {
       this.setState({
         isMobile: true,
       });
