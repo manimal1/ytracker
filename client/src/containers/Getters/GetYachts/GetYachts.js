@@ -12,7 +12,7 @@ import {
   clearSelectedYacht,
 } from 'actions/yachtActions';
 
-class YachtSelector extends Component {
+class GetYachts extends Component {
   constructor(props) {
     super(props);
 
@@ -89,7 +89,7 @@ class YachtSelector extends Component {
   }
 }
 
-YachtSelector.propTypes = {
+GetYachts.propTypes = {
   getAllYachts: PropTypes.func.isRequired,
   getYachtById: PropTypes.func.isRequired,
   clearSelectedYacht: PropTypes.func.isRequired,
@@ -111,4 +111,4 @@ export default compose(
       clearSelectedYacht,
     },
   ),
-)(YachtSelector);
+)(GetYachts);

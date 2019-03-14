@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import NavBar from './NavBar';
 

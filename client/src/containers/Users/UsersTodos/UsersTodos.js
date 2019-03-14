@@ -1,11 +1,11 @@
 import React from 'react';
-import ProfileSelector from 'containers/ProfileSelector';
+import { GetProfiles } from 'containers/Getters';
 
 const UsersTodos = () => {
   return (
     <div>
       User Todo List!
-      <ProfileSelector label="Assign to" />
+      <GetProfiles label="Assign to" />
     </div>
   );
 };

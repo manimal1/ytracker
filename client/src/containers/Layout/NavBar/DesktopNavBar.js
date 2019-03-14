@@ -86,9 +86,24 @@ class DesktopNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: true,
       accountMenuAnchor: null,
     };
+  }
+
+  componentDidMount() {
+    if (this.props.isMobile) {
+      return this.handleDrawerClose();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { isMobile } = this.props;
+    if (prevProps.isMobile !== isMobile) {
+      if (isMobile) {
+        return this.handleDrawerClose();
+      }
+    }
   }
 
   handleDrawerOpen = () => {

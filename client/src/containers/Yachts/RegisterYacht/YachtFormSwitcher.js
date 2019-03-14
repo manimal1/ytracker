@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import YachtSelector from 'containers/YachtSelector';
+import { GetYachts } from 'containers/Getters';
 import Heading from 'components/Heading';
 import UpdateYachtForm from './UpdateYachtForm';
 import YachtForm from './YachtForm';
@@ -41,7 +41,7 @@ const YachtFormSwitcher = props => {
   return (
     <div className="yacht-forms">
       <Heading text="Update Yacht" class={classes.heading} />
-      <YachtSelector
+      <GetYachts
         {...{
           setIsYachtSelected,
           card: true,

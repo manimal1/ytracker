@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-import CompanySelector from 'containers/CompanySelector';
-import YachtSelector from 'containers/YachtSelector';
+import { GetCompanies } from 'containers/Getters';
+import { GetYachts } from 'containers/Getters';
 import Heading from 'components/Heading';
 import SectionTitle from 'components/SectionTitle';
 import Spinner from 'components/Spinner';
@@ -51,8 +51,8 @@ const ServiceForm = props => {
       <Card className={classes.card}>
         <CardContent>
           <SectionTitle text="Select Yacht (& Company)" />
-          <YachtSelector label="Choose yacht" />
-          <CompanySelector label="Choose company" />
+          <GetYachts label="Choose yacht" />
+          <GetCompanies label="Choose company" />
         </CardContent>
       </Card>
       <form onSubmit={onSubmit}>
