@@ -41,7 +41,8 @@ class GetTodos extends Component {
       <div>
         <br />
         <br />
-        This will be the main todos page!
+        This will be the main todos page! <br />I need a list of active todos
+        here, and the ability to create a todo!
       </div>
     );
   }
