@@ -1,10 +1,5 @@
-export { default as NavBar } from './NavBar';
 export { default as Landing } from './Landing';
+export { default as Layout } from './Layout';
 export { default as Dashboard } from './Dashboard';
 export { default as RegisterUser } from './RegisterUser';
 export { default as LoginUser } from './LoginUser';
-export { default as Profile } from './Profile';
-export { default as Yachts } from './Yachts';
-export { default as Company } from './Company';
-export { default as Crew } from './Crew';
-export { default as Users } from './Users';

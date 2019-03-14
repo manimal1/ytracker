@@ -1,3 +1,5 @@
-import Yachts from './Yachts';
+import YachtsHome from './YachtsHome';
+import RegisterYacht from './RegisterYacht';
+import YachtService from './YachtService';
 
-export default Yachts;
+export { YachtsHome, RegisterYacht, YachtService };

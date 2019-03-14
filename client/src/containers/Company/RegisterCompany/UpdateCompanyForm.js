@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import {
-  registerCompany,
+  updateCompany,
   clearCompanyRegistrationData,
 } from 'actions/companyRegisterActions';
-import CompanyFormSwitcher from './CompanyFormSwitcher';
-import { company as companyModel } from 'utils/objectModels';
 
-class RegisterCompany extends Component {
+import CompanyForm from './CompanyForm';
+
+class UpdateCompanyForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      company: companyModel,
-      isCompanySelected: false,
+      isCompanySelected: this.props.isCompanySelected,
+      company: this.props.companyData.selectedCompany,
       companyRegister: this.props.companyRegister,
-      companyData: this.props.companyData,
+      redirectToSectionHome: false,
       errors: {},
     };
   }
@@ -44,9 +45,8 @@ class RegisterCompany extends Component {
       this.setState({ companyRegister: this.state.companyRegister });
     }
 
-    if (this.state.companyRegister.isRegistered) {
-      this.context.handlePanelSwitch('yacht-dashboard');
-      this.context.setSelectedIndex(0);
+    if (this.state.companyRegister.isUpdated) {
+      this.setState({ redirectToSectionHome: true });
     }
   }
 
@@ -55,6 +55,14 @@ class RegisterCompany extends Component {
   }
 
   onChange = e => {
+    const name = e.target.name;
+    const company = { ...this.state.company };
+    company[name] = e.target.value;
+
+    this.setState({ company });
+  };
+
+  onCompanyChange = e => {
     const name = e.target.name;
     const company = { ...this.state.company };
     const addressFields = [
@@ -74,63 +82,61 @@ class RegisterCompany extends Component {
     this.setState({ company });
   };
 
-  setIsCompanySelected = () => {
-    if (this.state.isCompanySelected === true) {
-      this.setState({ isCompanySelected: false });
-    }
+  handleCheckBox = name => event => {
+    const company = { ...this.state.company };
+    company[name] = event.target.checked;
 
-    window.setTimeout(() => this.setState({ isCompanySelected: true }), 20);
+    this.setState({ company });
   };
 
   onSubmit = e => {
     e.preventDefault();
-    const newCompany = this.state.company;
+    const company = this.state.company;
+    const id = this.state.company._id;
 
-    this.props.registerCompany(newCompany);
+    this.props.updateCompany(id, company);
   };
 
   render() {
+    const { redirectToSectionHome } = this.state;
+    if (redirectToSectionHome) return <Redirect to={'/yachts'} />;
     const onChange = this.onChange;
-    const setIsCompanySelected = this.setIsCompanySelected;
+    const onCompanyChange = this.onCompanyChange;
+    const handleCheckBox = this.handleCheckBox;
     const onSubmit = this.onSubmit;
     const isDataFetching =
-      this.props.registerCompany &&
-      this.props.registerCompany.isFetching === true;
+      this.companyRegister && this.companyRegister.isFetching
+        ? this.companyRegister.isFetching
+        : false;
 
-    return (
-      <CompanyFormSwitcher
-        {...{
-          ...this.state,
-          onChange,
-          setIsCompanySelected,
-          onSubmit,
-          isDataFetching,
-        }}
-      />
-    );
+    const companyProps = {
+      ...this.state,
+      onChange,
+      onCompanyChange,
+      handleCheckBox,
+      onSubmit,
+      isDataFetching,
+    };
+
+    return <CompanyForm {...companyProps} />;
   }
 }
 
-RegisterCompany.propTypes = {
-  registerCompany: PropTypes.func.isRequired,
+UpdateCompanyForm.propTypes = {
+  updateCompany: PropTypes.func.isRequired,
   clearCompanyRegistrationData: PropTypes.func.isRequired,
 };
 
-RegisterCompany.contextTypes = {
-  handlePanelSwitch: PropTypes.func,
-  setSelectedIndex: PropTypes.func,
-};
-
 const mapStateToProps = state => ({
-  companyData: state.companyData,
   companyRegister: state.companyRegister,
+  companyData: state.companyData,
   errors: state.errors,
 });
 
 export default connect(
   mapStateToProps,
   {
-    registerCompany,
+    updateCompany,
     clearCompanyRegistrationData,
   },
-)(RegisterCompany);
+)(UpdateCompanyForm);

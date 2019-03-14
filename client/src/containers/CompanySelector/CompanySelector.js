@@ -49,7 +49,6 @@ class CompanySelector extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearCompanies();
     this.props.clearSelectedCompany();
   }
 

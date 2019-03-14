@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { yachtService } from 'utils/objectModels';
 import {
   calculatedTax,
@@ -10,7 +10,8 @@ import {
   formatCurrencyNumber,
   formatCurrency,
 } from 'utils/calculate';
-import { addYachtService, clearYachtServiceData } from 'actions/serviceActions';
+import { addYachtService } from 'actions/serviceActions';
+import { clearSelectedYacht } from 'actions/yachtActions';
 
 import ServiceForm from './ServiceForm';
 
@@ -37,6 +38,7 @@ class AddYachtService extends Component {
         'Miscellaneous',
       ],
       totalPrice: '',
+      redirectToSectionHome: false,
       errors: {},
     };
   }
@@ -150,13 +152,12 @@ class AddYachtService extends Component {
     }
 
     if (this.state.statefulYachtService.isServiceAdded) {
-      this.context.handlePanelSwitch('yacht-home');
-      this.context.setSelectedIndex(0);
+      this.setState({ redirectToSectionHome: true });
     }
   }
 
   componentWillUnmount() {
-    this.props.clearYachtServiceData();
+    this.props.clearSelectedYacht();
   }
 
   onChange = e => {
@@ -455,6 +456,8 @@ class AddYachtService extends Component {
   };
 
   render() {
+    const { redirectToSectionHome } = this.state;
+    if (redirectToSectionHome) return <Redirect to={'/yachts/service'} />;
     const handleCheckBox = this.handleCheckBox;
     const onChange = this.onChange;
     const onSubmit = this.onSubmit;
@@ -494,12 +497,7 @@ class AddYachtService extends Component {
 
 AddYachtService.propTypes = {
   addYachtService: PropTypes.func.isRequired,
-  clearYachtServiceData: PropTypes.func.isRequired,
-};
-
-AddYachtService.contextTypes = {
-  handlePanelSwitch: PropTypes.func,
-  setSelectedIndex: PropTypes.func,
+  clearSelectedYacht: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -509,10 +507,12 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    addYachtService,
-    clearYachtServiceData,
-  },
-)(AddYachtService);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      addYachtService,
+      clearSelectedYacht,
+    },
+  )(AddYachtService),
+);

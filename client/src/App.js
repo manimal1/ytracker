@@ -5,17 +5,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './components/PrivateRoute';
 import {
   Landing,
+  Layout,
   Dashboard,
-  Yachts,
-  Users,
-  Company,
-  Crew,
   RegisterUser,
   LoginUser,
-  Profile,
 } from './containers';
+import { RegisterYacht, YachtService, YachtsHome } from './containers/Yachts';
+import { UsersTodos, UsersProfile } from './containers/Users';
+import { RegisterCompany } from './containers/Company';
 
-/* eslint-disable react/prefer-stateless-function */
 class App extends Component {
   render() {
     return (
@@ -26,24 +24,39 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={RegisterUser} />
             <Route exact path="/login" component={LoginUser} />
-            <Switch>
-              <PrivateRoute exact path="/yachts" component={Yachts} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/users" component={Users} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/company" component={Company} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/crew" component={Crew} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/profile" component={Profile} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
+            <Layout>
+              <Switch>
+                <PrivateRoute exact path="/yachts" component={YachtsHome} />
+                <PrivateRoute
+                  exact
+                  path="/yachts/add"
+                  component={RegisterYacht}
+                />
+                <PrivateRoute
+                  exact
+                  path="/yachts/service"
+                  component={YachtService}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/users" component={UsersTodos} />
+                <PrivateRoute
+                  exact
+                  path="/users/profile"
+                  component={UsersProfile}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/company"
+                  component={RegisterCompany}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+            </Layout>
           </div>
         </React.Fragment>
       </Router>
