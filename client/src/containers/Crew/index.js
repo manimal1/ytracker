@@ -1,6 +1,5 @@
-import Crew from './Crew';
-// import * as actions from "./actions";
-// import reducer from "./reducer";
+import CrewDashboard from './CrewDashboard';
+import CrewForm from './CrewForm';
+import CrewService from './CrewService';
 
-// export { actions, reducer };
-export default Crew;
+export { CrewDashboard, CrewForm, CrewService };

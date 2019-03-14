@@ -20,6 +20,10 @@ const serviceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  todo: {
+    type: Schema.Types.ObjectId,
+    ref: 'Todo'
+  },
   isPaid: {
     type: Boolean,
     default: false

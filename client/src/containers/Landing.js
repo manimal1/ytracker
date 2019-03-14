@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+// import { Link } from 'react-router-dom';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import LoginUser from './LoginUser';
 import desktopImg from '../img/bg-login.jpg';
 import mobileImg from '../img/bg-login-mobile.jpg';
 
@@ -107,6 +107,8 @@ class Landing extends Component {
     const bgImageClass = isMobile
       ? classes.mobileHeader
       : classes.desktopHeader;
+    const { props } = this;
+    console.log({ props });
 
     return (
       <div>
@@ -117,7 +119,8 @@ class Landing extends Component {
             <Typography variant="h2" gutterBottom className={classes.title}>
               Welcome to Yacht Tracker!
             </Typography>
-            <div className={classes.buttons}>
+            <LoginUser {...this.props} />
+            {/* <div className={classes.buttons}>
               <Link to="/register" className={classes.link}>
                 <Button
                   variant="contained"
@@ -136,7 +139,7 @@ class Landing extends Component {
                   Login
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

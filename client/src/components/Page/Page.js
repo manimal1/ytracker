@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import NavBar from 'containers/NavBar';
+import NavBar from './NavBar';
 import PageDrawer from './PageDrawer';
 import PageDrawerMobile from './PageDrawerMobile';
 import { PageContext, PagePanel } from '.';
